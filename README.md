@@ -1,2 +1,2 @@
-# IPBot
-A conversational chatbot to answer queries on Intellectual Property
+# RELEX
+Job recommendation system
