@@ -1,21 +1,22 @@
 <!-- templates/home.html -->
 {% extends 'base.html' %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-
 {% block title %}Home{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-  <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a>
-  <a href="{% url 'signup' %}">Sign Up</a>
-  <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+<div class="card">
+  <div class="card-body">
+    Hi {{ user.username }} u fuktard!
+  </div>
+</div>
+    <p><a href="{% url 'logout' %}">Log Out</a></p>
+    <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
+    {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Log In</a>
+    <a href="{% url 'signup' %}">Sign Up</a>
+    <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+
 {% endif %}
 {% endblock %}
