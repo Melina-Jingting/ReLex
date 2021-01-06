@@ -88,9 +88,9 @@ WSGI_APPLICATION = 'relex_server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'relexdb',
+        'NAME': 'relex',
         'USER': 'postgres',
-        'PASSWORD': '', # INSERT YOUR DB PASSWORD HERE
+        'PASSWORD': 'password', # INSERT YOUR DB PASSWORD HERE
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -137,7 +137,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Specify where to redirect the user upon a successful login / logout.
 LOGIN_REDIRECT_URL = 'home'
