@@ -1,2 +1,0 @@
-# RELEX
-Job recommendation system
