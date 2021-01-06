@@ -1,6 +1,10 @@
 <!-- templates/home.html -->
 {% extends 'base.html' %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
 {% block title %}Home{% endblock %}
 
 {% block content %}
