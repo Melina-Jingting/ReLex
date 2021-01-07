@@ -8,7 +8,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <title>{% block title %}Base{% endblock %}</title>
 </head>
 <body>
   <main>
@@ -21,8 +21,8 @@
           <li class="active"><a href="{% url 'home' %}">Home</a></li>
           <li><a href="{% url 'login' %}">Login</a></li>
           <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          <li><a href="#">Upload Resume</a></li>
-          <li><a href="#">Dashboard</a></li>
+          <li><a href="{% url 'upload' %}">Upload Resume</a></li>
+          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
           
           <li><a href="#">Others</a></li>
           <!-- <li><a href="#">Edit Profile</a></li> -->
