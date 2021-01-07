@@ -1,0 +1,13 @@
+<!-- templates/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    Hi {{ user.username }} !!
+  </div>
+</div>
+{% endif %}
+{% endblock %}

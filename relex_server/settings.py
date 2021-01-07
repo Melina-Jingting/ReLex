@@ -88,9 +88,9 @@ WSGI_APPLICATION = 'relex_server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'relex',
+        'NAME': 'relexdb',
         'USER': 'postgres',
-        'PASSWORD': 'password', # INSERT YOUR DB PASSWORD HERE
+        'PASSWORD': '', # INSERT YOUR DB PASSWORD HERE
         'HOST': 'localhost',
         'PORT': '5432',
     }
