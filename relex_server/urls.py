@@ -14,7 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.urls import include, path
+from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
@@ -25,4 +27,4 @@ urlpatterns = [
     path('dashboard/', TemplateView.as_view(template_name='dashboard.html'), name='dashboard'), # for dashboard page
     path('uploadresume/', TemplateView.as_view(template_name='upload.html'), name='upload'), # for uploading resume page
     path('resumes/', include('resumes.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

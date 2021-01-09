@@ -9,8 +9,119 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Base{% endblock %}</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+
+  .bg {
+    /* The image used */
+    background-image: url("/static/CA2 Brochure-page-001.jpg");
+
+    /* Full height */
+    height: 350%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  </style>
+
+  <style>
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 10000px;
+    }
+    
+    .container .registration-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -2550%);
+      -ms-transform: translate(-50%, -50%);
+      background-color: black;
+      color: white;
+      font-size: 18px;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: center;
+    }
+    
+    .container .registration-btn:hover {
+      background-color: #555;
+    }
+
+    .container input[type=text] {
+      /* width: 100%; */
+      /* padding: 15px; */
+      /* margin: 5px 0 22px 0; */
+      background: #f1f1f1;
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 2550%);
+      -ms-transform: translate(-50%, -50%);
+      font-size: 18px;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: left;
+    }
+    .container input[type=password] {
+      /* width: 100%; */
+      /* padding: 15px; */
+      /* margin: 5px 0 22px 0; */
+      background: #f1f1f1;
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 2700%);
+      -ms-transform: translate(-50%, -50%);
+      font-size: 18px;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: left;
+    }
+
+    .container .sign-up-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 2850%);
+      -ms-transform: translate(-50%, -50%);
+      background-color: #0062ff;
+      color: white;
+      font-size: 18px;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: center;
+    }
+    
+    .container .sign-up-btn:hover {
+      background-color: #555;
+    }
+
+    </style>
+
 </head>
 <body>
+  
+
+  <!-- {% load static %} <img class="img-responsive" src="{% static 'CA2 Brochure-page-001.jpg' %}" alt="Hi!" /> -->
   <main>
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -20,22 +131,49 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="{% url 'home' %}">Home</a></li>
           <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          <li><a href="{% url 'upload' %}">Upload Resume</a></li>
-          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <!-- <li><a href="{% url 'signup' %}">Sign Up</a></li> -->
+          <!-- <li><a href="{% url 'upload' %}">Upload Resume</a></li> -->
+          <!-- <li><a href="{% url 'dashboard' %}">Dashboard</a></li> -->
           
-          <li><a href="#">Others</a></li>
-          <!-- <li><a href="#">Edit Profile</a></li> -->
+          <!-- <li><a href="#">Others</a></li>
+          <li><a href="#">Edit Profile</a></li> -->
         </ul>
-        <form class="navbar-form navbar-left" action="/action_page.php">
-          <!-- <div class="form-group">
+        <!-- <form class="navbar-form navbar-left" action="/action_page.php">
+          <div class="form-group">
             <input type="text" class="form-control" placeholder="Search for Jobs">
-          </div> -->
-          <!-- <button type="submit" class="btn btn-default">Search for Jobs</button> -->
-          <!-- <button type="submit" class="btn p-3 mb-2 bg-primary text-white">Search</button> -->
-        </form>
+          </div>
+          <button type="submit" class="btn btn-default">Search for Jobs</button>
+          <button type="submit" class="btn p-3 mb-2 bg-primary text-white">Go</button>
+        </form> -->
       </div>
     </nav>
+
+    <div class="container">
+      <div class="bg"></div>
+      <!-- <img src="{% static 'CA2 Brochure-page-001.jpg' %}" alt="Snow" style="width:100%"> -->
+      <button class="registration-btn">REGISTER FOR FREE NOW !</button>
+      <button class="sign-up-btn">SIGN UP NOW</button>
+      
+      <!-- <form class="navbar-form navbar-left" action="/action_page.php">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search for Jobs">
+        </div>
+        <button type="submit" class="btn btn-default">Search for Jobs</button>
+        <button type="submit" class="btn p-3 mb-2 bg-primary text-white">Go</button>
+      </form> -->
+      <input type="text" placeholder="Enter Email" name="email" required>
+      <input type="password" placeholder="Drag & Drop File Here" name="psw" required>
+
+    </div>
+
+    <!-- <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="relex@gmail.com">
+      </div>
+      <button type="submit" class="btn btn-default">Search for Jobs</button>
+      <button type="submit" class="btn p-3 mb-2 bg-primary text-white">Go</button>
+    </form>
+    <button type="submit" class="btn p-3 mb-2 bg-primary text-white">Submit</button> -->
     {% block content %}
     {% endblock %}
   </main>
