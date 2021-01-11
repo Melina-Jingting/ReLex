@@ -10,26 +10,23 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="static/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   
   <main>
     {% block content %}
-    <!-- {% if user.is_authenticated %}
-    <div class="card">
-      <div class="card-body">
-        Hi {{ user.username }} !!
-      </div>
+    <div class="container">
+      <div class="bg"></div>
+      <button class="registration-btn">REGISTER FOR FREE NOW !</button>
+      <button class="sign-up-btn">SIGN UP NOW</button>
+      
+      <input type="text" placeholder="Enter Email" name="email" required>
+      <input type="password" placeholder="Drag & Drop File Here" name="psw" required>
+
     </div>
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
-        <p><a href="{% url 'password_reset' %}">Reset Password</a></p>
-        {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Log In</a>
-        <a href="{% url 'signup' %}">Sign Up</a>
-        <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
-    
-    {% endif %} -->
+
     {% endblock %}
   </main>
 </body>
