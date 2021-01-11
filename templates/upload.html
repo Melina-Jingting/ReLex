@@ -10,6 +10,27 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="static/main.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .btn-file {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+  </style>
 </head>
 <body>
   
@@ -43,12 +64,12 @@
       <input type="text" placeholder="Enter Email" name="email" required>
       <input type="password" placeholder="Drag & Drop File Here" name="psw" required>
     </div> -->
-    
-    <div class="card">
-      <div class="card-body">
-        PLEASE UPLOAD YOUR RESUME HERE !!!
-      </div>
-    </div>
+    PLEASE UPLOAD YOUR RESUME HERE !!!
+
+    <span class="btn btn-default btn-file">
+      Browse <input type="file">
+    </span>
+
     {% endblock %}
   </main>
 </body>
