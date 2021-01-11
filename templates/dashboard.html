@@ -5,7 +5,7 @@
 
 {% block content %}
 {% load static %}
-<link rel="stylesheet" href="{% static main.css %}">
+
 <div class="container">
   <h2>Your Dashboard</h2>
   <ul class="nav nav-tabs">
@@ -15,11 +15,19 @@
 
   <div class="tab-content">
     <div id="recommended-jobs-tab" class="tab-pane fade in active">
-      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+      <input type="text" id="myInput" placeholder="Search for names..">
+
       <table id="myTable">
         <tr class="header">
-          <th style="width:60%;">Name</th>
-          <th style="width:40%;">Country</th>
+          <th></th>
+          <th >Company</th>
+          <th >Title</th>
+          <th >Industry</th>
+          <th >Company Size</th>
+          <th >Location</th>
+          <th >Estimated Salary</th>
+          <th >Match Rate</th>
+          <th >Your Position</th>
         </tr>
         <tr>
           <td>Alfreds Futterkiste</td>
@@ -36,38 +44,34 @@
         <tr>
           <td>Koniglich Essen</td>
           <td>Germany</td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+              </button>
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+            </td>
+        </tr>
+        <tr>
+
         </tr>
       </table>
     </div>
     <div id="career-map-tab" class="tab-pane fade">
-      <h3>Career paths people with similar experiences have taken</h3>
+      <h3>People with similar experiences or skills have taken these paths</h3>
     </div>
   </div>
 </div>
 
 <!-- TREE DIAGRAM START -->
-<style>
-  .node {
-    cursor: pointer;
-  }
-
-  .node circle {
-    fill: #fff;
-    stroke: steelblue;
-    stroke-width: 3px;
-  }
-
-  .node text {
-    font: 12px sans-serif;
-  }
-
-  .link {
-    fill: none;
-    stroke: #ccc;
-    stroke-width: 2px;
-  }
-</style>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 <script>
   var treeData = [
