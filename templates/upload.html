@@ -4,9 +4,61 @@
 {% block title %}Upload Resume{% endblock %}
 
 {% block content %}
+
+
+<style>
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      outline: none;
+      background: white;
+      cursor: inherit;
+      display: block;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'home' %}">ReLex</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <li><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+      </li>
+      <li class="nav-item">
+        <li class="nav-item active">
+        <a class="nav-link" href="{% url 'upload' %}">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="{% url 'logout' %}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <span class="btn btn-default btn-file">
+      Browse <input type="file">
+    </span>
+<!-- 
+
 <div class="card">
   <div class="card-body">
     PLEASE UPLOAD YOUR RESUME HERE !!!
   </div>
-</div>
+</div> -->
+
 {% endblock %}
