@@ -8,15 +8,16 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="{% url 'home' %}">ReLex</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      <a class="nav-link" href="{% url 'home' %}">Home</a>
       </li>
       <li class="nav-item">
-        <li class="nav-item active">
+      <li class="nav-item active">
         <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
       </li>
       <li class="nav-item">
@@ -58,24 +59,26 @@
               <th>Company</th>
               <th>Industry</th>
               <th>Location</th>
-              <th>Company Size</th>
+              <th>Size</th>
+              <th>Ratings</th>
               <th>Estimated Salary</th>
               <th>Match Rate</th>
               <th>Your Position</th>
               <th></th>
             </tr>
-            <tr>
+            <tr data-toggle="collapse" data-target="#row1" class="accordion-toggle">
               <td>1</td>
               <td>IoT Engineer</td>
               <td>ARUP</td>
               <td>Construction</td>
               <td>Singapore</td>
               <td>1001-5000</td>
+              <td>5</td>
               <td>3500-5000</td>
               <td>86%</td>
               <td>4</td>
-              <td> <button class="btn" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <td> <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
                   <i class="fas fa-ellipsis-h">
                 </button></i>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -86,17 +89,123 @@
               </td>
             </tr>
             <tr>
+              <td colspan="12" class="hiddenRow">
+                <div id="row1" class="accordian-body collapse">
+                  <div class="row justify-content-center ">
+                    <div class="card col-5 px-3">
+                      <div class="card-body job_description">
+                        <div>
+                          <h2>Job Description</h2>
+                          <p>Arup is the creative force at the heart of many of the world’s most prominent
+                            projects in the built environment and across industry. Working in more than 140 countries,
+                            the
+                            firm’s designers, engineers, architects, planners, consultants and technical specialists
+                            work
+                            with our clients on innovative projects of the highest quality and impact. Our East Asia
+                            offices
+                            employ approximately 3,000 staff and are engaged in prestigious multi-disciplinary projects
+                            covering buildings, infrastructure, advisory services, planning and technical consulting
+                            areas.
+                            We embrace equality, diversity and inclusion in all aspects including individual differences
+                            and
+                            open-mindedness. We are committed to applying our expertise, diversity of thinking and
+                            independence in the quest for a safe, sustainable and resilient future – for all. This is
+                            how
+                            we
+                            shape a better world.
+                        </div>
+                        <div>
+                          <p>We now invite applications for the following resident site staff position for the
+                            Contract No. EDO 4/2019 Free-flow Tolling System in Hong Kong - Development of Backend
+                            System.
+                          </p>
+                        </div>
+
+                        <div align="justify"><b>
+                          </b></div>
+                          <h4 class="js-skills-header t-13 t-black--light t-bold">Qualifications &amp; Experience required:</h4>
+                        <p>• Diploma or Higher Certificate from Construction Industry Council
+                          Hong Kong/Hong Kong Institute of Construction/Hong Kong Institute of Vocational
+                          Education/Technical Institute/Technical College/Polytechnic University/Polytechnic in Hong
+                          Kong
+                          or equivalent in an appropriate discipline (Information Technology/Computer Science,
+                          Telecommunication and Networking, etc. are applicable)</p>
+                        </p>
+                        <p>
+                        <p>• Relevant post-qualification experience in data communication, networking,
+                          programming is an advantage</p>
+                        </p>
+                        </p>
+                        <p>
+                        <p>The above technical RSS rank should have met the language proficiency
+                          requirements of Level 2 or above in Chinese Language and English Language in the Hong Kong
+                          Diploma of Secondary Education Examination (HKDSEE) or Hong Kong Certificate of Education
+                          Examination (HKCEE), or equivalent.</p>
+                        </p>
+                        </p>
+                        <div>
+                          <p>Appointment will be made on contract term in accordance with the prevailing
+                            government’s terms and conditions.&nbsp;Application deadline on or before 19 January 2021.
+                          </p>
+                        </div>
+                        <div>
+                        </div>
+
+                        <div>
+                          <p>Personal data collected will be used for recruitment purpose only, and such record
+                            will be deleted after a period for a maximum of 24 months upon last activity in the
+                            respective
+                            account created in our career website. </p>
+                        </div>
+                        <div>
+                        </div>
+                        <div>
+                          <p>Candidates who are selected for interview will normally receive an invitation
+                            within&nbsp;eight weeks from the closing date for application. Those who are not invited for
+                            interview may assume that their applications are unsuccessful.</p>
+                        </div>
+                        <div id="jJobInsideInfo" class="job_inside_info" style="">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card col-5 p-1">
+                      <div class="card-body">
+                        <h2>Skills met</h2>
+                        <ul class="list-group">
+                          <li class="list-group-item list-group-item-success">data communication</li>
+                          <li class="list-group-item list-group-item-success">networking</li>
+                          <li class="list-group-item list-group-item-success">programming</li>
+                          <li class="list-group-item list-group-item-success">project planning</li>
+                          <li class="list-group-item list-group-item-success">cloud architecture</li>
+                          <li class="list-group-item list-group-item-success">sql</li>
+
+
+                        </ul>
+                        <h2 class="pt-4">Skills to be met</h2>
+                        <ul class="list-group">
+                          <li class="list-group-item list-group-item-danger">technical consulting</li>
+                          <li class="list-group-item list-group-item-danger">C</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tr>
+            <tr data-toggle="collapse" data-target="#row2" class="accordion-toggle">
               <td>2</td>
               <td>Junior Research Engineer</td>
               <td>Bosch ASEAN</td>
               <td>Automotive</td>
               <td>Singapore</td>
               <td>5001-10000</td>
+              <td>5</td>
               <td>4000-5000</td>
               <td>78%</td>
               <td>12</td>
-              <td> <button class="btn" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <td> <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
                   <i class="fas fa-ellipsis-h">
                 </button></i>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -107,17 +216,92 @@
               </td>
             </tr>
             <tr>
-              <td>1</td>
+              <td colspan="12" class="hiddenRow">
+                <div id="row2" class="accordian-body collapse">
+                  <div class="row justify-content-center ">
+                    <div class="card col-5 px-3">
+                      <div class="card-body job_description">
+                        <div class="jobs-description__content jobs-description-content ">
+                          <div class="jobs-box__html-content jobs-description-content__text t-14 t-normal"
+                            id="job-details" tabindex="-1">
+                            <h2>Job Description</h2>
+                            <span>
+                              <ul>
+                                <li>Developing new research approaches for sensing applications in consumer electronics
+                                  and smart construction</li>
+                                <li>Evaluating sensor related technologies, identifying risks and developing alternate
+                                  solutions for insertion into both fielded and developmental systems</li>
+                                <li>Performing system and sub-system level test, conducting experiments/data collections
+                                </li>
+                                <li>Designing and prototyping algorithm/signal processing solutions supporting IoT stack
+                                </li>
+                                <li>Data analysis, Modeling system and sub-system behavior</li>
+                              </ul>
+                              <br>
+                              <h4 class="js-skills-header t-13 t-black--light t-bold">Desired Skills and Experience</h3>
+                              <ul>
+                                <li>Bachelor's in Mechatronics engineering, Computer Science, Materials Science or
+                                  Physics</li>
+                                <li>Strong technical skills related to magnetic, current, resistive sensor technologies,
+                                  knowledge in MEMS sensor technologies will be an advantage</li>
+                                <li>Experience with designing, integration, prototyping, evaluating,
+                                  testing and fielding solutions&nbsp;</li>
+                                <li>Knowledge in signal processing and algorithm development, sensor modeling will be an
+                                  advantage</li>
+                                <li>Domain knowledge in Connected Building Solutions, Indoor Air Quality, Water Quality
+                                  Management, Waste Management, Sustainable Construction will be an advantage</li>
+                              </ul>
+                            </span>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card col-5 p-1">
+                      <div class="card-body">
+                        <h2>Skills met</h2>
+                        <ul class="list-group">
+                          <li class="list-group-item list-group-item-success">MEMs sensor technologies</li>
+                          <li class="list-group-item list-group-item-success">designing sensor solutions</li>
+                          <li class="list-group-item list-group-item-success">integrating sensor solutions</li>
+                          <li class="list-group-item list-group-item-success">prototyping sensor solutions</li>
+                          <li class="list-group-item list-group-item-success">evaluating sensor solutions</li>
+                          <li class="list-group-item list-group-item-success">testing sensor solutions</li>
+                          <li class="list-group-item list-group-item-success">fielding sensor solutions</li>
+                          <li class="list-group-item list-group-item-success">signal processing</li>
+                          <li class="list-group-item list-group-item-success">algorithm development</li>
+                          <li class="list-group-item list-group-item-success">sensor modelling</li>                          
+                          <li class="list-group-item list-group-item-success">connected building solutions</li>              
+                          <li class="list-group-item list-group-item-success">indoor air quality solutions</li>              
+                          <li class="list-group-item list-group-item-success">water quality management</li>
+                          <li class="list-group-item list-group-item-success">waste management</li>
+                          <li class="list-group-item list-group-item-success">sustainable construction</li>
+                        </ul>
+                        <h2 class="pt-4">Skills to be met</h2>
+                        <ul class="list-group">
+                          <li class="list-group-item list-group-item-danger">resistive current sensor technologies</li>
+                          <li class="list-group-item list-group-item-danger">magnetic sensor technologies</li>
+                          <li class="list-group-item list-group-item-danger">current sensor technologies</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
               <td>Technical Apprentice - Data Engineer/ AI</td>
               <td>IBM</td>
               <td>Information Technology</td>
               <td>Singapore</td>
               <td>10001+</td>
+              <td>5</td>
               <td>6000-8000</td>
               <td>68%</td>
               <td>20</td>
-              <td> <button class="btn" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <td> <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
                   <i class="fas fa-ellipsis-h">
                 </button></i>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -126,6 +310,101 @@
                   <a class="dropdown-item" href="#">Drop</a>
                 </div>
               </td>
+            </tr>
+            <td colspan="12" class="hiddenRow">
+              <div id="demo1" class="accordian-body collapse">
+                <div class="row justify-content-center ">
+                  <div class="card col-5 px-3">
+                    <div class="card-body job_description">
+                      <div>
+                        <h2>Job Description</h2>
+                        <div class="jobs-description__content jobs-description-content ">
+                          <div class="jobs-box__html-content jobs-description-content__text t-14 t-normal"
+                            id="job-details" tabindex="-1">
+                            <!---->
+                            <!---->
+                            <!---->
+                            <!----> <span>
+                              Introduction<br>
+                              At IBM, work is more than a job - it's a calling: To build. To design. To code. To
+                              consult. To think along with clients and sell. To make markets. To invent. To
+                              collaborate. Not just to do something better, but to attempt things you've never thought
+                              possible. Are you ready to lead in this new era of technology and solve some of the
+                              world's most challenging problems? If so, lets talk.<br>
+                              <br>
+                              Your Role and Responsibilities<br>
+                              <br>
+                              The apprentice will be provided opportunity in Data Engineering discipline for corporate
+                              data management.<br>
+                              <ul>
+                                <li>Partner with internal stakeholders to understand business requirements, work with
+                                  cross-functional data to build efficient and scalable ETL pipelines and processes to
+                                  ingest data from a large number and variety of data sources</li>
+                                <li>Participate in idea discovery, building, automating data pipeline and ETL process
+                                  for application and user consumptions</li>
+                                <li>Build, deploy and manage data infrastructure that can adequately handle the needs
+                                  of a rapidly growing data driven organization</li>
+                                <li>Streamline data access and security to enable data scientists and analysts to
+                                  easily access data</li>
+                                <li>Build data expertise and own data quality for allocated areas of ownership</li>
+                                <li>On the job training with the guidance of senior data engineer and data scientist
+                                </li>
+                                <li>Access to IBM Technologies and Learning programs<br>
+                                  <br>
+                                </li>
+                              </ul><strong><u>Required Professional &amp; Technical Expertise<br>
+                                </u></strong>
+                              <ul>
+                                <li>Degree in Computer Science, Electronics or Electrical Engineering, Software
+                                  Engineering, Information Technology or other related technical disciplines</li>
+                                <li>Hands-on experience in the data warehouse space, custom ETL design, implementation
+                                  and maintenance</li>
+                                <li>Hands-on experience in SQL or similar languages and development experience in at
+                                  least one scripting language (Python preferred). Experience in NoSQL database
+                                  (MongoDB, CouchDB, Cloudant) </li>
+                                <li>Data architecture, data modeling, schema design and effective project management
+                                  skills<br>
+                                  <br>
+                                </li>
+                              </ul>Required Technical and Professional Expertise<br>
+                              As above.<br>
+                              <br>
+                              <strong><u>Preferred Technical And Professional Expertise<br>
+                                  <br>
+                                </u></strong>As above.<br>
+                              <br>
+                              <strong><u>About Business Unit<br>
+                                  <br>
+                                </u></strong>The IBM Finance organization is responsible for driving enterprise
+                              performance and transformation. We are the financial stewards of IBM, delivering IBM’s
+                              financial strategy, developing new business models, and mitigating enterprise risk. Do
+                              you have a passion for creating business value? Join our team in accounting, financial
+                              planning, pricing, business controls, tax, treasury, business development (acquisitions
+                              &amp; divestitures), and global financing.<br>
+                              <br>
+                              <div id="jJobInsideInfo" class="job_inside_info" style="">
+                              </div>
+                          </div>
+                        </div>
+                        <div class="card col-5 p-1">
+                          <div class="card-body">
+                            <h2>Skills met</h2>
+                            <ul class="list-group">
+                              <li class="list-group-item list-group-item-success">data communication</li>
+                              <li class="list-group-item list-group-item-success">networking</li>
+                              <li class="list-group-item list-group-item-success">programming</li>
+
+                            </ul>
+                            <h2 class="pt-4">Skills to be met</h2>
+                            <ul class="list-group">
+                              <li class="list-group-item list-group-item-danger">technical consulting</li>
+                              <li class="list-group-item list-group-item-danger">backend development</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            </td>
             </tr>
             <tr>
               <td>1</td>
@@ -134,11 +413,12 @@
               <td>Entertainment</td>
               <td>Singapore</td>
               <td>10001+</td>
+              <td>5</td>
               <td>5000-7000</td>
               <td>72%</td>
               <td>27</td>
-              <td> <button class="btn" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <td> <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
                   <i class="fas fa-ellipsis-h">
                 </button></i>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -155,11 +435,12 @@
               <td>E-Commerce</td>
               <td>Singapore</td>
               <td>10001-50000</td>
-              <td>6000-8000</td>
+              <td>5</td>
+              <td>4000-6000</td>
               <td>67%</td>
               <td>42</td>
-              <td> <button class="btn" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <td> <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
                   <i class="fas fa-ellipsis-h">
                 </button></i>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -186,7 +467,6 @@
 <!-- Grid column -->
 
 </div>
-
 </div>
 
 
@@ -196,27 +476,97 @@
 <script>
   var treeData = [
     {
-      "name": "Top Level",
+      "name": "You are here",
       "parent": "null",
       "children": [
         {
-          "name": "Level 2: A",
-          "parent": "Top Level",
+          "name": "Software Engineer",
+          "parent": "You are here",
           "children": [
             {
-              "name": "Son of A",
-              "parent": "Level 2: A"
+              "name": "Senior Sofware Engineer",
+              "parent": "Software Engineer",
+              "children": [
+                {
+                  "name": "Staff Software Engineer",
+                  "parent": "Software Engineer"
+                },
+                {
+                  "name": "Senior Consultant",
+                  "parent": "Software Engineer"
+                }
+              ]
             },
             {
-              "name": "Daughter of A",
-              "parent": "Level 2: A"
+              "name": "Lead Research Engineer",
+              "parent": "Software Engineer"
+            },
+            {
+              "name": "Technical Project Manager",
+              "parent": "Software Engineer"
+            },
+            {
+              "name": "General Manager",
+              "parent": "Software Engineer"
             }
           ]
         },
         {
-          "name": "Level 2: B",
-          "parent": "Top Level"
-        }
+          "name": "IT Consultant",
+          "parent": "You are here",
+          "children": [
+            {
+              "name": "Technical Writer",
+              "parent": "IT Consultant"
+            },
+            {
+              "name": "Associate",
+              "parent": "IT Consultant"
+            },
+            {
+              "name": "Technical Product Specialist",
+              "parent": "IT Consultant"
+            },
+            {
+              "name": "Project Manager",
+              "parent": "IT Consultant"
+            }
+          ]
+        },
+
+        {
+          "name": "Product Manager",
+          "parent": "You are here",
+          "children": [
+            {
+              "name": "Associate",
+              "parent": "Product Manager"
+            },
+            {
+              "name": "Business Manager",
+              "parent": "Product Manager"
+            },
+            {
+              "name": "Product Manager II",
+              "parent": "Product Manager"
+            },
+          ]
+        },
+        {
+          "name": "Electrical Engineer",
+          "parent": "You are here",
+          "children": [
+            {
+              "name": "Research Engineer",
+              "parent": "Electrical Engineer"
+            },
+            {
+              "name": "Field Application Engineer",
+              "parent": "Electrical Engineer"
+            },
+
+          ]
+        },
       ]
     }
   ];
@@ -231,6 +581,7 @@
     $(this).tab('show')
   })
 </script>
+
 
 
 {% endblock %}
