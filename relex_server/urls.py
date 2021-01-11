@@ -26,5 +26,9 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'), # for home page
     path('dashboard/', TemplateView.as_view(template_name='dashboard.html'), name='dashboard'), # for dashboard page
     path('uploadresume/', TemplateView.as_view(template_name='upload.html'), name='upload'), # for uploading resume page
+    path('uploadresume/upload.php', TemplateView.as_view(template_name='upload.html'), name='upload'), # for uploading resume page
     path('resumes/', include('resumes.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
