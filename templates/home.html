@@ -62,11 +62,39 @@
         <input type="password" placeholder="Drag & Drop File Here" name="psw" required>
       </div> -->
 
-    </div>
 
-    {% endblock %}
-  </main>
-</body>
-</html>
+{% block content %}
+{% load static %}
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="container">
+  <div class="bg"></div>
+  <button class="registration-btn">REGISTER FOR FREE NOW !</button>
+  <button class="sign-up-btn">SIGN UP NOW</button>
+  <input type="text" placeholder="Enter Email" name="email" required>
+  <input type="password" placeholder="Drag & Drop File Here" name="psw" required>
+</div> -->
+
+<style>
+  body {
+  background-image: url("{%static 'CA2 Brochure-page-001.jpg'%}");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-size: 100%;
+    /* Full height */
+    height: 180%; 
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+    }
+  </style>
+  <div class="container">
+    <button class="registration-btn">REGISTER FOR FREE NOW !</button>
+    <button class="sign-up-btn">SIGN UP NOW</button>
+    <input type="text" placeholder="Enter Email" name="email" required>
+    <input type="password" placeholder="Drag & Drop File Here" name="psw" required>
+  </div>
+{% endblock %}
+
 
 

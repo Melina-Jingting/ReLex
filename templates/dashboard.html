@@ -35,15 +35,187 @@
       </div>
     </nav>
 
-    <!-- <div class="container">
-      <button class="registration-btn">REGISTER FOR FREE NOW !</button>
-      <button class="sign-up-btn">SIGN UP NOW</button>
-      
-      <input type="text" placeholder="Enter Email" name="email" required>
-      <input type="password" placeholder="Drag & Drop File Here" name="psw" required>
-    </div> -->
-    <h4>Hi {{ user.username }}, welcome back !!</h4>
-    {% endblock %}
-  </main>
-</body>
-</html>
+{% block content %}
+{% load static %}
+
+<div class="container my-4">
+  <hr>
+
+  <!-- Section: Live preview -->
+  <section class="mx-2 pb-3">
+
+    <ul class="nav nav-pills md-tabs bg-info text-white py-1 px-2" id="myTab" role="tablist">
+      <li class="nav-item waves-effect waves-light">
+        <a class="nav-link bg-info text-white active" id="home-tab-md" data-toggle="tab" href="#home-md" role="tab"
+          aria-controls="home-md" aria-selected="true">Recommended Jobs</a>
+      </li>
+      <li class="nav-item waves-effect waves-light">
+        <a class="nav-link bg-info text-white" id="contact-tab-md" data-toggle="tab" href="#contact-md" role="tab"
+          aria-controls="contact-md" aria-selected="false">Career Map</a>
+      </li>
+    </ul>
+    <div class="tab-content card pt-5" id="myTabContentMD">
+      <div class="tab-pane fade show active" id="home-md" role="tabpanel" aria-labelledby="home-tab-md">
+        <div class="px-2">
+          <table id="myTable">
+            <tr class="header">
+              <th></th>
+              <th>Company</th>
+              <th>Title</th>
+              <th>Industry</th>
+              <th>Company Size</th>
+              <th>Location</th>
+              <th>Estimated Salary</th>
+              <th>Match Rate</th>
+              <th>Your Position</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Shopee</td>
+              <td>Data Scientist - Listing</td>
+              <td>E-Commerce</td>
+              <td>10001-50000</td>
+              <td>Singapore</td>
+              <td>6000-8000</td>
+              <td>68%</td>
+              <td>42</td>
+              <td> <button class="btn" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h">
+                </button></i>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Save</a>
+                  <a class="dropdown-item" href="#">Apply</a>
+                  <a class="dropdown-item" href="#">Drop</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>SAP</td>
+              <td>Data Scientist - Listing</td>
+              <td>E-Commerce</td>
+              <td>10001-50000</td>
+              <td>Singapore</td>
+              <td>6000-8000</td>
+              <td>68%</td>
+              <td>42</td>
+              <td> <button class="btn" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-h">
+              </button></i>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Save</a>
+                <a class="dropdown-item" href="#">Apply</a>
+                <a class="dropdown-item" href="#">Drop</a>
+              </div>
+            </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>IBM</td>
+              <td>Data Scientist - Listing</td>
+              <td>E-Commerce</td>
+              <td>10001-50000</td>
+              <td>Singapore</td>
+              <td>6000-8000</td>
+              <td>68%</td>
+              <td>42</td>
+                            <td> <button class="btn" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h">
+                </button></i>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Save</a>
+                  <a class="dropdown-item" href="#">Apply</a>
+                  <a class="dropdown-item" href="#">Drop</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Google</td>
+              <td>Data Scientist - Listing</td>
+              <td>E-Commerce</td>
+              <td>10001-50000</td>
+              <td>Singapore</td>
+              <td>6000-8000</td>
+              <td>68%</td>
+              <td>42</td>
+                            <td> <button class="btn" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h">
+                </button></i>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Save</a>
+                  <a class="dropdown-item" href="#">Apply</a>
+                  <a class="dropdown-item" href="#">Drop</a>
+                </div>
+              </td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="contact-md" role="tabpanel" aria-labelledby="contact-tab-md">
+        <h2 class="text-center">What people with similar experiences and skills have moved on to</h2>
+      </div>
+    </div>
+
+
+  </section>
+  <!-- Section: Live preview -->
+
+</div>
+<!-- Grid column -->
+
+</div>
+
+</div>
+
+
+
+<!-- TREE DIAGRAM START -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script>
+  var treeData = [
+    {
+      "name": "Top Level",
+      "parent": "null",
+      "children": [
+        {
+          "name": "Level 2: A",
+          "parent": "Top Level",
+          "children": [
+            {
+              "name": "Son of A",
+              "parent": "Level 2: A"
+            },
+            {
+              "name": "Daughter of A",
+              "parent": "Level 2: A"
+            }
+          ]
+        },
+        {
+          "name": "Level 2: B",
+          "parent": "Top Level"
+        }
+      ]
+    }
+  ];
+
+</script>
+<script src="{% static 'tree_diagram.js' %}"></script>
+<!-- TREE DIAGRAM END -->
+
+<script>
+  $('#myTab a').on('click', function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+</script>
+
+
+{% endblock %}
