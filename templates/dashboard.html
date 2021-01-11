@@ -6,70 +6,143 @@
 {% block content %}
 {% load static %}
 
-<div class="container">
-  <h2>Your Dashboard</h2>
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#recommended-jobs-tab">Recommended Jobs</a></li>
-    <li><a href="#career-map-tab">Career Map</a></li>
-  </ul>
+<div class="container my-4">
+  <hr>
 
-  <div class="tab-content">
-    <div id="recommended-jobs-tab" class="tab-pane fade in active">
-      <input type="text" id="myInput" placeholder="Search for names..">
+  <!-- Section: Live preview -->
+  <section class="mx-2 pb-3">
 
-      <table id="myTable">
-        <tr class="header">
-          <th></th>
-          <th >Company</th>
-          <th >Title</th>
-          <th >Industry</th>
-          <th >Company Size</th>
-          <th >Location</th>
-          <th >Estimated Salary</th>
-          <th >Match Rate</th>
-          <th >Your Position</th>
-        </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Germany</td>
-        </tr>
-        <tr>
-          <td>Berglunds snabbkop</td>
-          <td>Sweden</td>
-        </tr>
-        <tr>
-          <td>Island Trading</td>
-          <td>UK</td>
-        </tr>
-        <tr>
-          <td>Koniglich Essen</td>
-          <td>Germany</td>
-          <td>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
-              </button>
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
-              </button>
+    <ul class="nav nav-pills md-tabs bg-info text-white py-1 px-2" id="myTab" role="tablist">
+      <li class="nav-item waves-effect waves-light">
+        <a class="nav-link bg-info text-white active" id="home-tab-md" data-toggle="tab" href="#home-md" role="tab"
+          aria-controls="home-md" aria-selected="true">Recommended Jobs</a>
+      </li>
+      <li class="nav-item waves-effect waves-light">
+        <a class="nav-link bg-info text-white" id="contact-tab-md" data-toggle="tab" href="#contact-md" role="tab"
+          aria-controls="contact-md" aria-selected="false">Career Map</a>
+      </li>
+    </ul>
+    <div class="tab-content card pt-5" id="myTabContentMD">
+      <div class="tab-pane fade show active" id="home-md" role="tabpanel" aria-labelledby="home-tab-md">
+        <div class="px-2">
+          <table id="myTable">
+            <tr class="header">
+              <th></th>
+              <th>Company</th>
+              <th>Title</th>
+              <th>Industry</th>
+              <th>Company Size</th>
+              <th>Location</th>
+              <th>Estimated Salary</th>
+              <th>Match Rate</th>
+              <th>Your Position</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>Shopee</td>
+              <td>Data Scientist - Listing</td>
+              <td>E-Commerce</td>
+              <td>10001-50000</td>
+              <td>Singapore</td>
+              <td>6000-8000</td>
+              <td>68%</td>
+              <td>42</td>
+              <td> <button class="btn" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h">
+                </button></i>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Save</a>
+                  <a class="dropdown-item" href="#">Apply</a>
+                  <a class="dropdown-item" href="#">Drop</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>SAP</td>
+              <td>Data Scientist - Listing</td>
+              <td>E-Commerce</td>
+              <td>10001-50000</td>
+              <td>Singapore</td>
+              <td>6000-8000</td>
+              <td>68%</td>
+              <td>42</td>
+              <td> <button class="btn" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-h">
+              </button></i>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Save</a>
+                <a class="dropdown-item" href="#">Apply</a>
+                <a class="dropdown-item" href="#">Drop</a>
               </div>
-            </div>
             </td>
-        </tr>
-        <tr>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>IBM</td>
+              <td>Data Scientist - Listing</td>
+              <td>E-Commerce</td>
+              <td>10001-50000</td>
+              <td>Singapore</td>
+              <td>6000-8000</td>
+              <td>68%</td>
+              <td>42</td>
+                            <td> <button class="btn" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h">
+                </button></i>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Save</a>
+                  <a class="dropdown-item" href="#">Apply</a>
+                  <a class="dropdown-item" href="#">Drop</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Google</td>
+              <td>Data Scientist - Listing</td>
+              <td>E-Commerce</td>
+              <td>10001-50000</td>
+              <td>Singapore</td>
+              <td>6000-8000</td>
+              <td>68%</td>
+              <td>42</td>
+                            <td> <button class="btn" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h">
+                </button></i>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Save</a>
+                  <a class="dropdown-item" href="#">Apply</a>
+                  <a class="dropdown-item" href="#">Drop</a>
+                </div>
+              </td>
+            </tr>
 
-        </tr>
-      </table>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="contact-md" role="tabpanel" aria-labelledby="contact-tab-md">
+        <h2 class="text-center">What people with similar experiences and skills have moved on to</h2>
+      </div>
     </div>
-    <div id="career-map-tab" class="tab-pane fade">
-      <h3>People with similar experiences or skills have taken these paths</h3>
-    </div>
-  </div>
+
+
+  </section>
+  <!-- Section: Live preview -->
+
 </div>
+<!-- Grid column -->
+
+</div>
+
+</div>
+
+
 
 <!-- TREE DIAGRAM START -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
@@ -106,11 +179,10 @@
 <!-- TREE DIAGRAM END -->
 
 <script>
-  $(document).ready(function () {
-    $(".nav-tabs a").click(function () {
-      $(this).tab('show');
-    });
-  });
+  $('#myTab a').on('click', function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
 </script>
 
 
