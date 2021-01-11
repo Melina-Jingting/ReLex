@@ -1,13 +1,62 @@
 <!-- templates/registration/signup.html -->
 {% extends 'base.html' %}
 
-{% block title %}Sign Up{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Sign Up{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  
+  <main>
+    
+    {% block content %}
+    <!-- <div class="bg"></div> -->
+  
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{% url 'home' %}">ReLex</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li class="active"><a href="{% url 'signup' %}">Sign Up</a></li>
+          <li><a href="{% url 'password_reset' %}">Forgot your password?</a></li>
+          <!-- <li><a href="{% url 'upload' %}">Upload Resume</a></li> -->
+          <!-- <li><a href="{% url 'dashboard' %}">Dashboard</a></li> -->
+          
+          <!-- <li><a href="#">Others</a></li>
+          <li><a href="#">Edit Profile</a></li> -->
+        </ul>
+      </div>
+    </nav>
+    
 
-{% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
-{% endblock %}
+    <!-- <div class="container">
+      <button class="registration-btn">REGISTER FOR FREE NOW !</button>
+      <button class="sign-up-btn">SIGN UP NOW</button>
+      
+      <input type="text" placeholder="Enter Email" name="email" required>
+      <input type="password" placeholder="Drag & Drop File Here" name="psw" required>
+    </div> -->
+
+    <h2>Sign up</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Sign Up</button>
+    </form>
+  {% endblock %}
+  </main>
+</body>
+</html>
+
+
+
+

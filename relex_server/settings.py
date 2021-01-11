@@ -140,7 +140,7 @@ STATICFILES_DIRS = (
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Specify where to redirect the user upon a successful login / logout.
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'home'
 
 # Mock an SMTP Server
