@@ -160,9 +160,9 @@ function showMore(d) {
                 <span aria-hidden="true">×</span> 
             </button> 
                   Typical Job Scope:<br> 
-                    -<br>
-                    -<br>
-                    -<br>
+                    - concrete examples of<br>
+                    - what people with this title commonly did<br>
+                    - based on data from linkedin or resumes<br>
                 </div>
               </div>`)
     .style("left", (d3.event.pageX) - 10 + "px")
