@@ -40,16 +40,19 @@
 
     <ul class="nav nav-pills md-tabs bg-info text-white py-1 px-2" id="myTab" role="tablist">
       <li class="nav-item waves-effect waves-light">
-        <a class="nav-link text-white active" id="home-tab-md" data-toggle="tab" href="#home-md" role="tab"
-          aria-controls="home-md" aria-selected="true">Recommended Jobs</a>
+        <a class="nav-link text-white active" id="contact-tab-md" data-toggle="tab" href="#contact-md" role="tab"
+          aria-controls="contact-md" aria-selected="true">Career Map</a>
       </li>
       <li class="nav-item waves-effect waves-light">
-        <a class="nav-link text-white" id="contact-tab-md" data-toggle="tab" href="#contact-md" role="tab"
-          aria-controls="contact-md" aria-selected="false">Career Map</a>
+        <a class="nav-link text-white" id="home-tab-md" data-toggle="tab" href="#home-md" role="tab"
+          aria-controls="home-md" aria-selected="false">Recommended Jobs</a>
       </li>
     </ul>
     <div class="tab-content card pt-5" id="myTabContentMD">
-      <div class="tab-pane fade show active" id="home-md" role="tabpanel" aria-labelledby="home-tab-md">
+      <div class="tab-pane fade  show active" id="contact-md" role="tabpanel" aria-labelledby="contact-tab-md">
+        <h2 class="text-center">What people with similar experiences and skills have moved on to</h2>
+      </div>
+      <div class="tab-pane fade" id="home-md" role="tabpanel" aria-labelledby="home-tab-md">
         <div class="px-2">
           <table id="myTable">
             <tr class="header">
@@ -453,9 +456,6 @@
           </table>
         </div>
       </div>
-      <div class="tab-pane fade" id="contact-md" role="tabpanel" aria-labelledby="contact-tab-md">
-        <h2 class="text-center">What people with similar experiences and skills have moved on to</h2>
-      </div>
     </div>
 
 
@@ -473,9 +473,9 @@
 <!-- TREE DIAGRAM START -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 <script>
-  var treeData = [
+  var treeOne = [
     {
-      "name": "You are here",
+      "name": "Fresh Grad",
       "parent": "null",
       "children": [
         {
@@ -529,6 +529,103 @@
             {
               "name": "Project Manager",
               "parent": "IT Consultant"
+            }
+          ]
+        },
+
+        {
+          "name": "Product Manager",
+          "parent": "You are here",
+          "children": [
+            {
+              "name": "Associate",
+              "parent": "Product Manager"
+            },
+            {
+              "name": "Business Manager",
+              "parent": "Product Manager"
+            },
+            {
+              "name": "Product Manager II",
+              "parent": "Product Manager"
+            },
+          ]
+        },
+        {
+          "name": "Electrical Engineer",
+          "parent": "You are here",
+          "children": [
+            {
+              "name": "Research Engineer",
+              "parent": "Electrical Engineer"
+            },
+            {
+              "name": "Field Application Engineer",
+              "parent": "Electrical Engineer"
+            },
+
+          ]
+        },
+      ]
+    }
+  ];
+
+  var treeTwo = [
+    {
+      "name": "Fresh Grad",
+      "parent": "null",
+      "children": [
+      {
+          "name": "IT Consultant",
+          "parent": "You are here",
+          "children": [
+            {
+              "name": "Technical Writer",
+              "parent": "IT Consultant"
+            },
+            {
+              "name": "Associate",
+              "parent": "IT Consultant"
+            },
+            {
+              "name": "Technical Product Specialist",
+              "parent": "IT Consultant"
+            },
+            {
+              "name": "Project Manager",
+              "parent": "IT Consultant"
+            }
+          ]
+        },
+        {
+          "name": "Software Engineer",
+          "parent": "You are here",
+          "children": [
+            {
+              "name": "Senior Sofware Engineer",
+              "parent": "Software Engineer",
+              "children": [
+                {
+                  "name": "Staff Software Engineer",
+                  "parent": "Software Engineer"
+                },
+                {
+                  "name": "Senior Consultant",
+                  "parent": "Software Engineer"
+                }
+              ]
+            },
+            {
+              "name": "Lead Research Engineer",
+              "parent": "Software Engineer"
+            },
+            {
+              "name": "Technical Project Manager",
+              "parent": "Software Engineer"
+            },
+            {
+              "name": "General Manager",
+              "parent": "Software Engineer"
             }
           ]
         },
