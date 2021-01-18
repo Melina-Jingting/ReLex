@@ -1,8 +1,8 @@
 
 // ************** Generate the tree diagram	 *****************
-var margin = { top: 20, right: 120, bottom: 20, left: 120 },
-  width = 960 - margin.right - margin.left,
-  height = 500 - margin.top - margin.bottom;
+var margin = { top: 25, right: 50, bottom: 25, left: 50 },
+  width = 1800 - margin.right - margin.left,
+  height = 800 - margin.top - margin.bottom;
 
 var i = 0,
   duration = 750,
@@ -14,26 +14,24 @@ var tree = d3.layout.tree()
 var diagonal = d3.svg.diagonal()
   .projection(function (d) { return [d.y, d.x]; });
 
-var svg = d3.select("#contact-md").append("svg")
+var svg = d3.select("#career-map-md").append("svg")
   .attr("width", width + margin.right + margin.left)
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Define the div for the tooltip
-var div = d3.select("#contact-md").append("div")
+var div = d3.select("#career-map-md").append("div")
   .attr("class", "tooltip")
   .style("opacity", 0);
   
-// root = treeOne[0];
-root = treeTwo[0]; // implement if-else toggle between two career maps here
-
+root = treeOne[0];
 root.x0 = height / 2;
 root.y0 = 0;
 
 update(root);
 
-d3.select(self.frameElement).style("height", "500px");
+d3.select(self.frameElement).style("height", "1000px");
 
 
 
@@ -44,7 +42,7 @@ function update(source) {
     links = tree.links(nodes);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function (d) { d.y = d.depth * 180; });
+  nodes.forEach(function (d) { d.y = d.depth * 200; });
 
   // Update the nodes…
   var node = svg.selectAll("g.node")
@@ -55,27 +53,20 @@ function update(source) {
     .attr("class", "node")
     .attr("transform", function (d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
 
-
-  nodeEnter.append("a")
-    .attr("data-toggle", "tooltip")
-    .attr("title", "Some tooltip text")
-    .attr("href", "#")
-    .text("Senior Software Engineer");
-
   nodeEnter.append("circle")
     .attr("r", 1e-6)
     .style("fill", function (d) { return d._children ? "lightsteelblue" : "#fff"; })
     .on("click", click);
 
-
   nodeEnter.append("text")
     .attr("class", "nodeText")
-    .attr("x", function (d) { return d.children || d._children ? -13 : 13; })
+    .attr("x", function (d) { return d.children || d._children ? -13:-13; })
     .attr("dy", ".35em")
-    .attr("text-anchor", function (d) { return d.children || d._children ? "end" : "start"; })
-    .text(function (d) { return d.name; })
-    .style("fill-opacity", 1e-6)
-    .on("click", showMore);
+    .attr("text-anchor", function (d) { return d.children || d._children ? "end" : "end"; })
+    .text(function (d) { return d.title; })
+    .style("fill-opacity", 1)
+    .on("mouseover", showJobInfo)
+    .on("mouseout", hideJobInfo);
 
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
@@ -146,30 +137,36 @@ function click(d) {
   update(d);
 }
 
-function showMore(d) {
+function showJobInfo(d) {
   div.transition()
-    .duration(200)
+    .duration(500)
     .style("opacity", 1);
-  div.html(`<div class="card bg-dark text-white">
+  div.html(`<div class="card bg-dark text-white" style="width: 30rem;">
                 <div class="card-body alert alert-dismissible  
                 fade show">        
-                <h6>`
-                + d.name +
-                `</h6>
+                <h4>`
+                + d.title + '  ,  ' + d.company +
+                `</h4>
                 <button type="button" class="btn close" 
                 data-dismiss="alert" aria-label="Close"> 
                   
                 <span aria-hidden="true">×</span> 
-            </button> 
-                  Typical Job Scope:<br> 
-                    - concrete examples of<br>
-                    - what people with this title commonly did<br>
-                    - based on data from linkedin or resumes<br>
-                </div>
+            </button><h6>Salary Range \t: `
+                  + d.salary +
+                  `</h6>`+
+                  `<h6>What people with this role do\t:</h6><p>`
+                  + d.description +
+                `</p></div>
               </div>`)
     .style("left", (d3.event.pageX) - 10 + "px")
-    .style("top", (d3.event.pageY) - 170 + "px")
-    .class("active");
+    .style("top", (d3.event.pageY) - 170 + "px");
+}
+
+function hideJobInfo(d) {
+  div.transition()
+    .duration(500)
+    .style("opacity", 0);
+  div.html("");
 }
 
 $('.close-icon').on('click', function () {

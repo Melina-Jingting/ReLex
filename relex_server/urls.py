@@ -18,14 +18,15 @@ from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')), # for login, logout, and password management.
     path('', TemplateView.as_view(template_name='home.html'), name='home'), # for home page
-    path('dashboard/', TemplateView.as_view(template_name='dashboard.html'), name='dashboard'), # for dashboard page
-    path('upload/', TemplateView.as_view(template_name='upload.html'), name='upload'), # for uploading resume page
+    path('dashboard/', views.dashboard, name='dashboard'), # for dashboard page
+    path('upload/', views.upload_resume, name='upload'), # for uploading resume page
     # path('uploadresume/upload.php', TemplateView.as_view(template_name='upload.html'), name='upload'), # for uploading resume page
     path('resumes/', include('resumes.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

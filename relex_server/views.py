@@ -1,28 +1,19 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import render
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from .forms import DocumentForm
+from .utils import *
+import json
 
-def simple_upload(request):
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfile = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
-        return render(request, 'core/simple_upload.html', {
-            'uploaded_file_url': uploaded_file_url
-        })
-    return render(request, 'core/simple_upload.html')
 
-def model_form_upload(request):
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = DocumentForm()
-    return render(request, 'core/model_form_upload.html', {
-        'form': form
-    })
+
+def upload_resume(request):
+        return render(request,'upload.html')
+
+def dashboard(request):
+    context={}
+    if request.method == "POST":
+        profile = str(request.FILES["filename"]).split('.')[0]
+        request.session['profile']=profile
+    context["tree_json"] = create_career_map_json(request.session.get('profile'))
+    return render(request,'dashboard.html',context)
