@@ -50,7 +50,7 @@ class App:
         result = tx.run(query)
         return [row for row in result]
 
-bolt_url = "neo4j+s://8804e13e.databases.neo4j.io"
+bolt_url = "neo4j+s://8804e13e.databases.neo4j.io:7687"
 # bolt_url = "bolt://localhost:7687"
 user = "melina"
 password = "r3l3xpass"
