@@ -66,8 +66,9 @@ function update(source) {
     .attr("text-anchor", function (d) { return d.children || d._children ? "end" : "end"; })
     .text(function (d) { return d.title; })
     .style("fill-opacity", 1)
+    .on("mouseout", hideJobInfo)
     .on("mouseover", showJobInfo)
-    // .on("mouseout", hideJobInfo);
+    ;
 
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
