@@ -42,7 +42,7 @@ class App:
                     MATCH 	(exp:Experience)-[f:FOLLOWED_BY*..3]->(exp1:Experience),
                     (:Person)-[w1:WORKED_AS]->(exp1)
                     RETURN exp1,w1,f
-                    LIMIT 25
+                    LIMIT 100
                     }}
 
                     RETURN 	exp,w,exp1,w1,f
@@ -94,10 +94,10 @@ def create_career_map_json(profile):
             description = ["\n-".join(chunk.text for chunk in description_doc.noun_chunks)]            
             d3_input["children"].append( { "name":first_job.parent.item(),
                             "parent":"You",
-                            "duration":first_job.parent_duration.item(),
+                            "duration":"-",
                             "title":title.split(',')[0],
                             "company":first_job.parent_company,
-                            "percentage": 1/len(first_jobs),
+                            "percentage": "%.2f" % ((1/len(first_jobs))*100),
                             "salary": "3500~6000",
                             "description": description
                             })
@@ -152,7 +152,7 @@ def add_children(parent,df):
                             "duration":child.child_duration.item(),
                             "title":title,
                             "company":child.child_company,
-                            "percentage": 1/len(children_df),
+                            "percentage": "%.2f" % (1/len(children_df)*100),
                             "salary": "3500~6000",
                             "description": description
                             })

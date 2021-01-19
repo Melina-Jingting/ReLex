@@ -158,6 +158,7 @@ function showJobInfo(d) {
                     </div>  
 
                   <h6 class="text-success">$` + d.salary + `</h6>`+
+                  `<h6 class="text-info">From previous role: ` + d.percentage + `%, `+ d.duration +` Months </h6>`+
                   `<h6>What people with this role do\t:</h6><p class="text-secondary">`
                   + d.description +
                   `<h6>Skills\t:</h6>
