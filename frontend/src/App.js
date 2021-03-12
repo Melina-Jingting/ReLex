@@ -9,7 +9,9 @@ import BarChart from "./components/BarChart";
 
 import HomeScreen from "./pages/HomeScreen";
 import DashboardScreen from "./pages/DashboardScreen";
+import SearchScreen from "./pages/SearchScreen";
 import DiscoverScreen from "./pages/DiscoverScreen";
+
 
 export default class App extends Component {
   constructor(props) {
@@ -24,6 +26,7 @@ export default class App extends Component {
             <Container>
               <Route path="/" component={HomeScreen} exact />
               <Route path="/dashboard" component={DashboardScreen} />
+              <Route path="/search" component={SearchScreen} />
               <Route path="/discover" component={DiscoverScreen} />
             </Container>
           </main>

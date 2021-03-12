@@ -191,7 +191,7 @@ const treeTest = ({ leftData, rightData, margin, translate, zoom, scaleExtent })
       .attr("y", (node) => node.x - 12)
       .attr("text-anchor", "middle")
       .attr("font-size", 12)
-      .text((node) => node.data.title)
+      .text((node) => node.data.name)
       .transition()
       .duration(500)
       .delay((node) => node.depth * 300)
@@ -207,7 +207,7 @@ const treeTest = ({ leftData, rightData, margin, translate, zoom, scaleExtent })
       .attr("text-anchor", "middle")
       .attr("font-size", 12)
       .attr("clip-path", "circle() fill-box")
-      .text((node) => node.data.title)
+      .text((node) => node.data.name)
       .transition()
       .duration(500)
       .delay((node) => node.depth * 300)
@@ -233,7 +233,7 @@ const treeTest = ({ leftData, rightData, margin, translate, zoom, scaleExtent })
     >
       <svg
         ref={svgRef}s
-        viewBox="100 0 400 400"
+        viewBox="100 0s 400 400"
         style={{ height: "100%", width: "100%", overflow: "visible" }}
         class="zoom"
       >

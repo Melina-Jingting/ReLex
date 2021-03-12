@@ -15,7 +15,7 @@ const LeftContentBlock = ({ icon, title, content, section, t, id }) => {
           <Slide left>
             <SvgIcon
               src={icon}
-              // className="about-block-image"
+              // className="about-block-imagse"
               width="300px"
               height="300px"
             />

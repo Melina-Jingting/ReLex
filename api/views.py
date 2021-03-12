@@ -23,7 +23,7 @@ def getTree(request):
     title = "Product Manager"
     experiences = Experience.objects.all().filter(company=company, title=title)
     d3_format_json = {
-        "title": title,
+        "name": title,
         "company": company,
         "parent": "null",
         "children": []
@@ -38,17 +38,19 @@ def getTree(request):
         while current_level > 1:
             child = Experience.objects.all().filter(
                 profile__id=profile_id, level=current_level-1)
+
             if len(child) == 0: ##then previous level is an education instead
                 child = Education.objects.all().filter(
                 profile__id=profile_id, level=current_level-1)[0]
                 serializer = EducationSerializer(child)
-                child_title = serializer.data["degree"]
+                child_title = serializer.data.pop("degree")
             else:
                 child = child[0]
                 serializer = ExperienceSerializer(child)
-                child_title = serializer.data["title"]
-            child = {"parent_name":parent_name, "children":[]}
-            child.update(serializer.data)
+                child_title = serializer.data.pop("title")
+
+            child = {"name":child_title, "parent_name":parent_name, "children":[]}
+            child["attributes"] = serializer.data
             parent_node["children"].append(child)
             if is_first_child:
                 parent_node = parent_node["children"][i]
@@ -63,5 +65,3 @@ def getTree(request):
         
 
             
-
-    return None

@@ -3,57 +3,8 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import BarChart from "./BarChart";
 import JobSummary from "./JobSummary";
 import Tree from "./Tree";
-import axios from 'axios'
+import axios from 'axios';
 
-
-// const leftTree = {
-//   title: "Product Manager",
-//   children: [
-//     {
-//       title: "Product presales",
-//       company: "Production",
-//       children: [
-//         {
-//           title: "Business intelligence",
-//           company: "Fabrication"
-//         },
-//       ],
-//     },
-
-//     {
-//       title: "Program Manager",
-//       company: "Production",
-//       children: [
-//         {
-//           title: "Chief Engineer",
-//           company: "Fabrication"
-//         },
-//       ],
-//     },
-//     {
-//       title: "Co-founder",
-//       company: "Production",
-//       children: [
-//         {
-//           title: "Researcher",
-//           company: "Fabrication"
-//         },
-//       ],
-//     },
-//     {
-//       title: "Project Intern",
-//       company: "Production",
-//       children: [
-//         {
-//           title: "Summer Intern",
-//           company: "Fabrication"
-//         },
-//       ],
-//     },
-//   ],
-// };
-
-// const rightTree = leftTree
 
 const ResultAnalysis = () => {
   const [leftTree, setLeftTree] = useState([])
