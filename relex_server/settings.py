@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'resumes.apps.ResumesConfig',
     'crispy_forms',
-    'relex_server',
     'accounts',
+    'api.apps.ApiConfig',
+    'relex_server',
+    'frontend.apps.FrontendConfig',
+    'rest_framework'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -90,7 +92,7 @@ WSGI_APPLICATION = 'relex_server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'relex',
+        'NAME': 'Vicarious',
         'USER': 'postgres',
         'PASSWORD': 'password', # INSERT YOUR DB PASSWORD HERE
         'HOST': 'localhost',

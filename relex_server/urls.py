@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf import settings
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 from . import views
@@ -24,11 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')), # for login, logout, and password management.
-    path('', TemplateView.as_view(template_name='home.html'), name='home'), # for home page
-    path('dashboard/', views.dashboard, name='dashboard'), # for dashboard page
-    path('upload/', views.upload_resume, name='upload'), # for uploading resume page
-    # path('uploadresume/upload.php', TemplateView.as_view(template_name='upload.html'), name='upload'), # for uploading resume page
-    path('resumes/', include('resumes.urls')),
+    # path('dashboard/', views.dashboard, name='dashboard'), # for dashboard page
+    # path('upload/', views.upload_resume, name='upload'), # for uploading resume page
+    path('api/', include('api.urls')),
+    path('/', include('frontend.urls')),
+    re_path(r'^(?:.*)/?$', include('frontend.urls')),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
