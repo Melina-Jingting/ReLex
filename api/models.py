@@ -88,4 +88,51 @@ class Volunteer_experience(models.Model):
 
 class Company(models.Model):
     name = models.CharField(max_length=255)
+    website = models.URLField(null=True, blank=True)
+    size = models.TextField(null=True, blank=True)
+    company_type = models.CharField(max_length=255, null=True, blank=True)
+    revenue = models.CharField(max_length=255, null=True, blank=True)
+    headquarters = models.CharField(max_length=255, null=True, blank=True)
+    founded = models.DateField(null=True, blank=True)
     industry = models.CharField(max_length=255, null=True, blank=True)
+
+class Competitors(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='company')
+    competitor = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='competitor')
+
+class FAQ(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    role = models.CharField(max_length=255, default='general')
+    question = models.TextField()
+    answer = models.TextField()
+    data = models.DateField()
+
+class Company_Reviews(models.Model):
+    date = models.DateField()
+    employee_title = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    employee_status = models.CharField(max_length=255)
+    review_title = models.CharField(max_length=255)
+    helpful = models.IntegerField()
+    pros = models.TextField(null=True, blank=True)
+    cons = models.TextField(null=True, blank=True)
+    advice_to_management = models.TextField(null=True, blank=True)
+    rating_overall = models.FloatField()
+    rating_balance = models.IntegerField()
+    rating_culture = models.IntegerField()
+    rating_career = models.IntegerField()
+    rating_compensation = models.IntegerField()
+    rating_management = models.IntegerField()
+    recommends = models.BooleanField()
+    outlook = models.CharField(max_length=50)
+    approves_of_CEO = models.CharField(max_length=50)
+
+class Salary(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    role = models.CharField(max_length=255)
+    average_total_pay = models.IntegerField()
+    base_pay = models.IntegerField()
+    additional_pay = models.IntegerField()
+    sample_size = models.IntegerField()
+
+
