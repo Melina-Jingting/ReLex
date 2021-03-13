@@ -12,6 +12,8 @@ import DashboardScreen from "./pages/DashboardScreen";
 import SearchScreen from "./pages/SearchScreen";
 import DiscoverScreen from "./pages/DiscoverScreen";
 
+import '../static/css/main.css';
+
 
 export default class App extends Component {
   constructor(props) {

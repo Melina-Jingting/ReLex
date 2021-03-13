@@ -2,69 +2,37 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Tree from "react-d3-tree";
 import Header from "../components/Header";
-import axios from 'axios';
-
-
+import axios from "axios";
+import treeTest from "../components/Tree";
 
 const DiscoverScreen = () => {
-    const [leftTree, setLeftTree] = useState([])
-    // const [rightTree, setRightTree] = useState([])
-  
-    useEffect(()=>{
-      async function fetchTree() {
-        const { data } = await axios.get('http://127.0.0.1:8000/api/leftTree');
-        setLeftTree(data)
-        // setRightTree(data)
-        console.log("PRINTING OUT DATA")
-        console.log(data)
-      }
-      
-      fetchTree()
-      
-    }, [])
+  const [isLoading, setLoading] = useState(true);
+  const [leftTree, setLeftTree] = useState([]);
+  // const [rightTree, setRightTree] = useState([])
 
-  const orgChart = {
-    name: "CEO",
-    children: [
-      {
-        name: "Manager",
-        attributes: {
-          department: "Production",
-        },
-        children: [
-          {
-            name: "Foreman",
-            attributes: {
-              department: "Fabrication",
-            },
-            children: [
-              {
-                name: "Worker",
-              },
-            ],
-          },
-          {
-            name: "Foreman",
-            attributes: {
-              department: "Assembly",
-            },
-            children: [
-              {
-                name: "Worker",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  };
+  useEffect(() => {
+    async function fetchTree() {
+      const { data } = await axios.get("http://127.0.0.1:8000/api/leftTree");
+      console.log("data now");
+      console.log(data);
+      setLeftTree(data);
+      setLoading(false);
+      // setRightTree(data)
+    }
+    fetchTree();
+  }, []);
+
+  console.log("PRINTING OUT DATA in outeer loops");
+  console.log(leftTree);
 
   return (
-    <Container>
+    <Container style={{ width: "100%", height: "100%" }}>
       <Header />
-      <div id="treeWrapper" style={{ width: "100%", height: "3000px" }}>
-        <Tree data={orgChart} />
-      </div>
+      {!isLoading && (
+        <div id="treeWrapper" style={{ width: "100%", height: "100%" }}>
+          <Tree data={leftTree} />
+        </div>
+      )}
     </Container>
   );
 };

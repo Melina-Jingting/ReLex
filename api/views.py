@@ -50,7 +50,8 @@ def getTree(request):
                 child_title = serializer.data.pop("title")
 
             child = {"name":child_title, "parent_name":parent_name, "children":[]}
-            child["attributes"] = serializer.data
+            child["attributes"] = {"department":""}
+            # child["attributes"].update(serializer.data)
             parent_node["children"].append(child)
             if is_first_child:
                 parent_node = parent_node["children"][i]
