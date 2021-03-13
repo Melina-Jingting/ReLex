@@ -18,8 +18,43 @@ upgrade your version if it is Python 2 and below as there are no guarantees that
 
 You can download Python from [here](https://www.python.org/downloads/).
 
-## Sample Web App Walk-through
+### Node.js and npm
+This guide assumes Node.js and npm has already been installed. If not, follow the separate installation guide to set it up. The download link can be found here:
+https://www.npmjs.com/get-npm
 
+### NPM Setup Commands
+Navigate to the `frontend` directory and run the following commands:
+npm init -y (Skip this command, if you are not setting up a new project)
+npm i webpack webpack-cli --save-dev
+npm i @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev
+npm i react react-dom --save-dev
+npm install @material-ui/core
+npm install @babel/plugin-proposal-class-properties
+npm install react-router-dom
+npm install @material-ui/icons
+
+for a more comprehensive guide, refer to the following resource:
+https://www.youtube.com/watch?v=6c2NqDyxppU
+
+if you encounter error messages similar to the following:
+npm ERR! code EEXIST
+npm ERR! Refusing to delete C:\blahhh ... : is outside C:\blahhh ... and not a link
+npm ERR! File exists: C:\blahhh ...
+npm ERR! Remove the existing file and try again, or run npm
+npm ERR! with --force to overwrite files recklessly.
+
+Try the following command:
+`npm run dev --force`
+
+if error persists, delete the `node_modules` folder and `package-lock.json` file
+and perform a reinstall with the following command:
+`npm install @angular/core@5.2.3 --save` --save is optional for newer versions
+
+If error states that wbpack is required, try:
+`npm install --save-dev webpack`
+`npm audit fix [--force]` if necessary
+
+## Sample Web App Walk-through
 This should be the directory structure of the files:
 * RELEX/
     * accounts/
@@ -56,8 +91,12 @@ On line 89 of `relex_server/settings`, change `<password>`, (and `NAME`, `USER`,
 If you did not make any changes to `<port>` during the setup, it should be `5432` by default.
 
 ### Start web app and handle routing
-To run the web service, you must navigate to the `ReLex` directory and run the following command:
+To run the web service, both the frontend (react) and the backend (django) has to be deployed.
 
+First, navigate to the `frontend` directory and run the following command:
+`npm run dev`
+
+Next, navigate to the `ReLex` directory and run the following command:
 `python manage.py runserver`
 
 You should see some messages showing up in your terminal, with these last few lines:
