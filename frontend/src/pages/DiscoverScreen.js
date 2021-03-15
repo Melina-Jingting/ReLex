@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Container } from "react-bootstrap";
-import Tree from "react-d3-tree";
+import Tree from "../components/TreeDiagram/Tree";
 import Header from "../components/Header";
 import axios from "axios";
-import treeTest from "../components/Tree";
+import treeTest from "../components/DoubleTree";
 
 const DiscoverScreen = () => {
   const [isLoading, setLoading] = useState(true);
@@ -26,14 +26,14 @@ const DiscoverScreen = () => {
   console.log(leftTree);
 
   return (
-    <Container style={{ width: "100%", height: "100%" }}>
+    <Fragment>
       <Header />
       {!isLoading && (
         <div id="treeWrapper" style={{ width: "100%", height: "100%" }}>
           <Tree data={leftTree} />
         </div>
       )}
-    </Container>
+    </Fragment>
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import BarChart from "./BarChart";
 import JobSummary from "./JobSummary";
-import Tree from "./Tree";
+import Tree from "./DoubleTree";
 import axios from 'axios';
 
 

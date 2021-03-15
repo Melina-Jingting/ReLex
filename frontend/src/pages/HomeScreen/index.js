@@ -11,10 +11,10 @@ import ContactContent from "../../content/ContactContent.json";
 
 import Container from "../../common/Container";
 import ScrollToTop from "../../common/ScrollToTop";
-import MiddleBlock from "../../components/MiddleBlock";
-import ContactForm from "../../components/ContactForm";
-import ContentBlock from "../../components/ContentBlock";
-import LandingPageHeader from "../../components/LandingPageHeader";
+import MiddleBlock from "../../components/LandingPage/MiddleBlock";
+import ContactForm from "../../components/LandingPage/ContactForm";
+import ContentBlock from "../../components/LandingPage/ContentBlock";
+import LandingPageHeader from "../../components/LandingPage/LandingPageHeader";
 
 // const ContactFrom = lazy(() => import("../components/ContactForm"));
 // const ContentBlock = lazy(() => import("../components/ContentBlock"));
