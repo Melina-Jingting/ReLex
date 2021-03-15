@@ -63,7 +63,7 @@ const Header = ({ t }) => {
         {/* <img src="../../img/svg/placeholder_company_logo.png" /> */}
 
           {/* <S.LogoContainer to="/" aria-label="homepage">
-          </S.LogoContainer> */}s
+          </S.LogoContainer> */}
           <S.NotHidden>
             <MenuItem />
           </S.NotHidden>

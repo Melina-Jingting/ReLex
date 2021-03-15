@@ -56,7 +56,7 @@ const HomeScreen = () => {
         content={PlanContent.text}
         icon="visualise-map.svg"
         id="mission"
-      />s
+      />
 
       <ContentBlock
         type="left"
