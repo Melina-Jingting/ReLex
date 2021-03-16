@@ -12,25 +12,23 @@ const DiscoverScreen = () => {
 
   useEffect(() => {
     async function fetchTree() {
-      const { data } = await axios.get("http://127.0.0.1:8000/api/leftTree");
-      console.log("data now");
-      console.log(data);
-      setLeftTree(data);
+      const { data } = await axios.get("http://127.0.0.1:8000/api/tree");
+      console.log(data)
+      setLeftTree(data["left"]);
+      setLeftTree(data["right"]);
       setLoading(false);
       // setRightTree(data)
     }
     fetchTree();
   }, []);
 
-  console.log("PRINTING OUT DATA in outeer loops");
-  console.log(leftTree);
 
   return (
     <Fragment>
       <Header />
       {!isLoading && (
         <div id="treeWrapper" style={{ width: "100%", height: "100%" }}>
-          <Tree data={leftTree} />
+          <Tree leftData={leftTree} leftData={leftTree}/>
         </div>
       )}
     </Fragment>

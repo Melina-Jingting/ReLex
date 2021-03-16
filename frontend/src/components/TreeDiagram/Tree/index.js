@@ -45,8 +45,10 @@ var Tree = /** @class */ (function (_super) {
     function Tree() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.state = {
-            dataRef: _this.props.data,
-            data: Tree.assignInternalProperties(clone_1.default(_this.props.data)),
+            leftDataRef: _this.props.leftData,
+            leftData: Tree.assignInternalProperties(clone_1.default(_this.props.leftData)),
+            rightDataRef: _this.props.rightData,
+            rightData: Tree.assignInternalProperties(clone_1.default(_this.props.rightData)),
             d3: Tree.calculateD3Geometry(_this.props),
             isTransitioning: false,
             isInitialRenderForDataset: true,
@@ -65,25 +67,26 @@ var Tree = /** @class */ (function (_super) {
          * `props.onClick` if defined.
          */
         _this.handleNodeToggle = function (nodeId) {
-            var data = clone_1.default(_this.state.data);
-            var matches = _this.findNodesById(nodeId, data, []);
+            var leftData = clone_1.default(_this.state.leftData);
+            console.log(leftData);
+            var matches = _this.findNodesById(nodeId, leftData, []);
             var targetNodeDatum = matches[0];
             if (_this.props.collapsible && !_this.state.isTransitioning) {
                 if (targetNodeDatum.__rd3t.collapsed) {
                     Tree.expandNode(targetNodeDatum);
-                    _this.props.shouldCollapseNeighborNodes && _this.collapseNeighborNodes(targetNodeDatum, data);
+                    _this.props.shouldCollapseNeighborNodes && _this.collapseNeighborNodes(targetNodeDatum, leftData);
                 }
                 else {
                     Tree.collapseNode(targetNodeDatum);
                 }
                 if (_this.props.enableLegacyTransitions) {
                     // Lock node toggling while transition takes place.
-                    _this.setState({ data: data, isTransitioning: true });
+                    _this.setState({ leftData: leftData, isTransitioning: true });
                     // Await transitionDuration + 10 ms before unlocking node toggling again.
                     setTimeout(function () { return _this.setState({ isTransitioning: false }); }, _this.props.transitionDuration + 10);
                 }
                 else {
-                    _this.setState({ data: data });
+                    _this.setState({ leftData: leftData });
                 }
                 _this.internalState.targetNode = targetNodeDatum;
             }
@@ -94,8 +97,8 @@ var Tree = /** @class */ (function (_super) {
         _this.handleOnNodeClickCb = function (nodeId, evt) {
             var onNodeClick = _this.props.onNodeClick;
             if (onNodeClick && typeof onNodeClick === 'function') {
-                var data = clone_1.default(_this.state.data);
-                var matches = _this.findNodesById(nodeId, data, []);
+                var leftData = clone_1.default(_this.state.leftData);
+                var matches = _this.findNodesById(nodeId, leftData, []);
                 var targetNode = matches[0];
                 // Persist the SyntheticEvent for downstream handling by users.
                 evt.persist();
@@ -119,8 +122,8 @@ var Tree = /** @class */ (function (_super) {
         _this.handleOnNodeMouseOverCb = function (nodeId, evt) {
             var onNodeMouseOver = _this.props.onNodeMouseOver;
             if (onNodeMouseOver && typeof onNodeMouseOver === 'function') {
-                var data = clone_1.default(_this.state.data);
-                var matches = _this.findNodesById(nodeId, data, []);
+                var leftData = clone_1.default(_this.state.leftData);
+                var matches = _this.findNodesById(nodeId, leftData, []);
                 var targetNode = matches[0];
                 // Persist the SyntheticEvent for downstream handling by users.
                 evt.persist();
@@ -144,8 +147,8 @@ var Tree = /** @class */ (function (_super) {
         _this.handleOnNodeMouseOutCb = function (nodeId, evt) {
             var onNodeMouseOut = _this.props.onNodeMouseOut;
             if (onNodeMouseOut && typeof onNodeMouseOut === 'function') {
-                var data = clone_1.default(_this.state.data);
-                var matches = _this.findNodesById(nodeId, data, []);
+                var leftData = clone_1.default(_this.state.leftData);
+                var matches = _this.findNodesById(nodeId, leftData, []);
                 var targetNode = matches[0];
                 // Persist the SyntheticEvent for downstream handling by users.
                 evt.persist();
@@ -169,6 +172,7 @@ var Tree = /** @class */ (function (_super) {
         _this.getNodeClassName = function (parent, nodeDatum) {
             var _a = _this.props, rootNodeClassName = _a.rootNodeClassName, branchNodeClassName = _a.branchNodeClassName, leafNodeClassName = _a.leafNodeClassName;
             var hasParent = parent !== null && parent !== undefined;
+            // console.log(nodeDatum)
             if (hasParent) {
                 return nodeDatum.children ? branchNodeClassName : leafNodeClassName;
             }
@@ -181,10 +185,17 @@ var Tree = /** @class */ (function (_super) {
     Tree.getDerivedStateFromProps = function (nextProps, prevState) {
         var derivedState = null;
         // Clone new data & assign internal properties if `data` object reference changed.
-        if (nextProps.data !== prevState.dataRef) {
+        if (nextProps.leftData !== prevState.leftDataRef) {
             derivedState = {
-                dataRef: nextProps.data,
-                data: Tree.assignInternalProperties(clone_1.default(nextProps.data)),
+                leftDataRef: nextProps.leftData,
+                leftData: Tree.assignInternalProperties(clone_1.default(nextProps.leftData)),
+                isInitialRenderForDataset: true,
+            };
+        }
+        if (nextProps.rightData !== prevState.rightDataRef) {
+            derivedState = {
+                rightDataRef: nextProps.rightData,
+                rightData: Tree.assignInternalProperties(clone_1.default(nextProps.rightData)),
                 isInitialRenderForDataset: true,
             };
         }
@@ -200,7 +211,7 @@ var Tree = /** @class */ (function (_super) {
         this.setState({ isInitialRenderForDataset: false });
     };
     Tree.prototype.componentDidUpdate = function (prevProps) {
-        if (this.props.data !== prevProps.data) {
+        if (this.props.leftData !== prevProps.leftData) {
             // If last `render` was due to change in dataset -> mark the initial render as done.
             this.setState({ isInitialRenderForDataset: false });
         }
@@ -230,7 +241,7 @@ var Tree = /** @class */ (function (_super) {
      */
     Tree.prototype.setInitialTreeDepth = function (nodeSet, initialDepth) {
         nodeSet.forEach(function (n) {
-            n.data.__rd3t.collapsed = n.depth >= initialDepth;
+            n.leftData.__rd3t.collapsed = n.depth >= initialDepth;
         });
     };
     /**
@@ -374,7 +385,7 @@ var Tree = /** @class */ (function (_super) {
                 ? separation.siblings
                 : separation.nonSiblings;
         });
-        var rootNode = tree(d3_hierarchy_1.hierarchy(this.state.data[0], function (d) { return (d.__rd3t.collapsed ? null : d.children); }));
+        var rootNode = tree(d3_hierarchy_1.hierarchy(this.state.leftData[0], function (d) { return (d.__rd3t.collapsed ? null : d.children); }));
         var nodes = rootNode.descendants();
         var links = rootNode.links();
         // Configure nodes' `collapsed` property on first render if `initialDepth` is defined.
@@ -423,7 +434,7 @@ var Tree = /** @class */ (function (_super) {
         <svg className={"rd3t-svg " + this.svgInstanceRef + " " + svgClassName} width="100%" height="100%">
           <TransitionGroupWrapper_1.default enableLegacyTransitions={enableLegacyTransitions} component="g" className={"rd3t-g " + this.gInstanceRef} transform={"translate(" + translate.x + "," + translate.y + ") scale(" + scale + ")"}>
             {links.map(function (linkData, i) {
-            return (<Link_1.default key={'link-' + i} orientation={orientation} pathFunc={pathFunc} pathClassFunc={pathClassFunc} linkData={linkData} onClick={_this.handleOnLinkClickCb} onMouseOver={_this.handleOnLinkMouseOverCb} onMouseOut={_this.handleOnLinkMouseOutCb} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration}/>);
+            return (<Link_1.default direction={_this.direction} key={'link-' + i} orientation={orientation} pathFunc={pathFunc} pathClassFunc={pathClassFunc} linkData={linkData} onClick={_this.handleOnLinkClickCb} onMouseOver={_this.handleOnLinkMouseOverCb} onMouseOut={_this.handleOnLinkMouseOutCb} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration}/>);
         })}
 
             {nodes.map(function (_a, i) {

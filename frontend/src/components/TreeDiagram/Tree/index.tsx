@@ -13,8 +13,10 @@ import { TreeNodeDatum, Point, RawNodeDatum } from '../types/common';
 import { TreeLinkEventCallback, TreeProps } from './types';
 
 type TreeState = {
-  dataRef: TreeProps['data'];
-  data: TreeNodeDatum[];
+  leftDataRef: TreeProps['leftData'];
+  leftData: TreeNodeDatum[];
+  rightDataRef: TreeProps['rightData'];
+  rightData: TreeNodeDatum[];
   d3: { translate: Point; scale: number };
   isTransitioning: boolean;
   isInitialRenderForDataset: boolean;
@@ -52,8 +54,10 @@ class Tree extends React.Component<TreeProps, TreeState> {
   };
 
   state: TreeState = {
-    dataRef: this.props.data,
-    data: Tree.assignInternalProperties(clone(this.props.data)),
+    leftDataRef: this.props.leftData,
+    leftData: Tree.assignInternalProperties(clone(this.props.leftData)),
+    rightDataRef: this.props.rightData,
+    rightData: Tree.assignInternalProperties(clone(this.props.rightData)),
     d3: Tree.calculateD3Geometry(this.props),
     isTransitioning: false,
     isInitialRenderForDataset: true,
@@ -70,10 +74,17 @@ class Tree extends React.Component<TreeProps, TreeState> {
   static getDerivedStateFromProps(nextProps: TreeProps, prevState: TreeState) {
     let derivedState: Partial<TreeState> = null;
     // Clone new data & assign internal properties if `data` object reference changed.
-    if (nextProps.data !== prevState.dataRef) {
+    if (nextProps.leftData !== prevState.leftDataRef) {
       derivedState = {
-        dataRef: nextProps.data,
-        data: Tree.assignInternalProperties(clone(nextProps.data)),
+        leftDataRef: nextProps.leftData,
+        leftData: Tree.assignInternalProperties(clone(nextProps.leftData)),
+        isInitialRenderForDataset: true,
+      };
+    }
+    if (nextProps.rightData !== prevState.rightDataRef) {
+      derivedState = {
+        rightDataRef: nextProps.rightData,
+        rightData: Tree.assignInternalProperties(clone(nextProps.rightData)),
         isInitialRenderForDataset: true,
       };
     }
@@ -91,7 +102,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
   }
 
   componentDidUpdate(prevProps: TreeProps) {
-    if (this.props.data !== prevProps.data) {
+    if (this.props.leftData !== prevProps.leftData) {
       // If last `render` was due to change in dataset -> mark the initial render as done.
       this.setState({ isInitialRenderForDataset: false });
     }
@@ -126,7 +137,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
    */
   setInitialTreeDepth(nodeSet: HierarchyPointNode<TreeNodeDatum>[], initialDepth: number) {
     nodeSet.forEach(n => {
-      n.data.__rd3t.collapsed = n.depth >= initialDepth;
+      n.leftData.__rd3t.collapsed = n.depth >= initialDepth;
     });
   }
 
@@ -190,7 +201,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
       // If there are children, recursively assign properties to them too.
       if (nodeDatum.children && nodeDatum.children.length > 0) {
         nodeDatum.children = Tree.assignInternalProperties(nodeDatum.children, currentDepth + 1);
-      }
+      }      
       return nodeDatum;
     });
   }
@@ -271,28 +282,29 @@ class Tree extends React.Component<TreeProps, TreeState> {
    * `props.onClick` if defined.
    */
   handleNodeToggle = (nodeId: string) => {
-    const data = clone(this.state.data);
-    const matches = this.findNodesById(nodeId, data, []);
+    const leftData = clone(this.state.leftData);
+    console.log(leftData);
+    const matches = this.findNodesById(nodeId, leftData, []);
     const targetNodeDatum = matches[0];
 
     if (this.props.collapsible && !this.state.isTransitioning) {
       if (targetNodeDatum.__rd3t.collapsed) {
         Tree.expandNode(targetNodeDatum);
-        this.props.shouldCollapseNeighborNodes && this.collapseNeighborNodes(targetNodeDatum, data);
+        this.props.shouldCollapseNeighborNodes && this.collapseNeighborNodes(targetNodeDatum, leftData);
       } else {
         Tree.collapseNode(targetNodeDatum);
       }
 
       if (this.props.enableLegacyTransitions) {
         // Lock node toggling while transition takes place.
-        this.setState({ data, isTransitioning: true });
+        this.setState({ leftData, isTransitioning: true });
         // Await transitionDuration + 10 ms before unlocking node toggling again.
         setTimeout(
           () => this.setState({ isTransitioning: false }),
           this.props.transitionDuration + 10
         );
       } else {
-        this.setState({ data });
+        this.setState({ leftData });
       }
 
       this.internalState.targetNode = targetNodeDatum;
@@ -305,8 +317,8 @@ class Tree extends React.Component<TreeProps, TreeState> {
   handleOnNodeClickCb = (nodeId: string, evt: SyntheticEvent) => {
     const { onNodeClick } = this.props;
     if (onNodeClick && typeof onNodeClick === 'function') {
-      const data = clone(this.state.data);
-      const matches = this.findNodesById(nodeId, data, []);
+      const leftData = clone(this.state.leftData);
+      const matches = this.findNodesById(nodeId, leftData, []);
       const targetNode = matches[0];
       // Persist the SyntheticEvent for downstream handling by users.
       evt.persist();
@@ -332,8 +344,8 @@ class Tree extends React.Component<TreeProps, TreeState> {
   handleOnNodeMouseOverCb = (nodeId: string, evt: SyntheticEvent) => {
     const { onNodeMouseOver } = this.props;
     if (onNodeMouseOver && typeof onNodeMouseOver === 'function') {
-      const data = clone(this.state.data);
-      const matches = this.findNodesById(nodeId, data, []);
+      const leftData = clone(this.state.leftData);
+      const matches = this.findNodesById(nodeId, leftData, []);
       const targetNode = matches[0];
       // Persist the SyntheticEvent for downstream handling by users.
       evt.persist();
@@ -359,8 +371,8 @@ class Tree extends React.Component<TreeProps, TreeState> {
   handleOnNodeMouseOutCb = (nodeId: string, evt: SyntheticEvent) => {
     const { onNodeMouseOut } = this.props;
     if (onNodeMouseOut && typeof onNodeMouseOut === 'function') {
-      const data = clone(this.state.data);
-      const matches = this.findNodesById(nodeId, data, []);
+      const leftData = clone(this.state.leftData);
+      const matches = this.findNodesById(nodeId, leftData, []);
       const targetNode = matches[0];
       // Persist the SyntheticEvent for downstream handling by users.
       evt.persist();
@@ -398,7 +410,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
       );
 
     const rootNode = tree(
-      hierarchy(this.state.data[0], d => (d.__rd3t.collapsed ? null : d.children))
+      hierarchy(this.state.leftData[0], d => (d.__rd3t.collapsed ? null : d.children))
     );
     let nodes = rootNode.descendants();
     const links = rootNode.links();
@@ -446,6 +458,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
   getNodeClassName = (parent: HierarchyPointNode<TreeNodeDatum>, nodeDatum: TreeNodeDatum) => {
     const { rootNodeClassName, branchNodeClassName, leafNodeClassName } = this.props;
     const hasParent = parent !== null && parent !== undefined;
+    // console.log(nodeDatum)
     if (hasParent) {
       return nodeDatum.children ? branchNodeClassName : leafNodeClassName;
     } else {
@@ -493,6 +506,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
             {links.map((linkData, i) => {
               return (
                 <Link
+                  direction={this.direction}
                   key={'link-' + i}
                   orientation={orientation}
                   pathFunc={pathFunc}

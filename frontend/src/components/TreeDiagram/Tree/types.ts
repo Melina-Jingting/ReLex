@@ -32,7 +32,9 @@ export interface TreeProps {
    * `react-d3-tree` will automatically attach a unique `id` attribute to each node in the DOM,
    * as well as `data-source-id` & `data-target-id` attributes to each link connecting two nodes.
    */
-  data: RawNodeDatum[] | RawNodeDatum;
+  leftData: RawNodeDatum[] | RawNodeDatum;
+  rightData: RawNodeDatum[] | RawNodeDatum;
+
 
   /**
    * Custom render function that will be used for every node in the tree.

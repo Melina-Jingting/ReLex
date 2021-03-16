@@ -9,7 +9,7 @@ const DEFAULT_NODE_CIRCLE_RADIUS = 15;
 const textLayout = {
   title: {
     textAnchor: "middle",
-    y: 15,
+    y: 10,
   },
   attribute: {
     y: 25,

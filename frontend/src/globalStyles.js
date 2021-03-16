@@ -104,13 +104,13 @@ const Styles = createGlobalStyle`
     /* Node */
     .rd3t-node {
     cursor: pointer;
-    fill: #558B2F;
+    fill: #93C572;
     stroke-width: 2;
     }
 
     .rd3t-leaf-node {
     cursor: pointer;
-    fill: #9E9D24 ;
+    fill: #93C572 ;
     stroke-width: 2;
     }
 
@@ -130,7 +130,7 @@ const Styles = createGlobalStyle`
     .rd3t-link {
     fill: none;
     stroke-width: 3;
-    stroke: #6D4C41;
+    stroke: #C2B280;
     }
 
 `;
