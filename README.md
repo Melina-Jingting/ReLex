@@ -54,6 +54,11 @@ If error states that wbpack is required, try:
 `npm install --save-dev webpack`
 `npm audit fix [--force]` if necessary
 
+`npm install --save react-linkedin-login-oauth2`
+
+Make sure you have the es2015 babel preset installed:
+`npm install babel-preset-es2015`
+
 ## Sample Web App Walk-through
 This should be the directory structure of the files:
 * RELEX/

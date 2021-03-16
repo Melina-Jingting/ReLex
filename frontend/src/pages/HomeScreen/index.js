@@ -16,6 +16,12 @@ import ContactForm from "../../components/ContactForm";
 import ContentBlock from "../../components/ContentBlock";
 import LandingPageHeader from "../../components/LandingPageHeader";
 
+
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+// import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
+// import LinkedInPage from '../LinkedInPage';
+
 // const ContactFrom = lazy(() => import("../components/ContactForm"));
 // const ContentBlock = lazy(() => import("../components/ContentBlock"));
 // const MiddleBlock = lazy(() => import("../components/MiddleBlock"));
@@ -30,8 +36,10 @@ const HomeScreen = () => {
       <MiddleBlock
         title={IntroContent.title}
         content={IntroContent.text}
-        button={IntroContent.button}
+
+        button={IntroContent.button} // this component is the linkedin button
       />
+        
       <ContentBlock
         type="right"
         first="true"
