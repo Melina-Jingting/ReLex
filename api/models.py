@@ -95,6 +95,7 @@ class Company(models.Model):
     headquarters = models.CharField(max_length=255, null=True, blank=True)
     founded = models.DateField(null=True, blank=True)
     industry = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
 class Competitors(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='company')
@@ -130,9 +131,10 @@ class Company_Reviews(models.Model):
 class Salary(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     role = models.CharField(max_length=255)
-    average_total_pay = models.IntegerField()
-    base_pay = models.IntegerField()
-    additional_pay = models.IntegerField()
-    sample_size = models.IntegerField()
+    average_total_pay = models.CharField(max_length=255)
+    base_pay = models.CharField(max_length=255, null=True, blank=True)
+    additional_pay = models.CharField(max_length=255, null=True, blank=True)
+    based_on = models.IntegerField(null=True, blank=True)
+    location = models.CharField(max_length=255, null=True, blank=True)
 
 

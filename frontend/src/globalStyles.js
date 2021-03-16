@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const Styles = createGlobalStyle`
 
@@ -17,6 +17,10 @@ const Styles = createGlobalStyle`
         background: #fff;
         overflow-x: hidden;
     }
+
+    html, body, main, #app, #app>div, #container {
+        height: 100%
+      }
 
     a:hover {
         color: #000;
@@ -78,6 +82,57 @@ const Styles = createGlobalStyle`
     .ant-notification-notice-icon-success {
         color: rgb(255,130,92);
     }
+
+    /* Tree */
+    .rd3t-tree-container {
+    width: 100%;
+    height: 100%;
+    }
+
+    .rd3t-grabbable {
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    }
+    .rd3t-grabbable:active {
+        cursor: grabbing;
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+    }
+
+    /* Node */
+    .rd3t-node {
+    cursor: pointer;
+    fill: #93C572;
+    stroke-width: 2;
+    }
+
+    .rd3t-leaf-node {
+    cursor: pointer;
+    fill: #93C572 ;
+    stroke-width: 2;
+    }
+
+    .rd3t-label__title {
+    stroke: #000;
+    stroke-width: 1;
+    font-size: smaller;
+    }
+
+    .rd3t-label__attributes {
+    stroke: #777;
+    stroke-width: 1;
+    font-size: smaller;
+    }
+
+    /* Link */
+    .rd3t-link {
+    fill: none;
+    stroke-width: 3;
+    stroke: #C2B280;
+    }
+
 `;
 
 export default Styles;

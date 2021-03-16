@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
@@ -13,6 +13,7 @@ import SearchScreen from "./pages/SearchScreen";
 import DiscoverScreen from "./pages/DiscoverScreen";
 
 import '../static/css/main.css';
+import Styles from './globalStyles';
 
 
 export default class App extends Component {
@@ -22,18 +23,22 @@ export default class App extends Component {
 
   render() {
     return (
+      <Fragment>
+        <Styles />
       <Router>
         <div>
-          <main className="py-3">
-            <Container>
+          <main className="pt-3">
+            <Fragment>
               <Route path="/" component={HomeScreen} exact />
               <Route path="/dashboard" component={DashboardScreen} />
               <Route path="/search" component={SearchScreen} />
               <Route path="/discover" component={DiscoverScreen} />
-            </Container>
+            </Fragment>
           </main>
         </div>
       </Router>
+      </Fragment>
+
     );
   }
 }
