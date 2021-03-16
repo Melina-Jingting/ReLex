@@ -6,6 +6,7 @@ import { CSSTransition } from "react-transition-group";
 import { withTranslation } from "react-i18next";
 import SvgIcon from "../../../common/SvgIcon";
 import Button from "../../../common/Button";
+import Grid from "@material-ui/core/Grid";
 
 import * as S from "./styles";
 
@@ -60,16 +61,19 @@ const Header = ({ t }) => {
     <S.Header>
       <S.Container>
         <Row type="flex" justify="space-between" gutter={20}>
-        {/* <img src="../../img/svg/placeholder_company_logo.png" /> */}
+          {/* <img src="../../img/svg/placeholder_company_logo.png" /> */}
 
           {/* <S.LogoContainer to="/" aria-label="homepage">
           </S.LogoContainer> */}
-          <S.NotHidden>
-            <MenuItem />
-          </S.NotHidden>
-          <S.Burger onClick={showDrawer}>
-            <S.Outline />
-          </S.Burger>
+          <Col>Vicarious</Col>
+          <Col justify="flex-row-reverse" xs={8}>
+            <S.NotHidden>
+              <MenuItem />
+            </S.NotHidden>
+            <S.Burger onClick={showDrawer}>
+              <S.Outline />
+            </S.Burger>
+          </Col>
         </Row>
         <CSSTransition
           in={!isSmallScreen || isNavVisible}

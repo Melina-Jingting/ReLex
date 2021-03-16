@@ -24,7 +24,7 @@ var DefaultNodeElement = function (_a) {
     }} onMouseOver={onNodeMouseOver} onMouseOut={onNodeMouseOut}></circle>
       <g className="rd3t-label">
         <text className="rd3t-label__title" {...textLayout.title}>
-          {nodeDatum.name.match(/.{1,20}(\s|$)/g).map(function (word) { return (<tspan dy="1.2em" x={0}>{word}</tspan>); })}
+          {nodeDatum.name.match(/.{1,17}(\s|$)/g).map(function (word) { return (<tspan dy="1.2em" x={0}>{word}</tspan>); })}
         </text>
         
       </g>

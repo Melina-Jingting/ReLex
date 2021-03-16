@@ -44,7 +44,7 @@ const DefaultNodeElement: React.FunctionComponent<DefaultNodeElementProps> = ({
       ></circle>
       <g className="rd3t-label">
         <text className="rd3t-label__title" {...textLayout.title}>
-          {nodeDatum.name.match(/.{1,20}(\s|$)/g).map((word) => (
+          {nodeDatum.name.match(/.{1,17}(\s|$)/g).map((word) => (
             <tspan dy="1.2em" x={0}>{word}</tspan>
           ))}
         </text>

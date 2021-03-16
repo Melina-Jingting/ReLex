@@ -68,13 +68,13 @@ var Tree = /** @class */ (function (_super) {
          */
         _this.handleNodeToggle = function (nodeId) {
             var leftData = clone_1.default(_this.state.leftData);
-            console.log(leftData);
             var matches = _this.findNodesById(nodeId, leftData, []);
             var targetNodeDatum = matches[0];
             if (_this.props.collapsible && !_this.state.isTransitioning) {
                 if (targetNodeDatum.__rd3t.collapsed) {
                     Tree.expandNode(targetNodeDatum);
-                    _this.props.shouldCollapseNeighborNodes && _this.collapseNeighborNodes(targetNodeDatum, leftData);
+                    _this.props.shouldCollapseNeighborNodes &&
+                        _this.collapseNeighborNodes(targetNodeDatum, leftData);
                 }
                 else {
                     Tree.collapseNode(targetNodeDatum);
@@ -96,7 +96,7 @@ var Tree = /** @class */ (function (_super) {
          */
         _this.handleOnNodeClickCb = function (nodeId, evt) {
             var onNodeClick = _this.props.onNodeClick;
-            if (onNodeClick && typeof onNodeClick === 'function') {
+            if (onNodeClick && typeof onNodeClick === "function") {
                 var leftData = clone_1.default(_this.state.leftData);
                 var matches = _this.findNodesById(nodeId, leftData, []);
                 var targetNode = matches[0];
@@ -110,7 +110,7 @@ var Tree = /** @class */ (function (_super) {
          */
         _this.handleOnLinkClickCb = function (linkSource, linkTarget, evt) {
             var onLinkClick = _this.props.onLinkClick;
-            if (onLinkClick && typeof onLinkClick === 'function') {
+            if (onLinkClick && typeof onLinkClick === "function") {
                 // Persist the SyntheticEvent for downstream handling by users.
                 evt.persist();
                 onLinkClick(clone_1.default(linkSource), clone_1.default(linkTarget), evt);
@@ -121,7 +121,7 @@ var Tree = /** @class */ (function (_super) {
          */
         _this.handleOnNodeMouseOverCb = function (nodeId, evt) {
             var onNodeMouseOver = _this.props.onNodeMouseOver;
-            if (onNodeMouseOver && typeof onNodeMouseOver === 'function') {
+            if (onNodeMouseOver && typeof onNodeMouseOver === "function") {
                 var leftData = clone_1.default(_this.state.leftData);
                 var matches = _this.findNodesById(nodeId, leftData, []);
                 var targetNode = matches[0];
@@ -135,7 +135,7 @@ var Tree = /** @class */ (function (_super) {
          */
         _this.handleOnLinkMouseOverCb = function (linkSource, linkTarget, evt) {
             var onLinkMouseOver = _this.props.onLinkMouseOver;
-            if (onLinkMouseOver && typeof onLinkMouseOver === 'function') {
+            if (onLinkMouseOver && typeof onLinkMouseOver === "function") {
                 // Persist the SyntheticEvent for downstream handling by users.
                 evt.persist();
                 onLinkMouseOver(clone_1.default(linkSource), clone_1.default(linkTarget), evt);
@@ -146,7 +146,7 @@ var Tree = /** @class */ (function (_super) {
          */
         _this.handleOnNodeMouseOutCb = function (nodeId, evt) {
             var onNodeMouseOut = _this.props.onNodeMouseOut;
-            if (onNodeMouseOut && typeof onNodeMouseOut === 'function') {
+            if (onNodeMouseOut && typeof onNodeMouseOut === "function") {
                 var leftData = clone_1.default(_this.state.leftData);
                 var matches = _this.findNodesById(nodeId, leftData, []);
                 var targetNode = matches[0];
@@ -160,7 +160,7 @@ var Tree = /** @class */ (function (_super) {
          */
         _this.handleOnLinkMouseOutCb = function (linkSource, linkTarget, evt) {
             var onLinkMouseOut = _this.props.onLinkMouseOut;
-            if (onLinkMouseOut && typeof onLinkMouseOut === 'function') {
+            if (onLinkMouseOut && typeof onLinkMouseOut === "function") {
                 // Persist the SyntheticEvent for downstream handling by users.
                 evt.persist();
                 onLinkMouseOut(clone_1.default(linkSource), clone_1.default(linkTarget), evt);
@@ -172,7 +172,6 @@ var Tree = /** @class */ (function (_super) {
         _this.getNodeClassName = function (parent, nodeDatum) {
             var _a = _this.props, rootNodeClassName = _a.rootNodeClassName, branchNodeClassName = _a.branchNodeClassName, leafNodeClassName = _a.leafNodeClassName;
             var hasParent = parent !== null && parent !== undefined;
-            // console.log(nodeDatum)
             if (hasParent) {
                 return nodeDatum.children ? branchNodeClassName : leafNodeClassName;
             }
@@ -211,7 +210,8 @@ var Tree = /** @class */ (function (_super) {
         this.setState({ isInitialRenderForDataset: false });
     };
     Tree.prototype.componentDidUpdate = function (prevProps) {
-        if (this.props.leftData !== prevProps.leftData) {
+        if (this.props.leftData !== prevProps.leftData ||
+            this.props.rightData !== prevProps.rightData) {
             // If last `render` was due to change in dataset -> mark the initial render as done.
             this.setState({ isInitialRenderForDataset: false });
         }
@@ -223,9 +223,11 @@ var Tree = /** @class */ (function (_super) {
             // Or: rebind zoom listeners to new DOM nodes in case legacy transitions were enabled/disabled.
             this.bindZoomListener(this.props);
         }
-        if (typeof this.props.onUpdate === 'function') {
+        if (typeof this.props.onUpdate === "function") {
             this.props.onUpdate({
-                node: this.internalState.targetNode ? clone_1.default(this.internalState.targetNode) : null,
+                node: this.internalState.targetNode
+                    ? clone_1.default(this.internalState.targetNode)
+                    : null,
                 zoom: this.state.d3.scale,
                 translate: this.state.d3.translate,
             });
@@ -241,7 +243,7 @@ var Tree = /** @class */ (function (_super) {
      */
     Tree.prototype.setInitialTreeDepth = function (nodeSet, initialDepth) {
         nodeSet.forEach(function (n) {
-            n.leftData.__rd3t.collapsed = n.depth >= initialDepth;
+            n.data.__rd3t.collapsed = n.depth >= initialDepth;
         });
     };
     /**
@@ -260,9 +262,9 @@ var Tree = /** @class */ (function (_super) {
             svg.call(d3_zoom_1.zoom().transform, d3_zoom_1.zoomIdentity.translate(translate.x, translate.y).scale(zoom));
             svg.call(d3_zoom_1.zoom()
                 .scaleExtent([scaleExtent.min, scaleExtent.max])
-                .on('zoom', function () {
-                g.attr('transform', d3_selection_1.event.transform);
-                if (typeof onUpdate === 'function') {
+                .on("zoom", function () {
+                g.attr("transform", d3_selection_1.event.transform);
+                if (typeof onUpdate === "function") {
                     // This callback is magically called not only on "zoom", but on "drag", as well,
                     // even though event.type == "zoom".
                     // Taking advantage of this and not writing a "drag" handler.
@@ -379,15 +381,29 @@ var Tree = /** @class */ (function (_super) {
         var _a = this.props, initialDepth = _a.initialDepth, depthFactor = _a.depthFactor, separation = _a.separation, nodeSize = _a.nodeSize, orientation = _a.orientation;
         var isInitialRenderForDataset = this.state.isInitialRenderForDataset;
         var tree = d3_hierarchy_1.tree()
-            .nodeSize(orientation === 'horizontal' ? [nodeSize.y, nodeSize.x] : [nodeSize.x, nodeSize.y])
+            .nodeSize(orientation === "horizontal"
+            ? [nodeSize.y, nodeSize.x]
+            : [nodeSize.x, nodeSize.y])
             .separation(function (a, b) {
             return a.parent.data.__rd3t.id === b.parent.data.__rd3t.id
                 ? separation.siblings
                 : separation.nonSiblings;
         });
-        var rootNode = tree(d3_hierarchy_1.hierarchy(this.state.leftData[0], function (d) { return (d.__rd3t.collapsed ? null : d.children); }));
-        var nodes = rootNode.descendants();
-        var links = rootNode.links();
+        // Add tree in the left direction
+        var leftRootNode = tree(d3_hierarchy_1.hierarchy(this.state.leftData[0], function (d) {
+            return d.__rd3t.collapsed ? null : d.children;
+        }));
+        var nodes = leftRootNode.descendants();
+        var links = leftRootNode.links();
+        nodes.forEach(function (node) {
+            node.y = -node.y;
+        });
+        //Add tree in the right direction
+        var rightRootNode = tree(d3_hierarchy_1.hierarchy(this.state.rightData[0], function (d) {
+            return d.__rd3t.collapsed ? null : d.children;
+        }));
+        nodes = nodes.concat(rightRootNode.descendants());
+        links = links.concat(rightRootNode.links());
         // Configure nodes' `collapsed` property on first render if `initialDepth` is defined.
         if (initialDepth !== undefined && isInitialRenderForDataset) {
             this.setInitialTreeDepth(nodes, initialDepth);
@@ -430,16 +446,16 @@ var Tree = /** @class */ (function (_super) {
         var _c = this.state.d3, translate = _c.translate, scale = _c.scale;
         var subscriptions = __assign({}, nodeSize, separation, { depthFactor: depthFactor,
             initialDepth: initialDepth });
-        return (<div className={"rd3t-tree-container " + (zoomable ? 'rd3t-grabbable' : undefined)}>
+        return (<div className={"rd3t-tree-container " + (zoomable ? "rd3t-grabbable" : undefined)}>
         <svg className={"rd3t-svg " + this.svgInstanceRef + " " + svgClassName} width="100%" height="100%">
           <TransitionGroupWrapper_1.default enableLegacyTransitions={enableLegacyTransitions} component="g" className={"rd3t-g " + this.gInstanceRef} transform={"translate(" + translate.x + "," + translate.y + ") scale(" + scale + ")"}>
             {links.map(function (linkData, i) {
-            return (<Link_1.default direction={_this.direction} key={'link-' + i} orientation={orientation} pathFunc={pathFunc} pathClassFunc={pathClassFunc} linkData={linkData} onClick={_this.handleOnLinkClickCb} onMouseOver={_this.handleOnLinkMouseOverCb} onMouseOut={_this.handleOnLinkMouseOutCb} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration}/>);
+            return (<Link_1.default direction={_this.direction} key={"link-" + i} orientation={orientation} pathFunc={pathFunc} pathClassFunc={pathClassFunc} linkData={linkData} onClick={_this.handleOnLinkClickCb} onMouseOver={_this.handleOnLinkMouseOverCb} onMouseOut={_this.handleOnLinkMouseOutCb} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration}/>);
         })}
 
             {nodes.map(function (_a, i) {
             var data = _a.data, x = _a.x, y = _a.y, parent = _a.parent, rest = __rest(_a, ["data", "x", "y", "parent"]);
-            return (<Node_1.default key={'node-' + i} data={data} position={{ x: x, y: y }} parent={parent} nodeClassName={_this.getNodeClassName(parent, data)} renderCustomNodeElement={renderCustomNodeElement} nodeSize={nodeSize} orientation={orientation} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration} onNodeToggle={_this.handleNodeToggle} onNodeClick={_this.handleOnNodeClickCb} onNodeMouseOver={_this.handleOnNodeMouseOverCb} onNodeMouseOut={_this.handleOnNodeMouseOutCb} subscriptions={subscriptions}/>);
+            return (<Node_1.default key={"node-" + i} data={data} position={{ x: x, y: y }} parent={parent} nodeClassName={_this.getNodeClassName(parent, data)} renderCustomNodeElement={renderCustomNodeElement} nodeSize={nodeSize} orientation={orientation} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration} onNodeToggle={_this.handleNodeToggle} onNodeClick={_this.handleOnNodeClickCb} onNodeMouseOver={_this.handleOnNodeMouseOverCb} onNodeMouseOut={_this.handleOnNodeMouseOutCb} subscriptions={subscriptions}/>);
         })}
           </TransitionGroupWrapper_1.default>
         </svg>
@@ -453,9 +469,9 @@ var Tree = /** @class */ (function (_super) {
         onLinkMouseOver: undefined,
         onLinkMouseOut: undefined,
         onUpdate: undefined,
-        orientation: 'horizontal',
+        orientation: "horizontal",
         translate: { x: 0, y: 0 },
-        pathFunc: 'diagonal',
+        pathFunc: "diagonal",
         pathClassFunc: undefined,
         transitionDuration: 500,
         depthFactor: undefined,
@@ -467,10 +483,10 @@ var Tree = /** @class */ (function (_super) {
         nodeSize: { x: 140, y: 140 },
         separation: { siblings: 1, nonSiblings: 2 },
         shouldCollapseNeighborNodes: false,
-        svgClassName: '',
-        rootNodeClassName: '',
-        branchNodeClassName: '',
-        leafNodeClassName: '',
+        svgClassName: "",
+        rootNodeClassName: "",
+        branchNodeClassName: "",
+        leafNodeClassName: "",
         renderCustomNodeElement: undefined,
         enableLegacyTransitions: false,
     };
