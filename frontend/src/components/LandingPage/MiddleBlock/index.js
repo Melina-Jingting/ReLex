@@ -10,12 +10,11 @@ import * as S from "./styles";
 // const Button = lazy(() => import("../../common/Button"));
 
 const MiddleBlock = ({ title, content, button, t }) => {
-  const scrollTo = (id) => {
-    const element = document.getElementById(id);
-    element.scrollIntoView({
-      behavior: "smooth",
-    });
+  const linkedinLogin = () => {
+    const url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&state=987654321&scope=r_liteprofile&client_id=78ioflr7umfzey&redirect_uri=http://localhost:8000/discover';
+    window.open(url, '_blank');
   };
+
   return (
     <S.MiddleBlock>
       <Row type="flex" justify="center" align="middle">
@@ -28,7 +27,7 @@ const MiddleBlock = ({ title, content, button, t }) => {
                 <Button
                   name="submit"
                   type="submit"
-                  onClick={() => scrollTo("mission")}
+                  onClick={() => linkedinLogin()}
                 >
                   {t(button)}
                 </Button>
