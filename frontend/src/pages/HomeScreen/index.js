@@ -11,10 +11,16 @@ import ContactContent from "../../content/ContactContent.json";
 
 import Container from "../../common/Container";
 import ScrollToTop from "../../common/ScrollToTop";
-import MiddleBlock from "../../components/MiddleBlock";
-import ContactForm from "../../components/ContactForm";
-import ContentBlock from "../../components/ContentBlock";
-import LandingPageHeader from "../../components/LandingPageHeader";
+import MiddleBlock from "../../components/LandingPage/MiddleBlock";
+import ContactForm from "../../components/LandingPage/ContactForm";
+import ContentBlock from "../../components/LandingPage/ContentBlock";
+import LandingPageHeader from "../../components/LandingPage/LandingPageHeader";
+
+
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+// import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
+// import LinkedInPage from '../LinkedInPage';
 
 // const ContactFrom = lazy(() => import("../components/ContactForm"));
 // const ContentBlock = lazy(() => import("../components/ContentBlock"));
@@ -30,8 +36,10 @@ const HomeScreen = () => {
       <MiddleBlock
         title={IntroContent.title}
         content={IntroContent.text}
-        button={IntroContent.button}
+
+        button={IntroContent.button} // this component is the linkedin button
       />
+        
       <ContentBlock
         type="right"
         first="true"
@@ -56,7 +64,7 @@ const HomeScreen = () => {
         content={PlanContent.text}
         icon="visualise-map.svg"
         id="mission"
-      />s
+      />
 
       <ContentBlock
         type="left"

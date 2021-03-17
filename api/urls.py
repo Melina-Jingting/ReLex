@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.getRoutes, name='routes'),
-    path('leftTree',views.getTree,name='leftTree'),
+    path('tree',views.getTree,name='tree'),
 ]

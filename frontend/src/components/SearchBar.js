@@ -1,11 +1,12 @@
 import React from 'react';
-import { InputGroup, FormControl, Button } from 'react-bootstrap'
+import { InputGroup, FormControl, Button, Container } from 'react-bootstrap'
 
-const SearchBar = ({keyword,setKeyword}) => {
+const SearchBar = ({keyword,setKeyword, placeholder}) => {
   return (
+    <Container className="px-3">
     <InputGroup className="mb-3">
     <FormControl
-      placeholder="Search Title or Company"
+      placeholder={placeholder}
       aria-label="Search Title or Company"
       aria-describedby="basic-addon2"
     />
@@ -13,6 +14,7 @@ const SearchBar = ({keyword,setKeyword}) => {
       <Button variant="outline-primary">Search</Button>
     </InputGroup.Append>
   </InputGroup>
+  </Container>
   );
 }
 
