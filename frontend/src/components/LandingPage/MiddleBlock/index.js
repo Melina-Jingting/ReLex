@@ -1,4 +1,6 @@
 import React from "react";
+import ReactDOM from 'react-dom';
+import LinkedInPageApp from "../../../components/LinkedInPageApp";
 import { lazy } from "react";
 import { Row, Col } from "antd";
 import { withTranslation } from "react-i18next";
@@ -23,6 +25,7 @@ const MiddleBlock = ({ title, content, button, t }) => {
             <Col lg={24} md={24} sm={24} xs={24}>
               <h6>{t(title)}</h6>
               <S.Content>{t(content)}</S.Content>
+<<<<<<< Updated upstream
               {button ? (
                 <Button
                   name="submit"
@@ -34,6 +37,11 @@ const MiddleBlock = ({ title, content, button, t }) => {
               ) : (
                 ""
               )}
+=======
+                <React.StrictMode>
+                  <LinkedInPageApp />
+                </React.StrictMode>
+>>>>>>> Stashed changes
             </Col>
           </S.ContentWrapper>
         </Fade>

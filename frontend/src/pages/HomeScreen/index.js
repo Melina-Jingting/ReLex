@@ -1,6 +1,9 @@
 // import { lazy } from "react";
 import React from "react";
 
+import ReactDOM from 'react-dom';
+import App from "../../components/LinkedInPageApp";
+
 import IntroContent from "../../content/IntroContent.json";
 import SearchContent from "../../content/SearchContent.json";
 import RecommendationsContent from "../../content/RecommendationsContent.json";
@@ -19,14 +22,13 @@ import LandingPageHeader from "../../components/LandingPage/LandingPageHeader";
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-// import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
-// import LinkedInPage from '../LinkedInPage';
-
 // const ContactFrom = lazy(() => import("../components/ContactForm"));
 // const ContentBlock = lazy(() => import("../components/ContentBlock"));
 // const MiddleBlock = lazy(() => import("../components/MiddleBlock"));
 // const Container = lazy(() => import("../common/Container"));
 // const ScrollToTop = lazy(() => import("../common/ScrollToTop"));
+
+
 
 const HomeScreen = () => {
   return (
@@ -37,9 +39,7 @@ const HomeScreen = () => {
         title={IntroContent.title}
         content={IntroContent.text}
 
-        button={IntroContent.button} // this component is the linkedin button
       />
-        
       <ContentBlock
         type="right"
         first="true"
