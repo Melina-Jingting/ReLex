@@ -74,7 +74,7 @@ def getTree(request):
         .order_by()
         .annotate(min_id=Min('id'))
     ).values('min_id')
-    central_nodes = central_nodes.filter(id__in = unique_profile_filter)[:1000]
+    central_nodes = central_nodes.filter(id__in = unique_profile_filter)[:200]
 
     if central_node_type == "experience":
         if 'title' in central_node_query:

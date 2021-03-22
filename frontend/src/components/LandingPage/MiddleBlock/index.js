@@ -11,7 +11,7 @@ import * as S from "./styles";
 
 const MiddleBlock = ({ title, content, button, t }) => {
   const linkedinLogin = () => {
-    const url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&state=987654321&scope=r_liteprofile&client_id=78ioflr7umfzey&redirect_uri=http://localhost:8000/discover';
+    const url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&state=987654321&scope=r_liteprofile&client_id=78ioflr7umfzey&redirect_uri=http://127.0.0.1:8000/discover';
     window.open(url, '_blank');
   };
 

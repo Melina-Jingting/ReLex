@@ -43,6 +43,15 @@ npm ERR! File exists: C:\blahhh ...
 npm ERR! Remove the existing file and try again, or run npm
 npm ERR! with --force to overwrite files recklessly.
 
+### NPM Setup instructions
+cd into the frontend/ directory
+`npm install`
+`npm install --save-dev webpack`
+`npm run dev`
+
+
+
+
 Try the following command:
 `npm run dev --force`
 
