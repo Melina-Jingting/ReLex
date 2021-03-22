@@ -21,9 +21,9 @@ def getRoutes(request):
 
 @api_view(['GET', 'POST'])
 def getTree(request):
-    print(request.data)
     central_node_type = request.data.get('centralNodeType')
     central_node_query = request.data.get('centralNode')
+
     past_experiences = request.data.get('experienceFilters')
     educations = request.data.get('educationFilters')
 
@@ -82,6 +82,7 @@ def getTree(request):
             central_node_attributes = {key: val for key,
                                     val in central_node_query.items() if key != 'title'}
         else:
+            print(central_node_query)
             central_node_name = central_node_query['company_name']
             central_node_attributes = {key: val for key,
                         val in central_node_query.items() if key != 'company_name'}
