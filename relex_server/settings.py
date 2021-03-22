@@ -93,10 +93,10 @@ WSGI_APPLICATION = 'relex_server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Vicarious',
-        'USER': 'postgres',
-        'PASSWORD': 'password', # INSERT YOUR DB PASSWORD HERE
-        'HOST': 'localhost',
+        'NAME': 'vicarious',
+        'USER': 'melina',
+        'PASSWORD': 'kneedeepinthehoopla', # INSERT YOUR DB PASSWORD HERE
+        'HOST': 'database-2.cx9vzosvv6gr.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
