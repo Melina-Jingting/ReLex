@@ -56,6 +56,11 @@ If error states that wbpack is required, try:
 
 `npm install --save react-linkedin-login-oauth2`
 
+`npm install --save-dev react-linkedin-login-oauth2`
+
+`npm install --save file-loader url-loader`
+`npm install --save style-loader css-loader`
+
 Make sure you have the es2015 babel preset installed:
 `npm install babel-preset-es2015`
 
