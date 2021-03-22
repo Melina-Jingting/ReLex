@@ -13,6 +13,17 @@ class Profile(models.Model):
     scraped_at_ts = models.DateTimeField(default=None, blank=True, null=True)
     about = models.TextField()
 
+class Company(models.Model):
+    name = models.CharField(max_length=255)
+    website = models.URLField(null=True, blank=True)
+    size = models.TextField(null=True, blank=True)
+    company_type = models.CharField(max_length=255, null=True, blank=True)
+    revenue = models.CharField(max_length=255, null=True, blank=True)
+    headquarters = models.CharField(max_length=255, null=True, blank=True)
+    founded = models.DateField(null=True, blank=True)
+    industry = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    scraped = models.BooleanField(default=False)
 
 class Accomplishment(models.Model):
     profile = models.ForeignKey(Profile, default=-1, on_delete=models.CASCADE)
@@ -23,7 +34,7 @@ class Accomplishment(models.Model):
 class Certification(models.Model):
     profile = models.ForeignKey(Profile, default=-1, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    url = models.URLField(null=True, blank=True)
+    url = models.TextField(null=True, blank=True)
     issuing_authority = models.CharField(max_length=255, null=True, blank=True)
     issued_date = models.DateField(null=True, blank=True)
     expiry_date = models.DateField(null=True, blank=True)
@@ -44,7 +55,8 @@ class Education(models.Model):
 
 class Experience(models.Model):
     profile = models.ForeignKey(Profile, default=-1, on_delete=models.CASCADE)
-    company = models.CharField(max_length=255)
+    company = models.ForeignKey(Company, default=7, on_delete=models.CASCADE)
+    company_name = models.CharField(max_length=255)
     from_date = models.DateField(null=True, blank=True)
     to_date = models.DateField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
@@ -53,6 +65,8 @@ class Experience(models.Model):
     location = models.CharField(max_length=255, null=True, blank=True)
     level = models.IntegerField(default=0)
     currently_here = models.BooleanField(default=False)
+    profile = models.ForeignKey(Profile, default=-1, on_delete=models.CASCADE)
+
 
 
 class Interest(models.Model):
@@ -83,19 +97,8 @@ class Volunteer_experience(models.Model):
     duration = models.DurationField(null=True, blank=True)
     cause = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    level = models.IntegerField(default=0)
+    currently_here = models.BooleanField(null=True, blank=True)
 
-
-class Company(models.Model):
-    name = models.CharField(max_length=255)
-    website = models.URLField(null=True, blank=True)
-    size = models.TextField(null=True, blank=True)
-    company_type = models.CharField(max_length=255, null=True, blank=True)
-    revenue = models.CharField(max_length=255, null=True, blank=True)
-    headquarters = models.CharField(max_length=255, null=True, blank=True)
-    founded = models.DateField(null=True, blank=True)
-    industry = models.CharField(max_length=255, null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
 
 class Competitors(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='company')
@@ -137,4 +140,6 @@ class Salary(models.Model):
     based_on = models.IntegerField(null=True, blank=True)
     location = models.CharField(max_length=255, null=True, blank=True)
 
-
+class Specialty(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)

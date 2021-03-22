@@ -133,6 +133,12 @@ const Styles = createGlobalStyle`
     stroke: #C2B280;
     }
 
+    
+    /* Filter Form */
+    .filter-form {
+        width:330px !important;
+    }
+
 `;
 
 export default Styles;
