@@ -102,37 +102,51 @@ const Styles = createGlobalStyle`
     }
 
     /* Node */
-    .rd3t-node {
+    .rd3t-node-central-node {
+        cursor: pointer;
+        fill: #76D7C4;
+    }
+
+    .rd3t-node-industry {
     cursor: pointer;
-    fill: #93C572;
+    fill: #76D7C4;
     stroke-width: 2;
     }
 
-    .rd3t-leaf-node {
-    cursor: pointer;
-    fill: #93C572 ;
-    stroke-width: 2;
+    .rd3t-node-experience {
+        cursor: pointer;
+        fill: #3498DB;
+        stroke-width: 2;
+    }
+
+    .rd3t-node-education {
+        cursor: pointer;
+        fill: #9B59B6;
+        stroke-width: 2;
     }
 
     .rd3t-label__title {
-    stroke: #000;
+    fill: #000;
     stroke-width: 1;
     font-size: smaller;
     }
 
-    .rd3t-label__attributes {
-    stroke: #777;
-    stroke-width: 1;
+    .rd3t-label__subtitle {
+    fill: #777;
     font-size: smaller;
     }
+
+    .rd3t-label__percentage {
+        fill: #FFFFFF;
+        font-size: smaller;
+        }
 
     /* Link */
     .rd3t-link {
     fill: none;
-    stroke-width: 3;
-    stroke: #C2B280;
+    stroke-width: 1;
+    stroke: #D7DBDD;
     }
-
     
     /* Filter Form */
     .filter-form {

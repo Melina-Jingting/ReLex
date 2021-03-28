@@ -5,7 +5,7 @@ import { zoom as d3zoom, zoomIdentity } from "d3-zoom";
 import { dequal as deepEqual } from "dequal/lite";
 import clone from "clone";
 import { v4 as uuidv4 } from "uuid";
-
+import axios from "axios";
 import TransitionGroupWrapper from "./TransitionGroupWrapper";
 import Node from "../Node";
 import Link from "../Link";
@@ -206,7 +206,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
     const d = Array.isArray(data) ? data : [data];
     return d.map((n) => {
       const nodeDatum = n as TreeNodeDatum;
-      nodeDatum.__rd3t = { id: null, depth: null, collapsed: false };
+      nodeDatum.__rd3t = { id: null, depth: null, collapsed: false, loadedChildren: false };
       nodeDatum.__rd3t.id = uuidv4();
       // D3@v5 compat: manually assign `depth` to node.data so we don't have
       // to hold full node+link sets in state.
@@ -312,8 +312,10 @@ class Tree extends React.Component<TreeProps, TreeState> {
    */
   handleNodeToggle = (nodeId: string) => {
     const leftData = clone(this.state.leftData);
+    const rightData = clone(this.state.rightData);
 
-    const matches = this.findNodesById(nodeId, leftData, []);
+    var matches = this.findNodesById(nodeId, leftData, []);
+    matches = matches.concat(this.findNodesById(nodeId, rightData, []);)
     const targetNodeDatum = matches[0];
 
     if (this.props.collapsible && !this.state.isTransitioning) {
@@ -324,36 +326,52 @@ class Tree extends React.Component<TreeProps, TreeState> {
       } else {
         Tree.collapseNode(targetNodeDatum);
       }
-
-      if (this.props.enableLegacyTransitions) {
-        // Lock node toggling while transition takes place.
-        this.setState({ leftData, isTransitioning: true });
-        // Await transitionDuration + 10 ms before unlocking node toggling again.
-        setTimeout(
-          () => this.setState({ isTransitioning: false }),
-          this.props.transitionDuration + 10
-        );
-      } else {
-        this.setState({ leftData });
-      }
-
-      this.internalState.targetNode = targetNodeDatum;
+      this.setState({rightData:rightData, leftData:leftData});
     }
   };
 
   /**
    * Handles the user-defined `onNodeClick` function.
    */
-  handleOnNodeClickCb = (nodeId: string, evt: SyntheticEvent) => {
-    const { onNodeClick } = this.props;
-    if (onNodeClick && typeof onNodeClick === "function") {
-      const leftData = clone(this.state.leftData);
-      const matches = this.findNodesById(nodeId, leftData, []);
-      const targetNode = matches[0];
-      // Persist the SyntheticEvent for downstream handling by users.
-      evt.persist();
-      onNodeClick(clone(targetNode), evt);
+  handleOnNodeClickCb = async (nodeId: string, evt: SyntheticEvent) => {
+    const leftData = clone(this.state.leftData);
+    const rightData = clone(this.state.rightData);
+    let matches = this.findNodesById(nodeId, leftData, []);
+    let direction;
+    if (matches.length == 0){
+      direction = 'right';
+      matches = this.findNodesById(nodeId, rightData, [])
+    }else{direction='left';}
+    
+    const targetNode = matches[0];
+    // Persist the SyntheticEvent for downstream handling by users.
+    evt.persist();
+    let requestParams;
+    let requestType;
+    if (evt.target.classList.contains('rd3t-circle-industry') && targetNode.__rd3t.loadedChildren == false){
+      requestParams = { totalProfiles:this.state.leftData[0].amount,
+                              experienceIDs:targetNode.experiences_list,
+                              }
+      requestType = 'company';
     }
+    else if (evt.target.classList.contains('rd3t-circle-company') && targetNode.__rd3t.loadedChildren == false){
+      requestParams = {centralNodeType:this.state.leftData[0].type.split("-")[this.state.leftData[0].type.split("-").length-1], 
+                              centralNodeTitle:this.state.leftData[0].title, 
+                              centralNodeSubtitle:this.state.leftData[0].subtitle,
+                              profileIDs:targetNode.profiles_list,
+                              direction:direction
+                              }
+      requestType = 'path';
+    }
+    console.log(requestParams);
+    const { data } = await axios.post(
+      `http://127.0.0.1:8000/api/tree/${requestType}`,
+      requestParams
+    );
+    const childrenData = Tree.assignInternalProperties(data);
+    targetNode.children = childrenData;
+    targetNode.__rd3t.loadedChildren = true;
+    this.setState({rightData:rightData, leftData:leftData});
   };
 
   /**
@@ -468,7 +486,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
       )
     );
     let nodes = leftRootNode.descendants();
-    const links = leftRootNode.links();
+    let links = leftRootNode.links();
     nodes.forEach((node) => {
       node.y = -node.y;
     });
@@ -479,8 +497,12 @@ class Tree extends React.Component<TreeProps, TreeState> {
         d.__rd3t.collapsed ? null : d.children
       )
     );
-    nodes = nodes.concat(rightRootNode.descendants());
+    nodes = nodes.concat(rightRootNode.descendants().slice(1));
     links = links.concat(rightRootNode.links());
+
+    nodes.forEach((node) => {
+      node.x = node.x * 1.5;
+    });
 
 
     // Configure nodes' `collapsed` property on first render if `initialDepth` is defined.

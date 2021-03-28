@@ -20,6 +20,7 @@ export interface TreeNodeDatum extends RawNodeDatum {
     id: string;
     depth: number;
     collapsed: boolean;
+    loadedChildren: boolean;
   };
 }
 

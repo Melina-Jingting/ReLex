@@ -3,18 +3,23 @@ import { CustomNodeElementProps, SyntheticEventHandler } from "../types/common";
 import { select } from "d3-selection";
 import * as d3 from d3;
 import ts from "typescript";
+import { node } from "webpack";
 
-const DEFAULT_NODE_CIRCLE_RADIUS = 15;
+const DEFAULT_NODE_CIRCLE_RADIUS = 25;
 
 const textLayout = {
   title: {
     textAnchor: "middle",
-    y: 10,
+    y: 20,
   },
   attribute: {
     y: 25,
     dy: "1.2em",
   },
+  amount:{
+    textAnchor: "middle",
+    y:6,
+  }
 };
 
 export interface DefaultNodeElementProps extends CustomNodeElementProps {
@@ -31,36 +36,35 @@ const DefaultNodeElement: React.FunctionComponent<DefaultNodeElementProps> = ({
   onNodeMouseOut,
 }) => {
 
-  if nodeDatum.attributes.hasOwnProperty('university'){
-    const institution = nodeDatum.attributes.university;
-  } else{
-    const institution = nodeDatum.attributes.company_name;
-  }
+  if nodeDatum.hasOwnProperty('attributes'){
+    if nodeDatum.attributes.hasOwnProperty('university'){
+      const institution = nodeDatum.attributes.university;
+    } else{
+      const institution = nodeDatum.attributes.company_name;
+    }
+}
 
-  const generateSubtitles = (institution) => {
-    console.log("PRINTING INSTITUTION");
-    console.log(institution);
-    if(institution.match(/.{1,17}(\s|$)/g) != null){
-      return(institution.match(/.{1,17}(\s|$)/g).map((word) => (
-        <tspan className="rd3t-label__attributes" dy="1.2em" x={0}>{word}</tspan>
-      )))
+  const generateSubtitles = (subtitle) => {
+    if(subtitle != null){
+      if (subtitle.match(/.{1,20}(\s|$)/g) != null){
+      return(subtitle.match(/.{1,20}(\s|$)/g).map((word) => (
+        <tspan className="rd3t-label__subtitle" dy="1.2em" x={0}>{word}</tspan>
+      )))}
     } else return null;
   };
 
-  const generateTitles = (name) => {
-    if(name.match(/.{1,17}(\s|$)/g) != null){
-      return(name.match(/.{1,17}(\s|$)/g).map((word) => (
+  const generateTitles = (title) => {
+    if(title != null){
+      if (title.match(/.{1,20}(\s|$)/g) != null){
+      return(title.match(/.{1,20}(\s|$)/g).map((word) => (
         <tspan className="rd3t-label__title" dy="1.2em" x={0}>{word}</tspan>
-      )))
+      )))}
     } else return null;
-    
   }
-  
-
-  
   return (
     <>
       <circle
+      className=`rd3t-circle-${nodeDatum.type}`
         r={DEFAULT_NODE_CIRCLE_RADIUS}
         onClick={(evt) => {
           toggleNode();
@@ -70,9 +74,12 @@ const DefaultNodeElement: React.FunctionComponent<DefaultNodeElementProps> = ({
         onMouseOut={onNodeMouseOut}
       ></circle>
       <g className="rd3t-label">
+        <text className="rd3t-label__percentage" {...textLayout.amount}>
+          {nodeDatum.amount}
+        </text>
         <text className="rd3t-label__title" {...textLayout.title}>
-          {generateTitles(nodeDatum.name)}
-          {generateSubtitles(institution)}
+          {generateTitles(nodeDatum.title)}
+          {generateSubtitles(nodeDatum.subtitle)}
         </text>
         {/* <text className="rd3t-label__attributes">
         {institution.match(/.{1,17}(\s|$)/g).map((word) => (

@@ -6,13 +6,11 @@ import { useTheme, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
-import Grid from "@material-ui/core/Grid";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import List from "@material-ui/core/List";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
+
 import {
   Form,
   Button,
@@ -121,14 +119,20 @@ const DiscoverScreen = () => {
     "centralNodeExperience"
   );
 
+  // const onNodeClick = (node, event)=>{
+  //   console.log(event)
+  // }
+
   useEffect(() => {
     async function fetchTree() {
       console.log(filters);
       const { data } = await axios.post(
-        `http://127.0.0.1:8000/api/tree`, filters
+        `http://127.0.0.1:8000/api/tree`,
+        filters
       );
       setLeftData(data["left"]);
       setRightData(data["right"]);
+      console.log(data);
       setLoading(false);
     }
     fetchTree();
@@ -248,15 +252,6 @@ const DiscoverScreen = () => {
     <Fragment>
       <Header />
       <React.Fragment key="top">
-        <Container class="justify-flex-end">
-          <Button
-            variant="secondary"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-          >
-            <FilterListIcon />
-          </Button>
-        </Container>
         <Drawer variant="persistent" anchor="left" open={open}>
           <Container fixed>
             <Row>
@@ -309,15 +304,33 @@ const DiscoverScreen = () => {
         </Drawer>
       </React.Fragment>
 
-      {!isLoading && (
-        <div id="treeWrapper" style={{ width: "100%", height: "100%" }}>
+      <div
+        id="treeWrapper"
+        class="discovery-background"
+        style={{
+          width: "100%",
+          height: "100%",
+          background: "linear-gradient(rgba(250,0,0,0.5))",
+        }}
+      >
+        <Container className="py-3">
+          <Button
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+          >
+            <FilterListIcon />
+          </Button>
+        </Container>
+        {!isLoading && (
           <Tree
             leftData={leftData}
             rightData={rightData}
             translate={{ x: width / 2, y: height / 2 }}
+            // onNodeClick={onNodeClick}
+            // pathFunc="straight"
           />
-        </div>
-      )}
+        )}
+      </div>
     </Fragment>
   );
 };
