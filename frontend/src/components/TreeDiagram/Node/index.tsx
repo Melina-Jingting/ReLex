@@ -148,6 +148,7 @@ export default class Node extends React.Component<NodeProps, NodeState> {
     this.applyTransform(transform, transitionDuration, 0, done);
   }
 
+
   render() {
     const { data, nodeClassName } = this.props;
     return (
@@ -157,7 +158,7 @@ export default class Node extends React.Component<NodeProps, NodeState> {
           this.nodeRef = n;
         }}
         style={this.state.initialStyle}
-        className={[data.children ? 'rd3t-node' : 'rd3t-leaf-node', nodeClassName].join(' ').trim()}
+        className={[data.children ? `rd3t-node rd3t-node-${data.type}` : `rd3t-leaf-node rd3t-node-${data.type}`, nodeClassName].join(' ').trim()}
         transform={this.state.transform}
       >
         {this.renderNodeElement()}
