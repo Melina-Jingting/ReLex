@@ -124,7 +124,7 @@ var Tree = /** @class */ (function (_super) {
          * Handles the user-defined `onNodeClick` function.
          */
         _this.handleOnNodeClickCb = function (nodeId, evt) { return __awaiter(_this, void 0, void 0, function () {
-            var leftData, rightData, matches, direction, targetNode, requestParams, requestType, data, childrenData;
+            var leftData, rightData, matches, direction, targetNode, requestParams, requestType, onNodeClick, data, childrenData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -141,6 +141,7 @@ var Tree = /** @class */ (function (_super) {
                         targetNode = matches[0];
                         // Persist the SyntheticEvent for downstream handling by users.
                         evt.persist();
+                        onNodeClick = this.props.onNodeClick;
                         if (evt.target.classList.contains('rd3t-circle-industry') && targetNode.__rd3t.loadedChildren == false) {
                             requestParams = { totalProfiles: this.state.leftData[0].amount,
                                 experienceIDs: targetNode.experiences_list,
@@ -155,6 +156,11 @@ var Tree = /** @class */ (function (_super) {
                                 direction: direction
                             };
                             requestType = 'path';
+                        }
+                        else if (evt.target.classList.contains('rd3t-circle-central-node'))
+                            onNodeClick && typeof onNodeClick === "function";
+                        {
+                            onNodeClick(clone_1.default(targetNode), evt);
                         }
                         console.log(requestParams);
                         return [4 /*yield*/, axios_1.default.post("http://127.0.0.1:8000/api/tree/" + requestType, requestParams)];

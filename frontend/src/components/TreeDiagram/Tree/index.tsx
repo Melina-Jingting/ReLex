@@ -12,6 +12,11 @@ import Link from "../Link";
 import { TreeNodeDatum, Point, RawNodeDatum } from "../types/common";
 import { TreeLinkEventCallback, TreeProps } from "./types";
 
+// const TransitionGroupWrapper = lazy(() => import("./TransitionGroupWrapper"));
+// const Node = lazy(() => import("./Node"));
+// const Link = lazy(() => import("./Link"));
+
+
 type TreeState = {
   leftDataRef: TreeProps["leftData"];
   leftData: TreeNodeDatum[];
@@ -348,6 +353,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
     evt.persist();
     let requestParams;
     let requestType;
+    const { onNodeClick } = this.props;
     if (evt.target.classList.contains('rd3t-circle-industry') && targetNode.__rd3t.loadedChildren == false){
       requestParams = { totalProfiles:this.state.leftData[0].amount,
                               experienceIDs:targetNode.experiences_list,
@@ -362,6 +368,9 @@ class Tree extends React.Component<TreeProps, TreeState> {
                               direction:direction
                               }
       requestType = 'path';
+    }
+    else if (evt.target.classList.contains('rd3t-circle-central-node') onNodeClick && typeof onNodeClick === "function"){
+      onNodeClick(clone(targetNode),evt);
     }
     console.log(requestParams);
     const { data } = await axios.post(
