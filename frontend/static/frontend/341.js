@@ -1,0 +1,1 @@
+(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[341],{9341:e=>{"use strict";e.exports=JSON.parse('{"title":"Pay it forward","text":"Help others find out more about the job you held or are holding, by answering their queries. They might buy you a coffee, and you could choose to save it or let us donate it to partnering educational charities"}')}}]);
