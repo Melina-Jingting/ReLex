@@ -1,0 +1,173 @@
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
+  /* The image used */
+  background-image: url("/static/CA2 Brochure-page-001.jpg");
+
+  /* Full height */
+  height: 350%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+position: relative;
+width: 100%;
+max-width: 10000px;
+}
+
+.container .registration-btn {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -2550%);
+-ms-transform: translate(-50%, -50%);
+background-color: black;
+color: white;
+font-size: 18px;
+padding: 14px 28px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+text-align: center;
+}
+
+.container .registration-btn:hover {
+background-color: #555;
+}
+
+.container input[type=text] {
+/* width: 100%; */
+/* padding: 15px; */
+/* margin: 5px 0 22px 0; */
+background: #f1f1f1;
+
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, 2550%);
+-ms-transform: translate(-50%, -50%);
+font-size: 18px;
+padding: 14px 28px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+text-align: left;
+}
+.container input[type=password] {
+/* width: 100%; */
+/* padding: 15px; */
+/* margin: 5px 0 22px 0; */
+background: #f1f1f1;
+
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, 2700%);
+-ms-transform: translate(-50%, -50%);
+font-size: 18px;
+padding: 14px 28px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+text-align: left;
+}
+
+.container .sign-up-btn {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, 2850%);
+-ms-transform: translate(-50%, -50%);
+background-color: #0062ff;
+color: white;
+font-size: 18px;
+padding: 14px 28px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+text-align: center;
+}
+
+.container .sign-up-btn:hover {
+background-color: #555;
+}
+
+/* Styling for Tree Diagram in Dashboard */
+.node {
+    cursor: pointer;
+  }
+
+.node circle {
+fill: #fff;
+stroke: steelblue;
+stroke-width: 3px;
+}
+
+.node text {
+font: 12px sans-serif;
+}
+
+.link {
+fill: none;
+stroke: #ccc;
+stroke-width: 2px;
+}
+
+#myInput {
+    background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+  }
+  
+  #myTable {
+    border-collapse: collapse; /* Collapse borders */
+    width: 100%; /* Full-width */
+    border: 1px solid #ddd; /* Add a grey border */
+    font-size: 18px; /* Increase font-size */
+  }
+  
+  #myTable th, #myTable td {
+    text-align: left; /* Left-align text */
+    padding: 12px; /* Add padding */
+  }
+  
+  #myTable tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #myTable tr.header, #myTable tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
+  }
+
+/* FOR TABLE IN DASHBOARD */
+
+.hiddenRow {
+    padding: 0 !important;
+}
+.element {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: #ce8888;
+  
+  }
+
+
+.close-icon {
+  cursor: pointer;
+}

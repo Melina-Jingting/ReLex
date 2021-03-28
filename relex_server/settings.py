@@ -26,7 +26,7 @@ SECRET_KEY = 'mh2^8g5!^*px#*^4ugmwc(6hg5kwtv06w1)+s_&ybjem##je(5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'lookup-demo.herokuapp.com']
 
 
 # Application definition
@@ -51,6 +51,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -95,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'vicarious',
         'USER': 'melina',
-        'PASSWORD': 'kneedeepinthehoopla', # INSERT YOUR DB PASSWORD HERE
+        'PASSWORD': os.environ.get('DB_PASS'), # INSERT YOUR DB PASSWORD HERE
         'HOST': 'database-2.cx9vzosvv6gr.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
@@ -143,6 +144,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Specify where to redirect the user upon a successful login / logout.
@@ -158,3 +161,6 @@ EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 # For File Upload Functionality
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+if os.getcwd() == '/app':
+    DEBUG = False
