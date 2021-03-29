@@ -1,1 +1,1 @@
-web: gunicorn relex_server.wsgi --log-file-
+web: gunicorn relex_server.wsgi --log-file -
