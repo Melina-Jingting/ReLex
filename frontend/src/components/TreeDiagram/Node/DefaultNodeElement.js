@@ -79,7 +79,6 @@ var DefaultNodeElement = function (_a) {
               </text> */}
       </g>);
 };
- >
 ;
 ;
 ;
