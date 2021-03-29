@@ -127,7 +127,7 @@ const DiscoverScreen = () => {
     async function fetchTree() {
       console.log(filters);
       const { data } = await axios.post(
-        `http://127.0.0.1:8000/api/tree`,
+        `https://lookup-demo.herokuapp.com/api/tree`,
         filters
       );
       setLeftData(data["left"]);
