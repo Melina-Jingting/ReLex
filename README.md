@@ -50,6 +50,13 @@ cd into the frontend/ directory
 `npm run dev`
 
 
+### Collect static file
+`python manage.py collectstatic`
+
+cd into the frontend/ directory
+`npm install`
+
+
 
 
 Try the following command:
