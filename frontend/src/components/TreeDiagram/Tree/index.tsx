@@ -369,7 +369,7 @@ class Tree extends React.Component<TreeProps, TreeState> {
                               }
       requestType = 'path';
     }
-    else if (evt.target.classList.contains('rd3t-circle-central-node') onNodeClick && typeof onNodeClick === "function"){
+    else if (evt.target.classList.contains('rd3t-circle-central-node') && onNodeClick && typeof onNodeClick === "function"){
       onNodeClick(clone(targetNode),evt);
     }
     console.log(requestParams);
