@@ -60,10 +60,6 @@ const DiscoverScreen = () => {
           placeholder: "School",
         },
         {
-          name: "degree",
-          placeholder: "Degree",
-        },
-        {
           name: "field",
           placeholder: "Field",
         },
@@ -90,10 +86,6 @@ const DiscoverScreen = () => {
         {
           name: "university",
           placeholder: "School",
-        },
-        {
-          name: "degree",
-          placeholder: "Degree",
         },
         {
           name: "field",

@@ -65,14 +65,16 @@ const Header = ({ t }) => {
 
           {/* <S.LogoContainer to="/" aria-label="homepage">
           </S.LogoContainer> */}
-          <Col>Vicarious</Col>
-          <Col justify="flex-row-reverse" xs={8}>
-            <S.NotHidden>
-              <MenuItem />
-            </S.NotHidden>
-            <S.Burger onClick={showDrawer}>
-              <S.Outline />
-            </S.Burger>
+          <Col><h1>LookUp</h1></Col>
+          <Col>
+            <div className="float-right">
+              <S.NotHidden>
+                <MenuItem />
+              </S.NotHidden>
+              <S.Burger onClick={showDrawer}>
+                <S.Outline />
+              </S.Burger>
+            </div>
           </Col>
         </Row>
         <CSSTransition

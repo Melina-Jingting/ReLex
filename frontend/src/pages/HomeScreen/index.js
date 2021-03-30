@@ -7,12 +7,10 @@ import RecommendationsContent from "../../content/RecommendationsContent.json";
 import PlanContent from "../../content/PlanContent.json";
 import ReceiveAdviceContent from "../../content/ReceiveAdviceContent.json";
 import GiveAdviceContent from "../../content/GiveAdviceContent.json";
-import ContactContent from "../../content/ContactContent.json";
 
 import Container from "../../common/Container";
 import ScrollToTop from "../../common/ScrollToTop";
 import MiddleBlock from "../../components/LandingPage/MiddleBlock";
-import ContactForm from "../../components/LandingPage/ContactForm";
 import ContentBlock from "../../components/LandingPage/ContentBlock";
 import LandingPageHeader from "../../components/LandingPage/LandingPageHeader";
 
@@ -82,11 +80,6 @@ const HomeScreen = () => {
         id="product"
       />
 
-      {/* <ContactForm
-        title={ContactContent.title}
-        content={ContactContent.text}
-        id="contact"
-      /> */}
     </Container>
   );
 };
