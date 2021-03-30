@@ -39,6 +39,7 @@ def get_industries_count(central_node_type, profile_id_tuple, direction, central
                     {central_node_query}
                 GROUP BY c.industry
                 ORDER BY amount DESC
+                LIMIT 10
     """.format(number_of_profiles=number_of_profiles,
                 central_node_type=central_node_type, 
                 profile_id_tuple=profile_id_tuple,
@@ -64,6 +65,7 @@ def get_companies_count(experience_id_tuple, total_profiles):
                 AND ex.id IN {experience_id_tuple}
                 GROUP BY ex.company_name
                 ORDER BY amount DESC
+                LIMIT 10
     """.format(total_profiles=total_profiles, experience_id_tuple=experience_id_tuple)
     with connection.cursor() as cursor:
         cursor.execute(query)
