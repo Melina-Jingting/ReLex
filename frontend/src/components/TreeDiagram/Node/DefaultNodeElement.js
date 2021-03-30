@@ -1,7 +1,7 @@
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
 var DEFAULT_NODE_CIRCLE_RADIUS = 25;
@@ -48,17 +48,11 @@ var DefaultNodeElement = function (_a) {
             return null;
     };
     return (<>
-      <circle className/>nodeDatum.type}`
-        r={DEFAULT_NODE_CIRCLE_RADIUS}
-        onClick={function (evt) {
-            toggleNode();
-            onNodeClick(evt);
-        }}
-        onMouseOver={onNodeMouseOver}
-        onMouseOut={onNodeMouseOut}
-      ></>
-        ,
-            <g className="rd3t-label">
+      <circle className={"rd3t-circle-" + nodeDatum.type} r={DEFAULT_NODE_CIRCLE_RADIUS} onClick={function (evt) {
+        toggleNode();
+        onNodeClick(evt);
+    }} onMouseOver={onNodeMouseOver} onMouseOut={onNodeMouseOut}></circle>
+      <g className="rd3t-label">
         <text className="rd3t-label__percentage" {...textLayout.amount}>
           {nodeDatum.amount}
         </text>
@@ -66,20 +60,8 @@ var DefaultNodeElement = function (_a) {
           {generateTitles(nodeDatum.title)}
           {generateSubtitles(nodeDatum.subtitle)}
         </text>
-        {/* <text className="rd3t-label__attributes">
-                {institution.match(/.{1,17}(\s|$)/g).map((word) => (
-                    <tspan dy="1.2em" x={0}>{word}</tspan>
-                  ))}
-                {nodeDatum.attributes &&
-                  Object.entries(nodeDatum.attributes).map(([labelKey, labelValue], i) => (
-                    <tspan key={`${labelKey}-${i}`} {...textLayout.attribute}>
-                      {labelKey}: {labelValue}
-                    </tspan>
-                  ))}
-              </text> */}
-      </g>);
+        
+      </g>
+    </>);
 };
-;
-;
-;
 exports.default = DefaultNodeElement;

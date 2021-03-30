@@ -1,14 +1,9 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -16,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
 var d3_selection_1 = require("d3-selection");
@@ -92,7 +87,6 @@ var Node = /** @class */ (function (_super) {
         if (done === void 0) { done = function () { }; }
         if (this.props.enableLegacyTransitions) {
             d3_selection_1.select(this.nodeRef)
-                // @ts-ignore
                 .transition()
                 .duration(transitionDuration)
                 .attr('transform', transform)
@@ -120,8 +114,8 @@ var Node = /** @class */ (function (_super) {
         var _this = this;
         var _a = this.props, data = _a.data, nodeClassName = _a.nodeClassName;
         return (<g id={data.__rd3t.id} ref={function (n) {
-                _this.nodeRef = n;
-            }} style={this.state.initialStyle} className={[data.children ? "rd3t-node rd3t-node-" + data.type : "rd3t-leaf-node rd3t-node-" + data.type, nodeClassName].join(' ').trim()} transform={this.state.transform}>
+            _this.nodeRef = n;
+        }} style={this.state.initialStyle} className={[data.children ? "rd3t-node rd3t-node-" + data.type : "rd3t-leaf-node rd3t-node-" + data.type, nodeClassName].join(' ').trim()} transform={this.state.transform}>
         {this.renderNodeElement()}
       </g>);
     };

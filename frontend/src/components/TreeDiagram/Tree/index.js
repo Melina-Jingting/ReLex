@@ -1,36 +1,27 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -41,8 +32,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
             switch (op[0]) {
                 case 0: case 1: t = op; break;
                 case 4: _.label++; return { value: op[1], done: false };
@@ -66,15 +57,13 @@ var __rest = (this && this.__rest) || function (s, e) {
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
         t[p] = s[p];
     if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
     return t;
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
 var d3_hierarchy_1 = require("d3-hierarchy");
@@ -342,7 +331,6 @@ var Tree = /** @class */ (function (_super) {
             svg.call(d3_zoom_1.zoom().transform, d3_zoom_1.zoomIdentity.translate(translate.x, translate.y).scale(zoom));
             svg.call(d3_zoom_1.zoom()
                 .scaleExtent([scaleExtent.min, scaleExtent.max])
-                // TODO: break this out into a separate zoom handler fn, rather than inlining it.
                 .on("zoom", function () {
                 g.attr("transform", d3_selection_1.event.transform);
                 if (typeof onUpdate === "function") {
@@ -528,19 +516,19 @@ var Tree = /** @class */ (function (_super) {
         var _a = this.generateTree(), nodes = _a.nodes, links = _a.links;
         var _b = this.props, renderCustomNodeElement = _b.renderCustomNodeElement, orientation = _b.orientation, pathFunc = _b.pathFunc, transitionDuration = _b.transitionDuration, zoomable = _b.zoomable, nodeSize = _b.nodeSize, depthFactor = _b.depthFactor, initialDepth = _b.initialDepth, separation = _b.separation, enableLegacyTransitions = _b.enableLegacyTransitions, svgClassName = _b.svgClassName, pathClassFunc = _b.pathClassFunc;
         var _c = this.state.d3, translate = _c.translate, scale = _c.scale;
-        var subscriptions = __assign(__assign(__assign({}, nodeSize), separation), { depthFactor: depthFactor,
+        var subscriptions = __assign({}, nodeSize, separation, { depthFactor: depthFactor,
             initialDepth: initialDepth });
         return (<div className={"rd3t-tree-container " + (zoomable ? "rd3t-grabbable" : undefined)}>
         <svg className={"rd3t-svg " + this.svgInstanceRef + " " + svgClassName} width="100%" height="100%">
           <TransitionGroupWrapper_1.default enableLegacyTransitions={enableLegacyTransitions} component="g" className={"rd3t-g " + this.gInstanceRef} transform={"translate(" + translate.x + "," + translate.y + ") scale(" + scale + ")"}>
             {links.map(function (linkData, i) {
-                return (<Link_1.default direction={_this.direction} key={"link-" + i} orientation={orientation} pathFunc={pathFunc} pathClassFunc={pathClassFunc} linkData={linkData} onClick={_this.handleOnLinkClickCb} onMouseOver={_this.handleOnLinkMouseOverCb} onMouseOut={_this.handleOnLinkMouseOutCb} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration}/>);
-            })}
+            return (<Link_1.default direction={_this.direction} key={"link-" + i} orientation={orientation} pathFunc={pathFunc} pathClassFunc={pathClassFunc} linkData={linkData} onClick={_this.handleOnLinkClickCb} onMouseOver={_this.handleOnLinkMouseOverCb} onMouseOut={_this.handleOnLinkMouseOutCb} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration}/>);
+        })}
 
             {nodes.map(function (_a, i) {
-                var data = _a.data, x = _a.x, y = _a.y, parent = _a.parent, rest = __rest(_a, ["data", "x", "y", "parent"]);
-                return (<Node_1.default key={"node-" + i} data={data} position={{ x: x, y: y }} parent={parent} nodeClassName={_this.getNodeClassName(parent, data)} renderCustomNodeElement={renderCustomNodeElement} nodeSize={nodeSize} orientation={orientation} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration} onNodeToggle={_this.handleNodeToggle} onNodeClick={_this.handleOnNodeClickCb} onNodeMouseOver={_this.handleOnNodeMouseOverCb} onNodeMouseOut={_this.handleOnNodeMouseOutCb} subscriptions={subscriptions}/>);
-            })}
+            var data = _a.data, x = _a.x, y = _a.y, parent = _a.parent, rest = __rest(_a, ["data", "x", "y", "parent"]);
+            return (<Node_1.default key={"node-" + i} data={data} position={{ x: x, y: y }} parent={parent} nodeClassName={_this.getNodeClassName(parent, data)} renderCustomNodeElement={renderCustomNodeElement} nodeSize={nodeSize} orientation={orientation} enableLegacyTransitions={enableLegacyTransitions} transitionDuration={transitionDuration} onNodeToggle={_this.handleNodeToggle} onNodeClick={_this.handleOnNodeClickCb} onNodeMouseOver={_this.handleOnNodeMouseOverCb} onNodeMouseOut={_this.handleOnNodeMouseOutCb} subscriptions={subscriptions}/>);
+        })}
           </TransitionGroupWrapper_1.default>
         </svg>
       </div>);
