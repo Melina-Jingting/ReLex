@@ -113,17 +113,24 @@ const Styles = createGlobalStyle`
     stroke-width: 2;
     }
 
+    .rd3t-node-company {
+        cursor: pointer;
+        fill: #76D7C4;
+        stroke-width: 2;
+    }
+
     .rd3t-node-experience {
         cursor: pointer;
-        fill: #3498DB;
+        fill: #A9CCE3 ;
         stroke-width: 2;
     }
 
     .rd3t-node-education {
         cursor: pointer;
-        fill: #9B59B6;
+        fill: #D2B4DE;
         stroke-width: 2;
     }
+
 
     .rd3t-label__title {
     fill: #000;

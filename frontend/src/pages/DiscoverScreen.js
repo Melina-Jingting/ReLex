@@ -326,7 +326,7 @@ const DiscoverScreen = () => {
             leftData={leftData}
             rightData={rightData}
             translate={{ x: width / 2, y: height / 2 }}
-            // onNodeClick={onNodeClick}
+            onNodeClick={handleDrawerOpen}
             // pathFunc="straight"
           />
         )}
