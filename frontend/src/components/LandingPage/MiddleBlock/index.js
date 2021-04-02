@@ -11,7 +11,7 @@ import * as S from "./styles";
 
 const MiddleBlock = ({ title, content, button, t }) => {
   const linkedinLogin = () => {
-    const url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&state=987654321&scope=r_liteprofile&client_id=78ioflr7umfzey&redirect_uri=https://lookup-demo.herokuapp.com/discover';
+    const url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&state=987654321&scope=r_liteprofile%20r_emailaddress&client_id=78ioflr7umfzey&redirect_uri=https%3A%2F%2F6fxspsdl46.execute-api.us-east-2.amazonaws.com%2Fdefault%2Flinkedinsocial';
     window.open(url, '_blank');
   };
 
