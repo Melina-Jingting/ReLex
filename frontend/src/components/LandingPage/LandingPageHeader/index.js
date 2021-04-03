@@ -27,12 +27,9 @@ const Header = ({ t }) => {
   };
 
   const MenuItem = () => {
-    const scrollTo = (id) => {
-      const element = document.getElementById(id);
-      element.scrollIntoView({
-        behavior: "smooth",
-      });
-      setVisibility(false);
+    const linkedinLogin = () => {
+      const url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&state=987654321&scope=r_liteprofile%20r_emailaddress&client_id=78ioflr7umfzey&redirect_uri=https%3A%2F%2F5sx1wjvswf.execute-api.us-east-2.amazonaws.com%2Fdefault%2Flinkedinsocial-mentor';
+      window.open(url, '_blank');
     };
     return (
       <Fragment>
@@ -47,10 +44,10 @@ const Header = ({ t }) => {
         </S.CustomNavLinkSmall> */}
         <S.CustomNavLinkSmall
           style={{ width: "180px" }}
-          onClick={() => scrollTo("contact")}
+          onClick={() => linkedinLogin("contact")}
         >
           <S.Span>
-            <Button>{t("Contact")}</Button>
+            <Button>{t("Sign up as mentor")}</Button>
           </S.Span>
         </S.CustomNavLinkSmall>
       </Fragment>
