@@ -160,6 +160,17 @@ const Styles = createGlobalStyle`
         width:330px !important;
     }
 
+    /*Filter Chips*/
+    .filter-chips-container {
+        display: flex;
+        justify-content: left;
+        flex-wrap:wrap;
+    }
+
+    .filter-chip {
+        margin: 5px !important;
+    }
+
 `;
 
 export default Styles;

@@ -124,7 +124,7 @@ var Tree = /** @class */ (function (_super) {
          * Handles the user-defined `onNodeClick` function.
          */
         _this.handleOnNodeClickCb = function (nodeId, evt) { return __awaiter(_this, void 0, void 0, function () {
-            var leftData, rightData, matches, direction, targetNode, requestParams, requestType, onNodeClick, data, childrenData;
+            var leftData, rightData, matches, direction, targetNode, requestParams, requestType, onNodeClick, baseURL, data, childrenData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -161,7 +161,8 @@ var Tree = /** @class */ (function (_super) {
                             onNodeClick(clone_1.default(targetNode), evt);
                         }
                         console.log(requestParams);
-                        return [4 /*yield*/, axios_1.default.post("https://lookup-demo.herokuapp.com/api/tree/" + requestType, requestParams)];
+                        baseURL = process.env.BASE_URL;
+                        return [4 /*yield*/, axios_1.default.post(baseURL + "api/tree/" + requestType, requestParams)];
                     case 1:
                         data = (_a.sent()).data;
                         childrenData = Tree.assignInternalProperties(data);

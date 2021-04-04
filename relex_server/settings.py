@@ -60,6 +60,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'relex_server.urls'
+BASE_URL = 'http://127.0.0.1:8000/'
 
 TEMPLATES = [
     {
@@ -95,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'vicarious',
         'USER': 'melina',
-        'PASSWORD': os.environ.get('DB_PASS'), # INSERT YOUR DB PASSWORD HERE
+        'PASSWORD': 'kneedeepinthehoopla', # INSERT YOUR DB PASSWORD HERE
         'HOST': 'database-2.cx9vzosvv6gr.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
