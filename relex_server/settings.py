@@ -61,6 +61,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'relex_server.urls'
+BASE_URL = 'http://127.0.0.1:8000/'
 
 TEMPLATES = [
     {

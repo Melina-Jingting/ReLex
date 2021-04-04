@@ -3,11 +3,17 @@ import { render } from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "../static/css/main.css";
 import Styles from "./globalStyles";
+// import HomeScreen from "../src/pages/HomeScreen";
+// import DashboardScreen from "../src/pages/DashboardScreen";
+// import SearchScreen from "../src/pages/SearchScreen";
+// import DiscoverScreen from "../src/pages/DiscoverScreen";
+
 
 const HomeScreen = lazy(() => import("../src/pages/HomeScreen"));
 const DashboardScreen = lazy(() => import("../src/pages/DashboardScreen"));
 const SearchScreen = lazy(() => import("../src/pages/SearchScreen"));
 const DiscoverScreen = lazy(() => import("../src/pages/DiscoverScreen"));
+const LoginScreen = lazy(() => import("../src/pages/LoginScreen"));
 
 export default class App extends Component {
   constructor(props) {
@@ -27,6 +33,7 @@ export default class App extends Component {
                   <Route path="/dashboard" component={DashboardScreen} />
                   <Route path="/search" component={SearchScreen} />
                   <Route path="/discover" component={DiscoverScreen} />
+                  <Route path="/login" component={LoginScreen} />
                 </Suspense>
               </Fragment>
             </main>

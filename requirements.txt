@@ -59,3 +59,4 @@ virtualenv-clone==0.5.4
 wasabi==0.8.2
 wcwidth==0.1.9
 whitenoise==5.2.0
+python-decouple==3.4

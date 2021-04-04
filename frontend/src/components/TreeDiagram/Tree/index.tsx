@@ -373,8 +373,9 @@ class Tree extends React.Component<TreeProps, TreeState> {
       onNodeClick(clone(targetNode),evt);
     }
     console.log(requestParams);
+    const baseURL = process.env.BASE_URL;
     const { data } = await axios.post(
-      `https://lookup-demo.herokuapp.com/api/tree/${requestType}`,
+      `${baseURL}api/tree/${requestType}`,
       requestParams
     );
     const childrenData = Tree.assignInternalProperties(data);
