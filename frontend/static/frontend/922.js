@@ -1,0 +1,1 @@
+(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[922],{93922:(e,n,t)=>{"use strict";t.r(n),t.d(n,{default:()=>r});var l=t(67294);const r=()=>l.createElement("div",null,"Login")}}]);

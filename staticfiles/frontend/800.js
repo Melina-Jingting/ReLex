@@ -1,1 +1,1 @@
-(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[800],{1800:(e,n,t)=>{"use strict";t.r(n),t.d(n,{default:()=>r});var a=t(7294);const r=()=>a.createElement("div",null,"Dashboard")}}]);
+(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[800],{61800:(e,n,t)=>{"use strict";t.r(n),t.d(n,{default:()=>r});var a=t(67294);const r=()=>a.createElement("div",null,"Dashboard")}}]);
