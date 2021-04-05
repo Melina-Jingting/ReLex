@@ -171,6 +171,14 @@ const Styles = createGlobalStyle`
         margin: 5px !important;
     }
 
+    .spinner {
+        display: block !important;
+        position: fixed !important;
+        top: 50% !important;
+        right: 50% !important; /* or: left: 50%; */
+        margin-top: -..px !important; /* half of the elements height */
+        margin-right: -..px !important; /* half of the elements widht */
+    }
 `;
 
 export default Styles;

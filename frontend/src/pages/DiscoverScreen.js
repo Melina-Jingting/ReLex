@@ -13,6 +13,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import {
   Form,
@@ -118,27 +119,24 @@ const DiscoverScreen = () => {
     "centralNodeExperience"
   );
 
-  // const onNodeClick = (node, event)=>{
-  //   console.log(event)
-  // }
-
   useEffect(() => {
+    setLoading(true);
     async function fetchTree() {
-      console.log(filters);
-      const baseURL = process.env.BASE_URL;
-      const { data } = await axios.post(`${baseURL}api/tree`, filters);
-      setLeftData(data["left"]);
-      setRightData(data["right"]);
-      console.log(data);
-      setLoading(false);
+      try{
+        const baseURL = process.env.BASE_URL;
+        const { data } = await axios.post(`${baseURL}api/tree`, filters);
+        setLeftData(data["left"]);
+        setRightData(data["right"]);
+        setLoading(false);
+      } catch (e) {
+        console.log(e)
+      }
     }
     fetchTree();
   }, [filters]);
-
   const dropdownHandleSelect = (event) => {
     setCurrentFormSection(event);
   };
-
   const checkIfObjectAdded = (object, array) => {
     let added = false;
     const keys = Object.keys(object);
@@ -157,7 +155,6 @@ const DiscoverScreen = () => {
     }
     return added;
   };
-
   const filterFormHandleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -201,7 +198,6 @@ const DiscoverScreen = () => {
     }
     handleDrawerClose();
   };
-
   const filterFormHandleChange = (event) => {
     setFormData({
       ...formData,
@@ -213,7 +209,6 @@ const DiscoverScreen = () => {
       },
     });
   };
-
   const filterForm = (formSection) => (
     <Container fixed className="px-3 pt-6 filter-form">
       <Typography class="p-3" variant="h5" noWrap>
@@ -239,55 +234,90 @@ const DiscoverScreen = () => {
     </Container>
   );
 
+  const objectToString = (object) => {
+    var output = "";
+    for (var property in object) {
+      if (object[property] !== "") {
+        if (output !== "") {
+          output += "  ,  ";
+        }
+        output += property + ": " + object[property];
+      }
+    }
+    return output;
+  };
   const filterChips = (filters) => {
     const filterIcons = {
       education: <SchoolIcon />,
       experience: <WorkIcon />,
     };
-
-    // if (filters.centralNodeType === "education"){
-    //     <Chip
-    //     className="filter-chip"
-    //     icon={<WorkIcon />}
-    //     color="#A9CCE3"
-    //     label="work"
-    //     onClick={handleChipClick}
-    //     onDelete={handleChipDelete}
-    //   />
-    if (JSON.stringify(filters.centralNode)!=='{}'){
-      return (
-        //Central Node
+    const additionalFilterChips = (filterSection,filterType) => (
+      filterSection.map((filter) => (
         <Chip
           className="filter-chip"
-          icon={filterIcons[filters.centralNodeType]}
-          label={JSON.stringify(filters.centralNode)}
+          icon={filterIcons[filterType]}
+          label={objectToString(filter)}
           onClick={handleChipClick}
           onDelete={handleChipDelete}
         />
-        
+      ))
+    );
+
+    if (JSON.stringify(filters.centralNode) !== "{}") {
+      return (
+        //Central Node
+        <Container>
+          <Chip
+            className="filter-chip"
+            icon={filterIcons[filters.centralNodeType]}
+            label={objectToString(filters.centralNode)}
+            onClick={handleChipClick}
+          />
+          {/* Education Filters */}
+          {additionalFilterChips(filters.educationFilters, "education")}
+          {/* Experience Filters */}
+          {additionalFilterChips(filters.experienceFilters, "experience")}
+        </Container>
       );
     }
     // else {
-    //   return 
+    //   return
     // }
-
-
   };
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const handleChipDelete = () => {
-    console.info("You clicked the delete icon.");
+  const handleChipDelete = (e) => {
+    const filterText = e.target.parentElement.parentElement.textContent
+    var educationFilters = [...filters.educationFilters]
+    var experienceFilters = [...filters.experienceFilters]
+    for (var i=0; i<filters.educationFilters.length; i++){
+      const filter = filters.educationFilters[i]
+      if (objectToString(filter) == filterText){
+        educationFilters.splice(i,1);
+      }
+    }
+    for (var i=0; i<filters.experienceFilters.length; i++){
+      const filter = filters.experienceFilters[i]
+      if (objectToString(filter) == filterText){
+        experienceFilters.splice(i,1);
+      }
+    }
+    setFilters({
+      ...filters,
+      ...{
+        educationFilters: educationFilters,
+        experienceFilters: experienceFilters
+      },
+    });
   };
-
   const handleChipClick = () => {
     console.info("You clicked the Chip.");
   };
+
   return (
     <Fragment>
       <Header />
@@ -371,6 +401,7 @@ const DiscoverScreen = () => {
             </Col>
           </Row>
         </Container>
+        <ClipLoader className="spinner" loading={isLoading} size={150} />
         {!isLoading && (
           <Tree
             leftData={leftData}
