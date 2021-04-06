@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import Tree from "../components/TreeDiagram/Tree";
 import Header from "../components/Header";
 import axios from "axios";
@@ -18,7 +18,15 @@ import Tab from "@material-ui/core/Tab";
 import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
-
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import JobSummary from "../components/JobSummary";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Slide from "@material-ui/core/Slide";
 import {
   Form,
   Button,
@@ -30,20 +38,21 @@ import {
 } from "react-bootstrap";
 import { Work } from "@material-ui/icons";
 import { Card } from "@material-ui/core";
+import BeforeJobSummary from "../components/BeforeJobSummary";
+import AfterJobSummary from "../components/AfterJobSummary";
 
 const DiscoverScreen = () => {
-  const [size, setSize] = useState([window.innerHeight, window.innerWidth]);
-  const [height, width] = size;
   const [isLoading, setLoading] = useState(true);
   const [leftData, setLeftData] = useState([]);
   const [rightData, setRightData] = useState([]);
-  const [centralNodeValues, setCentralNodeValues] = useState([]);
-  const [validated, setValidated] = useState(false);
+  const [centralNodeIDs, setCentralNodeIDs] = useState([]);
   const [tabIndex, setTabIndex] = React.useState("1");
-
+  const [treeTabHeight, setTreeTabHeight] = useState();
+  const [treeTabWidth, setTreeTabWidth] = useState();
   //variables for drawer
   const [open, setOpen] = useState(false);
-  const theme = useTheme();
+
+  const treeTabRef = useRef();
 
   //variables for formElement
   let filterFormFields = {
@@ -133,6 +142,7 @@ const DiscoverScreen = () => {
         const { data } = await axios.post(`${baseURL}api/tree`, filters);
         setLeftData(data["left"]);
         setRightData(data["right"]);
+        setCentralNodeIDs(data["central_node_ids"]);
         setLoading(false);
       } catch (e) {
         console.log(e);
@@ -140,6 +150,14 @@ const DiscoverScreen = () => {
     }
     fetchTree();
   }, [filters]);
+
+  useEffect(() => {
+    if (treeTabRef.current) {
+      setTreeTabHeight(treeTabRef.current.offsetHeight);
+      setTreeTabWidth(treeTabRef.current.offsetWidth);
+    }
+  }, [treeTabRef]);
+
   const dropdownHandleSelect = (event) => {
     setCurrentFormSection(event);
   };
@@ -326,6 +344,49 @@ const DiscoverScreen = () => {
     setTabIndex(newTabIndex);
   };
 
+  const handleDialogueOpen = (event) => {
+    setDialogueOpen(true);
+  };
+  const handleDialogueClose = (event) => {
+    setDialogueOpen(false);
+  };
+  const handleDialogueConnect = (event) => {
+    setDialogueTitle("We have received your request to connect");
+    setDialogueText(
+      "We will notify you by email when we find a match within 3 working days!"
+    );
+    setDialogueActions(
+      <Fragment>
+        <img src={require(`../img/svg/mailbox.svg`)} height="300px"/>
+        <DialogActions>
+          <Button onClick={handleDialogueClose} variant="danger">
+            Close
+          </Button>
+        </DialogActions>
+      </Fragment>
+    );
+  };
+  const [dialogueOpen, setDialogueOpen] = useState(false);
+  const [dialogueText, setDialogueText] = useState(
+    "Mentors have volunteered on our platform to help you achieve your dream career. \
+    Let us connect you to one with a similar path!"
+  );
+  const [dialogueTitle, setDialogueTitle] = useState(
+    "Interested in this career path?"
+  );
+  const [dialogueActions, setDialogueActions] = useState(
+    <Fragment>
+      <img src={require(`../img/svg/whiteboard-map.svg`)} height="300px" />
+      <DialogActions>
+        <Button onClick={handleDialogueClose} variant="danger">
+          Cancel
+        </Button>
+        <Button onClick={handleDialogueConnect} variant="success">
+          Connect!
+        </Button>
+      </DialogActions>
+    </Fragment>
+  );
   return (
     <Fragment>
       <Header />
@@ -393,7 +454,7 @@ const DiscoverScreen = () => {
         </Row>
       </Container>
       <Container className="full-height">
-        <Card className="full-height" body={true} border="light">
+        <Card className="almost-full-height" body={true} border="light">
           <TabContext value={tabIndex}>
             <AppBar position="static" color="inherit">
               <TabList
@@ -406,40 +467,58 @@ const DiscoverScreen = () => {
                 <Tab label="After this Role" value="4" />
               </TabList>
             </AppBar>
-            <TabPanel value="1" className="fill-container">
+            <TabPanel value="1" className="tree-panel" ref={treeTabRef}>
               <ClipLoader className="spinner" loading={isLoading} size={150} />
               {!isLoading && (
                 <Tree
                   leftData={leftData}
                   rightData={rightData}
-                  translate={{ x: width / 2, y: height / 2 }}
+                  translate={{ x: treeTabWidth / 2, y: treeTabHeight / 3 }}
                   onNodeClick={handleDrawerOpen}
+                  onLinkClick={handleDialogueOpen}
                 />
               )}
             </TabPanel>
             <TabPanel value="2">
-              Company Details, FAQ, Key activities, Whether position available
+              <JobSummary
+                centralNodeType={filters.centralNodeType}
+                centralNodeIDs={centralNodeIDs}
+              />
             </TabPanel>
-            <TabPanel value="3">
-              Analysis for: Skills, Certifications, Companies, Sector, Titles,
-              Key Activities, Education
+
+            <TabPanel value="3" className="full-height scrollable">
+              <BeforeJobSummary
+                centralNodeType={filters.centralNodeType}
+                centralNodeIDs={centralNodeIDs}
+              />
             </TabPanel>
-            <TabPanel value="4">
-              Analysis for: Projected compensation, Companies, Sectors, Titles
+
+            <TabPanel value="4" className="full-height scrollable">
+              <AfterJobSummary
+                centralNodeType={filters.centralNodeType}
+                centralNodeIDs={centralNodeIDs}
+              />
             </TabPanel>
           </TabContext>
         </Card>
       </Container>
 
-      {/* <ClipLoader className="spinner" loading={isLoading} size={150} />
-        {!isLoading && (
-          <Tree
-            leftData={leftData}
-            rightData={rightData}
-            translate={{ x: width / 2, y: height / 2 }}
-            onNodeClick={handleDrawerOpen}
-          />
-        )} */}
+      <Dialog
+        open={dialogueOpen}
+        // TransitionComponent={Transition}
+        keepMounted
+        onClose={handleDialogueClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">{dialogueTitle}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            {dialogueText}
+          </DialogContentText>
+        </DialogContent>
+        {dialogueActions}
+      </Dialog>
     </Fragment>
   );
 };

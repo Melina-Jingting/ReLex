@@ -295,6 +295,16 @@ eval("module.exports = __webpack_require__.p + \"50a9bd158a8ccc5ff3f546fbb344455
 
 /***/ }),
 
+/***/ "./src/img/svg/mailbox.svg":
+/*!*********************************!*\
+  !*** ./src/img/svg/mailbox.svg ***!
+  \*********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"87d24d3d6034aa446b06aa0f63cd6789.svg\";\n\n//# sourceURL=webpack://frontend/./src/img/svg/mailbox.svg?");
+
+/***/ }),
+
 /***/ "./src/img/svg/medium.svg":
 /*!********************************!*\
   !*** ./src/img/svg/medium.svg ***!
@@ -362,6 +372,16 @@ eval("module.exports = __webpack_require__.p + \"d7341601aef0ccf9db5698ed6b08626
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 eval("module.exports = __webpack_require__.p + \"c85b56a10d2aca224339e0ad3a004950.svg\";\n\n//# sourceURL=webpack://frontend/./src/img/svg/waving.svg?");
+
+/***/ }),
+
+/***/ "./src/img/svg/whiteboard-map.svg":
+/*!****************************************!*\
+  !*** ./src/img/svg/whiteboard-map.svg ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"aa6e6f43e16b94ffbf9c5716f47bfe30.svg\";\n\n//# sourceURL=webpack://frontend/./src/img/svg/whiteboard-map.svg?");
 
 /***/ }),
 
@@ -437,7 +457,7 @@ eval("module.exports = JSON.parse('{\"title\":\"Gain richer insights when you se
   \************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("var map = {\n\t\"./answer.svg\": \"./src/img/svg/answer.svg\",\n\t\"./ask-questions.svg\": \"./src/img/svg/ask-questions.svg\",\n\t\"./developer.svg\": \"./src/img/svg/developer.svg\",\n\t\"./github.svg\": \"./src/img/svg/github.svg\",\n\t\"./graphs.svg\": \"./src/img/svg/graphs.svg\",\n\t\"./how-it-works.svg\": \"./src/img/svg/how-it-works.svg\",\n\t\"./instagram.svg\": \"./src/img/svg/instagram.svg\",\n\t\"./linkedin.svg\": \"./src/img/svg/linkedin.svg\",\n\t\"./logo.svg\": \"./src/img/svg/logo.svg\",\n\t\"./look-in-mirror.svg\": \"./src/img/svg/look-in-mirror.svg\",\n\t\"./medium.svg\": \"./src/img/svg/medium.svg\",\n\t\"./notes.svg\": \"./src/img/svg/notes.svg\",\n\t\"./product-launch.svg\": \"./src/img/svg/product-launch.svg\",\n\t\"./scroll-top.svg\": \"./src/img/svg/scroll-top.svg\",\n\t\"./twitter.svg\": \"./src/img/svg/twitter.svg\",\n\t\"./visualise-map.svg\": \"./src/img/svg/visualise-map.svg\",\n\t\"./waving.svg\": \"./src/img/svg/waving.svg\"\n};\n\n\nfunction webpackContext(req) {\n\tvar id = webpackContextResolve(req);\n\treturn __webpack_require__(id);\n}\nfunction webpackContextResolve(req) {\n\tif(!__webpack_require__.o(map, req)) {\n\t\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\t\te.code = 'MODULE_NOT_FOUND';\n\t\tthrow e;\n\t}\n\treturn map[req];\n}\nwebpackContext.keys = function webpackContextKeys() {\n\treturn Object.keys(map);\n};\nwebpackContext.resolve = webpackContextResolve;\nmodule.exports = webpackContext;\nwebpackContext.id = \"./src/img/svg sync recursive ^\\\\.\\\\/.*$\";\n\n//# sourceURL=webpack://frontend/./src/img/svg/_sync_^\\.\\/.*$?");
+eval("var map = {\n\t\"./answer.svg\": \"./src/img/svg/answer.svg\",\n\t\"./ask-questions.svg\": \"./src/img/svg/ask-questions.svg\",\n\t\"./developer.svg\": \"./src/img/svg/developer.svg\",\n\t\"./github.svg\": \"./src/img/svg/github.svg\",\n\t\"./graphs.svg\": \"./src/img/svg/graphs.svg\",\n\t\"./how-it-works.svg\": \"./src/img/svg/how-it-works.svg\",\n\t\"./instagram.svg\": \"./src/img/svg/instagram.svg\",\n\t\"./linkedin.svg\": \"./src/img/svg/linkedin.svg\",\n\t\"./logo.svg\": \"./src/img/svg/logo.svg\",\n\t\"./look-in-mirror.svg\": \"./src/img/svg/look-in-mirror.svg\",\n\t\"./mailbox.svg\": \"./src/img/svg/mailbox.svg\",\n\t\"./medium.svg\": \"./src/img/svg/medium.svg\",\n\t\"./notes.svg\": \"./src/img/svg/notes.svg\",\n\t\"./product-launch.svg\": \"./src/img/svg/product-launch.svg\",\n\t\"./scroll-top.svg\": \"./src/img/svg/scroll-top.svg\",\n\t\"./twitter.svg\": \"./src/img/svg/twitter.svg\",\n\t\"./visualise-map.svg\": \"./src/img/svg/visualise-map.svg\",\n\t\"./waving.svg\": \"./src/img/svg/waving.svg\",\n\t\"./whiteboard-map.svg\": \"./src/img/svg/whiteboard-map.svg\"\n};\n\n\nfunction webpackContext(req) {\n\tvar id = webpackContextResolve(req);\n\treturn __webpack_require__(id);\n}\nfunction webpackContextResolve(req) {\n\tif(!__webpack_require__.o(map, req)) {\n\t\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\t\te.code = 'MODULE_NOT_FOUND';\n\t\tthrow e;\n\t}\n\treturn map[req];\n}\nwebpackContext.keys = function webpackContextKeys() {\n\treturn Object.keys(map);\n};\nwebpackContext.resolve = webpackContextResolve;\nmodule.exports = webpackContext;\nwebpackContext.id = \"./src/img/svg sync recursive ^\\\\.\\\\/.*$\";\n\n//# sourceURL=webpack://frontend/./src/img/svg/_sync_^\\.\\/.*$?");
 
 /***/ })
 

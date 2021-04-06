@@ -150,9 +150,10 @@ const Styles = createGlobalStyle`
 
     /* Link */
     .rd3t-link {
+    cursor: pointer;
     fill: none;
-    stroke-width: 1;
-    stroke: #D7DBDD;
+    stroke-width: 2;
+    stroke: #EEEEEE;
     }
     
     /* Filter Form */
@@ -191,6 +192,18 @@ const Styles = createGlobalStyle`
     .fill-container {
         width: 100%;
         height: 100%;
+    }
+
+    .almost-full-height {
+        height: 90% ;
+    }
+    
+    .tree-panel {
+        height: 1500px !important;
+    }
+    
+    .scrollable {
+        overflow-y : scroll !important;
     }
 `;
 

@@ -2,20 +2,22 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { Bar, HorizontalBar } from "react-chartjs-2";
 
-const BarChart = ({title}) => {
+const BarChart = ({title,labels,data}) => {
   return (
     <Card>
-      <Card.Header>
+      <Card.Header className="text-center">
         {title}
       </Card.Header>
       <Card.Body>
       <HorizontalBar 
+      height={300}
       data={{
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        
+        labels: labels,
         datasets: [
             {
                 label: '# of people',
-                data: [1,2,3,4,5,3]
+                data: data
             }
         ]
 

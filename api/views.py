@@ -24,14 +24,18 @@ def getRoutes(request):
 @api_view(['GET', 'POST'])
 def get_industries(request):
     if not request.data.get('centralNode'):
-        return Response({"left": {
-            "title": 'create your map!',
-            "type": "central-node"
-        },
+        return Response({
+            "left": {
+                "title": 'create your map!',
+                "type": "central-node"
+            },
             "right": {
-            "title": 'create your map!',
-            "type": "central-node"
-        }})
+                "title": 'create your map!',
+                "type": "central-node"
+            },
+            "central_node_ids": []
+        }
+        )
     central_node_type = request.data.get('centralNodeType')
     central_node_query = request.data.get('centralNode')
 
@@ -80,12 +84,12 @@ def get_industries(request):
 
     # print(list(profile_ids))
     # this removes instances of duplicates on the same profile
-    # unique_profile_filter = (
-    #     central_nodes.values('profile_id')
-    #     .order_by()
-    #     .annotate(min_id=Min('id'))
-    # ).values_list('min_id', flat=True)
-    # central_nodes = central_nodes.filter(id__in = unique_profile_filter)[:200]
+    unique_profile_filter = (
+        central_nodes.values('profile_id')
+        .order_by()
+        .annotate(min_id=Min('id'))
+    ).values_list('min_id', flat=True)
+    central_nodes = central_nodes.filter(id__in=unique_profile_filter)
 
     central_node_title = ""
     central_node_subtitle = ""
@@ -105,11 +109,11 @@ def get_industries(request):
 
     left_tree = get_industries_count(central_node_type=central_node_type,
                                      profile_id_tuple=tuple(profile_ids),
-                                     direction='left',
+                                     direction='<',
                                      central_node_query=convert_dict_to_sql(central_node_query, 'cn'))
     right_tree = get_industries_count(central_node_type=central_node_type,
                                       profile_id_tuple=tuple(profile_ids),
-                                      direction='right',
+                                      direction='>',
                                       central_node_query=convert_dict_to_sql(central_node_query, 'cn'))
 
     data = {}
@@ -130,6 +134,9 @@ def get_industries(request):
         "children": right_tree,
         "type": "central-node central-node-" + central_node_type
     }
+
+    data["central_node_ids"] = list(
+        central_nodes.values_list('id', flat=True))
     return Response(data)
 
 
@@ -138,8 +145,8 @@ def get_companies_in_industry(request):
     total_profiles = request.data.get('totalProfiles')
     experience_id_tuple = '(' + ','.join([str(x)
                                           for x in request.data.get('experienceIDs')]) + ')'
-    companies = get_companies_count(experience_id_tuple=experience_id_tuple,
-                                    total_profiles=total_profiles)
+    companies = get_companies_in_industry_count(experience_id_tuple=experience_id_tuple,
+                                                total_profiles=total_profiles)
 
     return Response(companies)
 
@@ -162,158 +169,84 @@ def get_career_paths(request):
     direction = request.data.get('direction')
     profile_id_tuple = '(' + ','.join([str(x)
                                        for x in request.data.get('profileIDs')]) + ')'
-    paths_df = get_experiences_and_educations(direction=direction, 
-                                                central_node_type=central_node_type, 
-                                                central_node_query=convert_dict_to_sql(
-                                                    central_node_query, 'cn'), 
-                                                profile_id_tuple=profile_id_tuple).sort_values('profile_id')
+    paths_df = get_experiences_and_educations(direction=direction,
+                                              central_node_type=central_node_type,
+                                              central_node_query=convert_dict_to_sql(
+                                                  central_node_query, 'cn'),
+                                              profile_id_tuple=profile_id_tuple).sort_values('profile_id')
     if direction == 'left':
         paths_df = paths_df.sort_values(by='level', ascending=False)
     if direction == 'right':
         paths_df = paths_df.sort_values(by='level')
-    
+
     data = []
     for index, profile_id in enumerate(paths_df.profile_id.unique()):
-        profile_path_df = paths_df[paths_df['profile_id']==profile_id]
+        profile_path_df = paths_df[paths_df['profile_id'] == profile_id]
         data.append(profile_path_df.iloc[0].to_dict())
         parent = data[index]
-        for row in range(1,len(profile_path_df)):
+        for row in range(1, len(profile_path_df)):
             parent['children'] = []
             parent['children'].append(profile_path_df.iloc[row].to_dict())
             parent = parent['children'][0]
-    
+
     return Response(data)
-#     case_insensitive_central_node_query = convert_to_case_insensitive_query(
-#         central_node_query)
 
 
-#     if central_node_type == "education":
-#         central_node_name = central_node_query['field']
-#         central_node_attributes = {key: val for key,
-#                                    val in central_node_query.items() if key != 'field'}
+@api_view(['GET', 'POST'])
+def get_before_central_node_stats(request):
+    print(request.data)
+    request_type = request.data.get('type')
+    central_node_type = request.data.get('centralNodeType')
+    node_ids = request.data.get('centralNodeIDs')
 
-#     data = {}
-#     for direction in ("left", "right"):
-#         # TODO: create a function to generate tree using "left" and "right" as parameters
-#         # We set up the tree on the left
-#         if direction == "left":
-#             data["left"] = {
-#                 "name": central_node_name,
-#                 "parent": "null",
-#                 "children": [],
-#                 "attributes": central_node_attributes,
-#             }
-#             # 1. Loop through each central_node
-#             for index, node in enumerate(central_nodes):
-#                 parent_node = data["left"]
-#                 parent_name = central_node_name
-#                 profile_id = node.profile.id
-#                 current_level = node.level
-#                 is_first_child = True
+    if node_ids == None:
+        return Response({})
 
-#                 # 2.
-#                 # a. In our database, some of the experiences or educations have level -1,
-#                 # meaning, the dates were not specified and we cannot position them in the experience sequence
-#                 # these nodes will be ignored
-#                 # b. If the node level is 1, its position is on the very left,
-#                 # we also do not need to build a left branch for this node
-#                 # c. Otherwise, we will build the left branch for this node
+    central_node_id_tuple = '(' + ','.join([str(x)
+                                            for x in node_ids]) + ')'
+    skills = get_skills_count(central_node_type=central_node_type,
+                              central_node_id_tuple=central_node_id_tuple)
+    certifications = get_certifications_count(central_node_type=central_node_type,
+                                              central_node_id_tuple=central_node_id_tuple,
+                                              direction="<")
+    companies = get_companies_count(central_node_type=central_node_type,
+                                    central_node_id_tuple=central_node_id_tuple,
+                                    direction="<")
+    roles = get_roles_count(central_node_type=central_node_type,
+                            central_node_id_tuple=central_node_id_tuple,
+                            direction="<")
+    # elif request_type == 'sector':
+    #     result = get_sector_count(central_node_type=central_node_type,
+    #                                 central_node_id_tuple=central_node_id_tuple,
+    #                                 direction=">")
+    education = get_education_count(central_node_type=central_node_type,
+                                     central_node_id_tuple=central_node_id_tuple,
+                                     direction="<")
 
-#                 if current_level == -1 or current_level == 1:
-#                     continue
-#                 else:
-#                     while current_level > 1:
-#                         child = Experience.objects.all().filter(
-#                             profile__id=profile_id, level=current_level-1)
 
-#                         if len(child) == 0:  # then previous level is an education instead
-#                             child = Education.objects.all().filter(
-#                                 profile__id=profile_id, level=current_level-1)[0]
-#                             serializer = EducationSerializer(child)
-#                             child_title = serializer.data.pop("degree")
-#                         else:
-#                             child = child[0]
-#                             serializer = ExperienceSerializer(child)
-#                             child_title = serializer.data.pop("title")
+    return Response({'skills': skills,
+                     'certifications': certifications,
+                     'companies': companies,
+                     'roles': roles,
+                     'education': education})
 
-#                         if len(child_title) > 33:
-#                             name = child_title[:33] + "..."
-#                         else:
-#                             name = child_title
+@api_view(['GET', 'POST'])
+def get_after_central_node_stats(request):
+    print(request.data)
+    request_type = request.data.get('type')
+    central_node_type = request.data.get('centralNodeType')
+    node_ids = request.data.get('centralNodeIDs')
 
-#                         child = {"name": name,
-#                                  "parent_name": parent_name, "children": []}
-#                         child["attributes"] = serializer.data
-#                         parent_node["children"].append(child)
-#                         if is_first_child:
-#                             index = len(parent_node["children"]) - 1
-#                             parent_node = parent_node["children"][index]
-#                         else:
-#                             parent_node = parent_node["children"][0]
-#                         parent_name = child_title
-#                         current_level -= 1
-#                         is_first_child = False
+    if node_ids == None:
+        return Response({})
 
-#         # We set up tree on the right
-#         if direction == "right":
-#             data["right"] = {
-#                 "name": central_node_name,
-#                 "parent": "null",
-#                 "children": [],
-#                 "attributes": central_node_attributes
-#             }
-#             for index, node in enumerate(central_nodes):
-#                 parent_node = data["right"]
-#                 parent_name = central_node_name
-#                 profile_id = node.profile.id
-#                 current_level = node.level
-#                 is_first_child = True
-
-#                 try:
-#                     max_experience_level = Experience.objects.all().filter(
-#                         profile__id=profile_id).latest('level').level
-#                 except:
-#                     max_experience_level = 0
-#                 try:
-#                     max_education_level = Education.objects.all().filter(
-#                         profile__id=profile_id).latest('level').level
-#                 except:
-#                     max_education_level = 0
-#                 max_level = max(max_experience_level, max_education_level)
-
-#                 if current_level == -1 or current_level == max_level:
-#                     continue
-#                 else:
-#                     while current_level < max_level:
-#                         child = Experience.objects.all().filter(
-#                             profile__id=profile_id, level=current_level + 1)
-#                         if len(child) == 0:  # then previous level is an education instead
-#                             child = Education.objects.all().filter(
-#                                 profile__id=profile_id, level=current_level + 1)[0]
-#                             serializer = EducationSerializer(child)
-#                             child_title = serializer.data.pop("degree")
-
-#                         else:
-#                             child = child[0]
-#                             serializer = ExperienceSerializer(child)
-#                             child_title = serializer.data.pop("title")
-
-#                         if len(child_title) > 33:
-#                             name = child_title[:33] + "..."
-#                         else:
-#                             name = child_title
-
-#                         child = {"name": name,
-#                                  "parent_name": parent_name, "children": []}
-#                         child["attributes"] = serializer.data
-#                         parent_node["children"].append(child)
-#                         if is_first_child:
-#                             index = len(parent_node["children"]) - 1
-#                             parent_node = parent_node["children"][index]
-
-#                         else:
-#                             parent_node = parent_node["children"][0]
-#                         parent_name = child_title
-#                         current_level += 1
-#                         is_first_child = False
-#     return Response(data)
+    central_node_id_tuple = '(' + ','.join([str(x)
+                                            for x in node_ids]) + ')'
+    companies = get_companies_count(central_node_type=central_node_type,
+                                    central_node_id_tuple=central_node_id_tuple,
+                                    direction=">")
+    roles = get_roles_count(central_node_type=central_node_type,
+                            central_node_id_tuple=central_node_id_tuple,
+                            direction=">")
+    return Response({'companies': companies,
+                     'roles': roles,})
