@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "@angular/core": "^5.2.3",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "antd": "^4.13.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",

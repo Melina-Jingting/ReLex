@@ -179,6 +179,19 @@ const Styles = createGlobalStyle`
         margin-top: -..px !important; /* half of the elements height */
         margin-right: -..px !important; /* half of the elements widht */
     }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .full-height {
+        height: 100%;
+    }
+    
+    .fill-container {
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 export default Styles;

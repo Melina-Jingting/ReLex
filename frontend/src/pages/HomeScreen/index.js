@@ -14,8 +14,7 @@ import MiddleBlock from "../../components/LandingPage/MiddleBlock";
 import ContentBlock from "../../components/LandingPage/ContentBlock";
 import LandingPageHeader from "../../components/LandingPage/LandingPageHeader";
 
-
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 // import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 // import LinkedInPage from '../LinkedInPage';
@@ -34,10 +33,11 @@ const HomeScreen = () => {
       <MiddleBlock
         title={IntroContent.title}
         content={IntroContent.text}
-
         button={IntroContent.button} // this component is the linkedin button
       />
-        
+      <Container className="py-5">
+      <img src={require(`../../img/svg/how-it-works.svg`)} alt='how-it-works.svg' width={1000}/>
+      </Container>
       <ContentBlock
         type="right"
         first="true"
@@ -79,7 +79,6 @@ const HomeScreen = () => {
         icon="answer.svg"
         id="product"
       />
-
     </Container>
   );
 };

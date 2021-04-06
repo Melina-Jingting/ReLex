@@ -9,11 +9,15 @@ import SchoolIcon from "@material-ui/icons/School";
 import WorkIcon from "@material-ui/icons/Work";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
 import ClipLoader from "react-spinners/ClipLoader";
+import AppBar from "@material-ui/core/AppBar";
+import Tab from "@material-ui/core/Tab";
+import TabContext from "@material-ui/lab/TabContext";
+import TabList from "@material-ui/lab/TabList";
+import TabPanel from "@material-ui/lab/TabPanel";
 
 import {
   Form,
@@ -25,6 +29,7 @@ import {
   Col,
 } from "react-bootstrap";
 import { Work } from "@material-ui/icons";
+import { Card } from "@material-ui/core";
 
 const DiscoverScreen = () => {
   const [size, setSize] = useState([window.innerHeight, window.innerWidth]);
@@ -34,6 +39,7 @@ const DiscoverScreen = () => {
   const [rightData, setRightData] = useState([]);
   const [centralNodeValues, setCentralNodeValues] = useState([]);
   const [validated, setValidated] = useState(false);
+  const [tabIndex, setTabIndex] = React.useState("1");
 
   //variables for drawer
   const [open, setOpen] = useState(false);
@@ -122,14 +128,14 @@ const DiscoverScreen = () => {
   useEffect(() => {
     setLoading(true);
     async function fetchTree() {
-      try{
+      try {
         const baseURL = process.env.BASE_URL;
         const { data } = await axios.post(`${baseURL}api/tree`, filters);
         setLeftData(data["left"]);
         setRightData(data["right"]);
         setLoading(false);
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
     }
     fetchTree();
@@ -251,7 +257,7 @@ const DiscoverScreen = () => {
       education: <SchoolIcon />,
       experience: <WorkIcon />,
     };
-    const additionalFilterChips = (filterSection,filterType) => (
+    const additionalFilterChips = (filterSection, filterType) =>
       filterSection.map((filter) => (
         <Chip
           className="filter-chip"
@@ -260,8 +266,7 @@ const DiscoverScreen = () => {
           onClick={handleChipClick}
           onDelete={handleChipDelete}
         />
-      ))
-    );
+      ));
 
     if (JSON.stringify(filters.centralNode) !== "{}") {
       return (
@@ -291,31 +296,34 @@ const DiscoverScreen = () => {
     setOpen(false);
   };
   const handleChipDelete = (e) => {
-    const filterText = e.target.parentElement.parentElement.textContent
-    var educationFilters = [...filters.educationFilters]
-    var experienceFilters = [...filters.experienceFilters]
-    for (var i=0; i<filters.educationFilters.length; i++){
-      const filter = filters.educationFilters[i]
-      if (objectToString(filter) == filterText){
-        educationFilters.splice(i,1);
+    const filterText = e.target.parentElement.parentElement.textContent;
+    var educationFilters = [...filters.educationFilters];
+    var experienceFilters = [...filters.experienceFilters];
+    for (var i = 0; i < filters.educationFilters.length; i++) {
+      const filter = filters.educationFilters[i];
+      if (objectToString(filter) == filterText) {
+        educationFilters.splice(i, 1);
       }
     }
-    for (var i=0; i<filters.experienceFilters.length; i++){
-      const filter = filters.experienceFilters[i]
-      if (objectToString(filter) == filterText){
-        experienceFilters.splice(i,1);
+    for (var i = 0; i < filters.experienceFilters.length; i++) {
+      const filter = filters.experienceFilters[i];
+      if (objectToString(filter) == filterText) {
+        experienceFilters.splice(i, 1);
       }
     }
     setFilters({
       ...filters,
       ...{
         educationFilters: educationFilters,
-        experienceFilters: experienceFilters
+        experienceFilters: experienceFilters,
       },
     });
   };
   const handleChipClick = () => {
     console.info("You clicked the Chip.");
+  };
+  const handleTabChange = (event, newTabIndex) => {
+    setTabIndex(newTabIndex);
   };
 
   return (
@@ -373,35 +381,57 @@ const DiscoverScreen = () => {
           </Container>
         </Drawer>
       </React.Fragment>
-      <div
-        id="treeWrapper"
-        class="discovery-background"
-        style={{
-          width: "100%",
-          height: "100%",
-          background: "linear-gradient(rgba(250,0,0,0.5))",
-        }}
-      >
-        <Container className="py-3">
-          <Row>
-            <Col xs={1}>
-              <Button aria-label="open drawer" onClick={handleDrawerOpen}>
-                <FilterListIcon />
-              </Button>
-            </Col>
-            <Col className="filter-chips-container">
-              {/* <Chip
-                className="filter-chip"
-                icon={<SchoolIcon />}
-                label="school"
-                onClick={handleChipClick}
-                onDelete={handleChipDelete}
-              /> */}
-              {filterChips(filters)}
-            </Col>
-          </Row>
-        </Container>
-        <ClipLoader className="spinner" loading={isLoading} size={150} />
+
+      <Container className="py-3">
+        <Row>
+          <Col xs={1}>
+            <Button aria-label="open drawer" onClick={handleDrawerOpen}>
+              <FilterListIcon />
+            </Button>
+          </Col>
+          <Col className="filter-chips-container">{filterChips(filters)}</Col>
+        </Row>
+      </Container>
+      <Container className="full-height">
+        <Card className="full-height" body={true} border="light">
+          <TabContext value={tabIndex}>
+            <AppBar position="static" color="inherit">
+              <TabList
+                onChange={handleTabChange}
+                aria-label="simple tabs example"
+              >
+                <Tab label="Career Map" value="1" />
+                <Tab label="This role" value="2" />
+                <Tab label="Before this Role" value="3" />
+                <Tab label="After this Role" value="4" />
+              </TabList>
+            </AppBar>
+            <TabPanel value="1" className="fill-container">
+              <ClipLoader className="spinner" loading={isLoading} size={150} />
+              {!isLoading && (
+                <Tree
+                  leftData={leftData}
+                  rightData={rightData}
+                  translate={{ x: width / 2, y: height / 2 }}
+                  onNodeClick={handleDrawerOpen}
+                />
+              )}
+            </TabPanel>
+            <TabPanel value="2">
+              Company Details, FAQ, Key activities, Whether position available
+            </TabPanel>
+            <TabPanel value="3">
+              Analysis for: Skills, Certifications, Companies, Sector, Titles,
+              Key Activities, Education
+            </TabPanel>
+            <TabPanel value="4">
+              Analysis for: Projected compensation, Companies, Sectors, Titles
+            </TabPanel>
+          </TabContext>
+        </Card>
+      </Container>
+
+      {/* <ClipLoader className="spinner" loading={isLoading} size={150} />
         {!isLoading && (
           <Tree
             leftData={leftData}
@@ -409,8 +439,7 @@ const DiscoverScreen = () => {
             translate={{ x: width / 2, y: height / 2 }}
             onNodeClick={handleDrawerOpen}
           />
-        )}
-      </div>
+        )} */}
     </Fragment>
   );
 };

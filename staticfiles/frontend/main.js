@@ -178,4 +178,17 @@
         margin-top: -..px !important; /* half of the elements height */
         margin-right: -..px !important; /* half of the elements widht */
     }
-`,c=(0,n.lazy)((()=>Promise.all([o.e(994),o.e(239),o.e(898)]).then(o.bind(o,47898)))),d=(0,n.lazy)((()=>o.e(800).then(o.bind(o,61800)))),u=(0,n.lazy)((()=>Promise.all([o.e(994),o.e(429),o.e(643),o.e(658)]).then(o.bind(o,70164)))),m=(0,n.lazy)((()=>Promise.all([o.e(994),o.e(429),o.e(981),o.e(847)]).then(o.bind(o,69847)))),f=(0,n.lazy)((()=>o.e(922).then(o.bind(o,93922))));class p extends n.Component{constructor(n){super(n)}render(){return n.createElement(n.Fragment,null,n.createElement(s,null),n.createElement(t.BrowserRouter,null,n.createElement("div",null,n.createElement("main",{className:"pt-3"},n.createElement(n.Fragment,null,n.createElement(n.Suspense,{fallback:n.createElement("div",null,"Loading page...")},n.createElement(r.AW,{path:"/",component:c,exact:!0}),n.createElement(r.AW,{path:"/dashboard",component:d}),n.createElement(r.AW,{path:"/search",component:u}),n.createElement(r.AW,{path:"/discover",component:m}),n.createElement(r.AW,{path:"/login",component:f})))))))}}const g=document.getElementById("app");(0,e.render)(n.createElement(p,null),g);var b=o(62632);i()(b.Z,{insert:"head",singleton:!1}),b.Z.locals})()})();
+
+    .full-width {
+        width: 100%;
+    }
+
+    .full-height {
+        height: 100%;
+    }
+    
+    .fill-container {
+        width: 100%;
+        height: 100%;
+    }
+`,c=(0,n.lazy)((()=>Promise.all([o.e(994),o.e(239),o.e(898)]).then(o.bind(o,47898)))),d=(0,n.lazy)((()=>o.e(800).then(o.bind(o,61800)))),u=(0,n.lazy)((()=>Promise.all([o.e(994),o.e(429),o.e(643),o.e(658)]).then(o.bind(o,70164)))),m=(0,n.lazy)((()=>Promise.all([o.e(994),o.e(429),o.e(605),o.e(847)]).then(o.bind(o,69847)))),f=(0,n.lazy)((()=>o.e(922).then(o.bind(o,93922))));class p extends n.Component{constructor(n){super(n)}render(){return n.createElement(n.Fragment,null,n.createElement(s,null),n.createElement(t.BrowserRouter,null,n.createElement("div",null,n.createElement("main",{className:"pt-3"},n.createElement(n.Fragment,null,n.createElement(n.Suspense,{fallback:n.createElement("div",null,"Loading page...")},n.createElement(r.AW,{path:"/",component:c,exact:!0}),n.createElement(r.AW,{path:"/dashboard",component:d}),n.createElement(r.AW,{path:"/search",component:u}),n.createElement(r.AW,{path:"/discover",component:m}),n.createElement(r.AW,{path:"/login",component:f})))))))}}const g=document.getElementById("app");(0,e.render)(n.createElement(p,null),g);var b=o(62632);i()(b.Z,{insert:"head",singleton:!1}),b.Z.locals})()})();
