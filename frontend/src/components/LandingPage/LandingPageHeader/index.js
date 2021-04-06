@@ -4,9 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import { Drawer } from "antd";
 import { CSSTransition } from "react-transition-group";
 import { withTranslation } from "react-i18next";
-import SvgIcon from "../../../common/SvgIcon";
 import Button from "../../../common/Button";
-import Grid from "@material-ui/core/Grid";
 
 import * as S from "./styles";
 
@@ -47,7 +45,7 @@ const Header = ({ t }) => {
           onClick={() => linkedinLogin("contact")}
         >
           <S.Span>
-            <Button>{t("Sign up as mentor")}</Button>
+            <Button>{t("Contact")}</Button>
           </S.Span>
         </S.CustomNavLinkSmall>
       </Fragment>
