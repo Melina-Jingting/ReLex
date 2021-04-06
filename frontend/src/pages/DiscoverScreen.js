@@ -351,9 +351,9 @@ const DiscoverScreen = () => {
     setDialogueOpen(false);
   };
   const handleDialogueConnect = (event) => {
-    setDialogueTitle("We have received your request to connect");
+    setDialogueTitle("We have received your request");
     setDialogueText(
-      "We will notify you by email when we find a match within 3 working days!"
+      "We will help you find a match and notify you within 3 working days!"
     );
     setDialogueActions(
       <Fragment>
@@ -372,7 +372,7 @@ const DiscoverScreen = () => {
     Let us connect you to one with a similar path!"
   );
   const [dialogueTitle, setDialogueTitle] = useState(
-    "Interested in this career path?"
+    "Interested in this career path? Connect with a mentor!"
   );
   const [dialogueActions, setDialogueActions] = useState(
     <Fragment>
