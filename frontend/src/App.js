@@ -9,7 +9,8 @@ import Styles from "./globalStyles";
 // import DiscoverScreen from "../src/pages/DiscoverScreen";
 
 
-const HomeScreen = lazy(() => import("../src/pages/HomeScreen"));
+const SeekerHomeScreen = lazy(() => import("./pages/SeekerHomeScreen"));
+const MentorHomeScreen = lazy(() => import("./pages/MentorHomeScreen"));
 const DashboardScreen = lazy(() => import("../src/pages/DashboardScreen"));
 const SearchScreen = lazy(() => import("../src/pages/SearchScreen"));
 const DiscoverScreen = lazy(() => import("../src/pages/DiscoverScreen"));
@@ -29,7 +30,8 @@ export default class App extends Component {
             <main className="pt-3">
               <Fragment>
                 <Suspense fallback={<div>Loading page...</div>}>
-                  <Route path="/" component={HomeScreen} exact />
+                  <Route path="/" component={SeekerHomeScreen} exact />
+                  <Route path="/mentor" component={MentorHomeScreen} exact />
                   <Route path="/dashboard" component={DashboardScreen} />
                   <Route path="/search" component={SearchScreen} />
                   <Route path="/discover" component={DiscoverScreen} />

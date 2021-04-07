@@ -49,7 +49,7 @@ module.exports = (env) => {
           use: ["style-loader", "css-loader"],
         },
         {
-          test: /\.svg$/,
+          test: /\.(svg|png|jpg|mp4)$/,
           loader: "file-loader",
           options: { esModule: false },
         },

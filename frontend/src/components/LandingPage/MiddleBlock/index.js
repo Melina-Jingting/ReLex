@@ -4,21 +4,40 @@ import { Row, Col } from "antd";
 import { withTranslation } from "react-i18next";
 import Fade from "react-reveal";
 import Button from "../../../common/Button";
+import NetworkVid from "../../../video/network.mp4";
 
 import * as S from "./styles";
+import { Container } from "../../../common/Container/styles";
 
 // const Button = lazy(() => import("../../common/Button"));
 
-const MiddleBlock = ({ title, content, button, t }) => {
+const MiddleBlock = ({ title, content, button, t , linkedin_url}) => {
   const linkedinLogin = () => {
-    const url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&state=987654321&scope=r_liteprofile%20r_emailaddress&client_id=78ioflr7umfzey&redirect_uri=https%3A%2F%2F6fxspsdl46.execute-api.us-east-2.amazonaws.com%2Fdefault%2Flinkedinsocial';
-    window.open(url, '_blank');
+    const url = linkedin_url
+    window.open(url, "_blank");
   };
 
   return (
-    <S.MiddleBlock>
-      <Row type="flex" justify="center" align="middle">
-        <Fade bottom>
+    <Container>
+      <S.MiddleBlock>
+        <Row type="flex" justify="center" align="middle">
+          {/* <video
+            autoPlay
+            loop
+            muted
+            style={{
+              position: "absolute",
+              width: "100%",
+              left: "50%",
+              height: "100%",
+              objectFit: "cover",
+              transform: "translate(-50%, -50%)",
+              zIndex: "-1",
+            }}
+          >
+            <source src={NetworkVid} type="video/mp4" />
+          </video> */}
+          {/* <Fade bottom> */}
           <S.ContentWrapper>
             <Col lg={24} md={24} sm={24} xs={24}>
               <h6>{t(title)}</h6>
@@ -36,9 +55,10 @@ const MiddleBlock = ({ title, content, button, t }) => {
               )}
             </Col>
           </S.ContentWrapper>
-        </Fade>
-      </Row>
-    </S.MiddleBlock>
+          {/* </Fade> */}
+        </Row>
+      </S.MiddleBlock>
+    </Container>
   );
 };
 

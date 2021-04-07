@@ -353,7 +353,7 @@ const DiscoverScreen = () => {
   const handleDialogueConnect = (event) => {
     setDialogueTitle("We have received your request");
     setDialogueText(
-      "We will help you find a match and notify you within 3 working days!"
+      "We will help you find a suitable mentor and notify you within 3 working days!"
     );
     setDialogueActions(
       <Fragment>
