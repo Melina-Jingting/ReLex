@@ -243,6 +243,8 @@ def get_education_count(central_node_type,
                 AND cn.profile_id = p.id
                 AND ed.level {direction} cn.level 
                 AND cn.id IN {central_node_id_tuple}
+                AND ed.field != 'None'
+                AND ed.field != ''
                 GROUP BY ed.field
                 ORDER BY amount DESC
                 LIMIT 10
