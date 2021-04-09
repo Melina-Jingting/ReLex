@@ -103,9 +103,16 @@ def get_experiences_and_educations(direction, central_node_type, central_node_qu
     elif direction == 'right':
         direction = '>'
 
+    # 	COALESCE(DATE_PART('year',AGE(ex.to_date,ex.from_date)),
+    #             DATE_PART('year',AGE(NOW(),ex.from_date))) as duration_year,
+    # COALESCE(DATE_PART('month',AGE(ex.to_date,ex.from_date)),
+    #             DATE_PART('year',AGE(NOW(),ex.from_date))) as duration_month,
+
     query = """SELECT ex.title as title,
                     ex.company_name as subtitle,
                     ex.level as level,
+                    TO_CHAR(ex.from_date,'Mon YYYY') as from_date,
+                    TO_CHAR(ex.to_date, 'Mon YYYY') as to_date,
                     p.id as profile_id,
                     'experience' as type
                 FROM api_experience ex,
@@ -120,6 +127,8 @@ def get_experiences_and_educations(direction, central_node_type, central_node_qu
                 SELECT ed.field as title,
                     ed.university as subtitle,
                     ed.level as level,
+                    TO_CHAR(ed.from_date,'Mon YYYY') as from_date,
+                    TO_CHAR(ed.to_date, 'Mon YYYY') as to_date,
                     p.id as profile,
                     'education' as type
                 FROM api_education ed,
@@ -135,10 +144,8 @@ def get_experiences_and_educations(direction, central_node_type, central_node_qu
                direction=direction,
                central_node_query=central_node_query)
     result = pd.read_sql(query, connection)
+    result['to_date'] = result['to_date'].fillna('Present')
     return result
-
-
-
 
 
 def get_skills_count(central_node_type, central_node_id_tuple):
@@ -201,9 +208,10 @@ def get_companies_count(central_node_type,
     ), "data": result.amount.values.tolist()}
     return result
 
+
 def get_roles_count(central_node_type,
-                        central_node_id_tuple,
-                        direction):
+                    central_node_id_tuple,
+                    direction):
     query = """SELECT ex.title as labels, COUNT(ex.title) as amount
                 FROM api_experience ex, 
                 api_profile p,
@@ -245,6 +253,7 @@ def get_education_count(central_node_type,
     result = {"labels": result.labels.values.tolist(
     ), "data": result.amount.values.tolist()}
     return result
+
 
 def get_next_child_count(level, profile_id):
     query = """SELECT ex.company_name, 

@@ -17,6 +17,15 @@ var textLayout = {
     amount: {
         textAnchor: "middle",
         y: 6,
+    },
+    date: {
+        textAnchor: "middle",
+        y: -20,
+    },
+    duration: {
+        textAnchor: "middle",
+        y: 0,
+        x: +30,
     }
 };
 var DefaultNodeElement = function (_a) {
@@ -56,9 +65,11 @@ var DefaultNodeElement = function (_a) {
         <text className="rd3t-label__percentage" {...textLayout.amount}>
           {nodeDatum.amount}
         </text>
-        <text className="rd3t-label__title" {...textLayout.title}>
+        <text {...textLayout.title}>
           {generateTitles(nodeDatum.title)}
           {generateSubtitles(nodeDatum.subtitle)}
+          {(typeof nodeDatum.from_date !== 'undefined') &&
+        (<tspan className="rd3t-label__subtitle" dy="1.2em" x={0}>{nodeDatum.from_date} - {nodeDatum.to_date}</tspan>)}
         </text>
         
       </g>

@@ -143,6 +143,11 @@ const Styles = createGlobalStyle`
     font-size: smaller;
     }
 
+    .rd3t-label__date {
+        fill: #777;
+        font-size: smaller;
+        }
+
     .rd3t-label__percentage {
         fill: #FFFFFF;
         font-size: smaller;
