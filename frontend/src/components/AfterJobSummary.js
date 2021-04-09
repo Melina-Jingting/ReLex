@@ -51,7 +51,7 @@ const AfterJobSummary = ({ centralNodeType, centralNodeIDs }) => {
       <Fragment>
         <Container className="py-3">
           <LineChart
-            title="Projected Compentation"
+            title="Projected Compensation"
             labels={keyAction.labels}
             data={keyAction.data}
           />
