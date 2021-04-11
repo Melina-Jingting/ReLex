@@ -11,37 +11,44 @@ import { Container } from "../../../common/Container/styles";
 
 // const Button = lazy(() => import("../../common/Button"));
 
-const MiddleBlock = ({ title, content, button, t , linkedin_url}) => {
+const MiddleBlock = ({ title, content, button, t, linkedin_url }) => {
   const linkedinLogin = () => {
-    const url = linkedin_url
+    const url = linkedin_url;
     window.open(url, "_blank");
   };
 
   return (
     <Container>
       <S.MiddleBlock>
+        {/* <video
+          autoPlay
+          loop
+          muted
+          style={{
+            position: "absolute",
+            // width: "100%",
+            // left: "50%",
+            // height: "100%",
+            objectFit: "fill",
+            // transform: "translate(-50%, -50%)",
+            zIndex: "-1",
+          }}
+        >
+          <source src={NetworkVid} type="video/mp4" />
+        </video> */}
+        {/* <Fade bottom> */}
         <Row type="flex" justify="center" align="middle">
-          {/* <video
-            autoPlay
-            loop
-            muted
-            style={{
-              position: "absolute",
-              width: "100%",
-              left: "50%",
-              height: "100%",
-              objectFit: "cover",
-              transform: "translate(-50%, -50%)",
-              zIndex: "-1",
-            }}
-          >
-            <source src={NetworkVid} type="video/mp4" />
-          </video> */}
-          {/* <Fade bottom> */}
           <S.ContentWrapper>
             <Col lg={24} md={24} sm={24} xs={24}>
-              <h6>{t(title)}</h6>
-              <S.Content>{t(content)}</S.Content>
+              <h2 style={{color:'black'}}><b>{t(title)}</b></h2>
+              <S.Content>
+                <h5 style={{color:'black'}}>{t(content)}</h5>
+              </S.Content>
+              <S.Content>
+                <h5 style={{color:'black'}}>
+                  {"Begin your journey to career fulfillment with us today!"}
+                </h5>
+              </S.Content>
               {button ? (
                 <Button
                   name="submit"

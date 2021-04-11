@@ -21,8 +21,10 @@ const RightBlock = ({ title, content, button, icon, t, id }) => {
         <Col xs={6}>
           <Slide left>
             <S.ContentWrapper>
-              <h6>{t(title)}</h6>
-              <S.Content>{t(content)}</S.Content>
+              <h3>{t(title)}</h3>
+              <S.Content>
+                <h5>{t(content)}</h5>
+              </S.Content>
               <S.ButtonWrapper>
                 {button &&
                   typeof button === "object" &&

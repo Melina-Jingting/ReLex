@@ -121,8 +121,8 @@ const DiscoverScreen = () => {
     centralNodeType: String,
     centralNodeExperience: { company_name: "", title: "" },
     centralNodeEducation: { university: "", field: "" },
-    filterExperience: { company_name: "", title: "" },
-    filterEducation: { university: "", field: "" },
+    filterExperience: { company_name: "", title: "", direction: "", years: "" },
+    filterEducation: { university: "", field: "", direction: "", years: "" },
   });
   const [filters, setFilters] = useState({
     centralNodeType: "experience",
@@ -251,6 +251,39 @@ const DiscoverScreen = () => {
             />
           </Form.Group>
         ))}
+        {(formSection.id === "filterExperience" ||
+          formSection.id === "filterEducation") && (
+          <Fragment>
+            <Form.Group>
+              <Form.Control
+                value={-1}
+                as="select"
+                id={formSection.id}
+                name="direction"
+                onChange={filterFormHandleChange}
+                placeholder="before or after central node"
+              >
+                <option disabled value={-1} key={-1}>
+                  select before or after central node
+                </option>
+                <option>before central node</option>
+                <option>after central node</option>
+                <option>both</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Control
+                type="text"
+                id={formSection.id}
+                name="years"
+                placeholder="Years From Central Node"
+                onChange={filterFormHandleChange}
+                value={formData[formSection.id]["years"]}
+              />
+            </Form.Group>
+          </Fragment>
+        )}
         <Button variant="primary" type="submit">
           {formSection.buttonText}
         </Button>
@@ -357,7 +390,7 @@ const DiscoverScreen = () => {
     );
     setDialogueActions(
       <Fragment>
-        <img src={require(`../img/svg/mailbox.svg`)} height="300px"/>
+        <img src={require(`../img/svg/mailbox.svg`)} height="300px" />
         <DialogActions>
           <Button onClick={handleDialogueClose} variant="danger">
             Close

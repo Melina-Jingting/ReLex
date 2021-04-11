@@ -2,11 +2,6 @@
 import React from "react";
 
 import IntroContent from "../../content/IntroContent.json";
-import SearchContent from "../../content/SearchContent.json";
-import RecommendationsContent from "../../content/RecommendationsContent.json";
-import PlanContent from "../../content/PlanContent.json";
-import ReceiveAdviceContent from "../../content/ReceiveAdviceContent.json";
-import GiveAdviceContent from "../../content/GiveAdviceContent.json";
 
 import Container from "../../common/Container";
 import ScrollToTop from "../../common/ScrollToTop";

@@ -24,8 +24,8 @@ const LeftContentBlock = ({ icon, title, content, section, t, id }) => {
         <Col xs={6}>
           <Slide right>
             <S.ContentWrapper>
-              <h6>{t(title)}</h6>
-              <S.Content>{t(content)}</S.Content>
+              <h3>{t(title)}</h3>
+              <S.Content><h5>{t(content)}</h5></S.Content>
               <S.ServiceWrapper>
                 <Row type="flex" justify="space-between">
                   {section &&

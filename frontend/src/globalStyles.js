@@ -68,6 +68,10 @@ const Styles = createGlobalStyle`
     .about-block-image svg {
         text-align: center;
     }
+    
+    .landing-page-value-section{
+        background: #fff;
+    }
 
     .ant-drawer-body {
         display: flex;
@@ -142,11 +146,6 @@ const Styles = createGlobalStyle`
     fill: #777;
     font-size: smaller;
     }
-
-    .rd3t-label__date {
-        fill: #777;
-        font-size: smaller;
-        }
 
     .rd3t-label__percentage {
         fill: #FFFFFF;

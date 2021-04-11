@@ -29,35 +29,13 @@ const Header = ({ t }) => {
   const MenuItem = () => {
     return (
       <Fragment>
-        {/* <S.CustomNavLinkSmall onClick={() => scrollTo("about")}>
-          <S.Span>{t("About")}</S.Span>
-        </S.CustomNavLinkSmall> */}
-        {/* <S.CustomNavLinkSmall onClick={() => scrollTo("mission")}>
-          <S.Span>{t("Seeker")}</S.Span>
-        </S.CustomNavLinkSmall>
-        <S.CustomNavLinkSmall onClick={() => scrollTo("product")}>
-          <S.Span>{t("Mentors")}</S.Span>
-        </S.CustomNavLinkSmall> */}
-        <Row>
-          <Col>
-            <Link
-              to="/"
-              style={{ width: "180px" }}
-              // onClick={() => linkedinLogin("contact")}
-            >
-              <h5>{t("seeker")}</h5>
-            </Link>
-          </Col>
-          <Col>
-            <Link
-              to="/mentor"
-              style={{ width: "180px" }}
-              // onClick={() => linkedinLogin("contact")}
-            >
-              <h5>{t("mentor")}</h5>
-            </Link>
-          </Col>
-        </Row>
+        <Link
+          to="/"
+          style={{ width: "180px" }}
+          // onClick={() => linkedinLogin("contact")}
+        >
+          <h5>{t("contact")}</h5>
+        </Link>
       </Fragment>
     );
   };
@@ -71,7 +49,13 @@ const Header = ({ t }) => {
           {/* <S.LogoContainer to="/" aria-label="homepage">
           </S.LogoContainer> */}
           <Col>
-            <h1>LookUp</h1>
+            <a>
+              <img
+                src={require(`../../../img/svg/logo.svg`)}
+                alt="how-it-works.svg"
+                width="200"
+              />
+            </a>
           </Col>
           <Col>
             <div className="float-right">
