@@ -56,7 +56,6 @@ var DefaultNodeElement = function (_a) {
         else
             return null;
     };
-    console.log(nodeDatum);
     return (<>
       <circle className={"rd3t-circle-" + nodeDatum.type} r={DEFAULT_NODE_CIRCLE_RADIUS} onClick={function (evt) {
         toggleNode();
@@ -70,14 +69,7 @@ var DefaultNodeElement = function (_a) {
           {generateTitles(nodeDatum.title)}
           {generateSubtitles(nodeDatum.subtitle)}
           {(typeof nodeDatum.from_date !== 'undefined') &&
-        (
-        <tspan className="rd3t-label__date">{nodeDatum.from_date}</tspan>
-            ,
-                <tspan className="rd3t-label__date">to</tspan>
-                    ,
-                        <tspan className="rd3t-label__date">{nodeDatum.to_date}</tspan>
-                            ,
-                                <tspan className="rd3t-label__date">{nodeDatum.duration_year}y {nodeDatum.duration_month}m </tspan>)}
+        (<tspan className="rd3t-label__subtitle" dy="1.2em" x={0}>{nodeDatum.from_date} - {nodeDatum.to_date}</tspan>)}
         </text>
         
       </g>
