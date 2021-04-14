@@ -119,16 +119,52 @@ def get_industries(request):
 
     # print(list(unique_profile_filter))
 
-    left_tree = get_industries_count(central_node_type=central_node_type,
+    data = {}
+
+    if len(profile_ids) < 20:
+        ##left branches
+        paths_df = get_experiences_and_educations(direction="left",
+                                            central_node_type=central_node_type,
+                                            central_node_query=convert_dict_to_sql(
+                                            central_node_query, 'cn'),
+                                            profile_id_tuple=tuple(profile_ids)).sort_values('profile_id')
+        paths_df = paths_df.sort_values(by='level', ascending=False)
+        left_tree = []
+        for index, profile_id in enumerate(paths_df.profile_id.unique()):
+            profile_path_df = paths_df[paths_df['profile_id'] == profile_id]
+            left_tree.append(profile_path_df.iloc[0].to_dict())
+            parent = left_tree[index]
+            for row in range(1, len(profile_path_df)):
+                parent['children'] = []
+                parent['children'].append(profile_path_df.iloc[row].to_dict())
+                parent = parent['children'][0]
+
+        ##right branches
+        paths_df = get_experiences_and_educations(direction="right",
+                                            central_node_type=central_node_type,
+                                            central_node_query=convert_dict_to_sql(
+                                            central_node_query, 'cn'),
+                                            profile_id_tuple=tuple(profile_ids)).sort_values('profile_id')
+        paths_df = paths_df.sort_values(by='level')
+        right_tree = []
+        for index, profile_id in enumerate(paths_df.profile_id.unique()):
+            profile_path_df = paths_df[paths_df['profile_id'] == profile_id]
+            right_tree.append(profile_path_df.iloc[0].to_dict())
+            parent = right_tree[index]
+            for row in range(1, len(profile_path_df)):
+                parent['children'] = []
+                parent['children'].append(profile_path_df.iloc[row].to_dict())
+                parent = parent['children'][0]
+    
+    else:
+        left_tree = get_industries_count(central_node_type=central_node_type,
                                      profile_id_tuple=tuple(profile_ids),
                                      direction='<',
                                      central_node_query=convert_dict_to_sql(central_node_query, 'cn'))
-    right_tree = get_industries_count(central_node_type=central_node_type,
+        right_tree = get_industries_count(central_node_type=central_node_type,
                                       profile_id_tuple=tuple(profile_ids),
                                       direction='>',
                                       central_node_query=convert_dict_to_sql(central_node_query, 'cn'))
-
-    data = {}
     data["left"] = {
         "title": central_node_title,
         "subtitle": central_node_subtitle,
@@ -149,6 +185,7 @@ def get_industries(request):
 
     data["central_node_ids"] = list(
         central_nodes.values_list('id', flat=True))
+    print(data)
     return Response(data)
 
 
@@ -165,7 +202,6 @@ def get_companies_in_industry(request):
 
 @api_view(['GET', 'POST'])
 def get_career_paths(request):
-    print(request.data)
     central_node_type = request.data.get('centralNodeType')
     if central_node_type == 'experience':
         central_node_query = {
