@@ -121,8 +121,8 @@ const DiscoverScreen = () => {
     centralNodeType: String,
     centralNodeExperience: { company_name: "", title: "" },
     centralNodeEducation: { university: "", field: "" },
-    filterExperience: { company_name: "", title: "", direction: "", years: "" },
-    filterEducation: { university: "", field: "", direction: "", years: "" },
+    filterExperience: { company_name: "", title: "", direction: 0, years: "" },
+    filterEducation: { university: "", field: "", direction: 0, years: "" },
   });
   const [filters, setFilters] = useState({
     centralNodeType: "experience",
@@ -256,14 +256,13 @@ const DiscoverScreen = () => {
           <Fragment>
             <Form.Group>
               <Form.Control
-                value={-1}
+                value={formData[formSection.id]["direction"]}
                 as="select"
                 id={formSection.id}
                 name="direction"
                 onChange={filterFormHandleChange}
-                placeholder="before or after central node"
               >
-                <option disabled value={-1} key={-1}>
+                <option disabled value={0} key={0}>
                   select before or after central node
                 </option>
                 <option>before central node</option>

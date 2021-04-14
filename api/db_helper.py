@@ -13,6 +13,29 @@ def dictfetchall(cursor):
     ]
 
 
+def add_additional_filter(profile_ids, central_node_type, central_node_query, additional_filter_type, additional_filter_query):
+    query = """SELECT p.id
+                FROM api_profile p,	
+                        api_{central_node_type} cn,
+                        api_{additional_filter_type} af
+                WHERE p.id = cn.profile_id
+                AND p.id = af.profile_id
+                {central_node_query}
+                {additional_filter_query}
+                AND (cn.id != af.id OR '{central_node_type}' = '{additional_filter_type}')
+                AND p.id in {profile_ids}
+    """.format(central_node_type=central_node_type,
+                additional_filter_type=additional_filter_type,
+                central_node_query=central_node_query,
+                additional_filter_query=additional_filter_query,
+                profile_ids=profile_ids)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        result = [r[0] for r in cursor.fetchall()]
+    return result
+
+
+
 def get_industries_count(central_node_type, profile_id_tuple, direction, central_node_query):
 
     number_of_profiles = len(profile_id_tuple)

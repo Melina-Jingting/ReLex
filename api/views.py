@@ -54,26 +54,38 @@ def get_industries(request):
         central_nodes_unfiltered = Education.objects.all().filter(
             **case_insensitive_central_node_query)
 
-    unfiltered_profile_ids = central_nodes_unfiltered.values_list("profile_id")
+    unfiltered_profile_ids = central_nodes_unfiltered.values_list("profile_id", flat=True)
     profiles = Profile.objects.all().filter(id__in=unfiltered_profile_ids)
 
     # 2. Then, if specified by user, we filter these profiles further
     # based on whether they hold the experiences or educations
     # in the extra filters past_experiences or educations
+    profile_ids_filter = unfiltered_profile_ids
     for experience_filter in past_experiences:
-        case_insensitive_experience_filter_query = convert_to_case_insensitive_query(
-            experience_filter)
-        past_experience_nodes = Experience.objects.all().filter(
-            **case_insensitive_experience_filter_query)
-        profile_ids_filter = past_experience_nodes.values_list("profile_id")
-        profiles = profiles.filter(id__in=profile_ids_filter)
+        # case_insensitive_experience_filter_query = convert_to_case_insensitive_query(
+        #     experience_filter)
+        # past_experience_nodes = Experience.objects.all().filter(
+        #     **case_insensitive_experience_filter_query)
+        # profile_ids_filter = past_experience_nodes.values_list("profile_id")
+        # profiles = profiles.filter(id__in=profile_ids_filter)
+        profile_ids_filter = add_additional_filter(tuple(profile_ids_filter), 
+                                                    central_node_type, 
+                                                    convert_dict_to_sql(central_node_query, 'cn'), 
+                                                    "experience", 
+                                                    convert_additional_filter_to_sql(experience_filter))
+
     for education_filter in educations:
-        case_insensitive_education_filter_query = convert_to_case_insensitive_query(
-            education_filter)
-        past_education_nodes = Education.objects.all().filter(
-            **case_insensitive_education_filter_query)
-        profile_ids_filter = past_education_nodes.values_list("profile_id")
-        profiles = profiles.filter(id__in=profile_ids_filter)
+        # case_insensitive_education_filter_query = convert_to_case_insensitive_query(
+        #     education_filter)
+        # past_education_nodes = Education.objects.all().filter(
+        #     **case_insensitive_education_filter_query)
+        # profile_ids_filter = past_education_nodes.values_list("profile_id")
+        profile_ids_filter = add_additional_filter(tuple(profile_ids_filter), 
+                                            central_node_type, 
+                                            convert_dict_to_sql(central_node_query, 'cn'), 
+                                            "education", 
+                                            convert_additional_filter_to_sql(education_filter))
+    profiles = profiles.filter(id__in=profile_ids_filter)
 
     # 3. Then we filter the central nodes retrieved in step 1 using the
     # filtered profile_ids retrieved in step 2

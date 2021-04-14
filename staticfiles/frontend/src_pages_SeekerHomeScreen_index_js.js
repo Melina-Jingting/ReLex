@@ -36,7 +36,7 @@ eval("module.exports = __webpack_require__.p + \"d0daed8b0f36ebde79d70305052ad52
 /***/ ((module) => {
 
 "use strict";
-eval("module.exports = JSON.parse('{\"title\":\"Weight your options\",\"text\":\"Compare the long term benefits of choosing one education or experience over another\",\"button\":\"Get Started\"}');\n\n//# sourceURL=webpack://frontend/./src/content/CompareContent.json?");
+eval("module.exports = JSON.parse('{\"title\":\"Weigh your options\",\"text\":\"Compare the long term benefits of choosing one education or experience over another\",\"button\":\"Get Started\"}');\n\n//# sourceURL=webpack://frontend/./src/content/CompareContent.json?");
 
 /***/ }),
 
