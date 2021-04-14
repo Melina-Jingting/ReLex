@@ -20,8 +20,8 @@ def convert_additional_filter_to_sql(query_dict):
         years = "999"
     query = convert_dict_to_sql(query_dict=query_dict,alias='af')
     if direction == "before central node":
-        query += "AND af.from_date < cn.to_date "
-        query += "AND DATE_PART('year',cn.to_date) - DATE_PART('year',af.from_date) < {years}".format(years=years)
+        query += "AND af.to_date < cn.from_date "
+        query += "AND DATE_PART('year',cn.from_date) - DATE_PART('year',af.to_date) < {years}".format(years=years)
     if direction == "after central node":
         query += "AND af.from_date > cn.to_date "
         query += "AND DATE_PART('year',af.from_date) - DATE_PART('year',cn.to_date) < {years}".format(years=years)
