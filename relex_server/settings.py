@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'relex_server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'vicarious',
-        'USER': 'melina',
-        'PASSWORD': 'kneedeepinthehoopla',
-        'HOST': 'database-2.cx9vzosvv6gr.us-east-2.rds.amazonaws.com',
+        'NAME': 'Lookup',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }

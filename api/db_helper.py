@@ -12,12 +12,23 @@ def dictfetchall(cursor):
         for row in cursor.fetchall()
     ]
 
+def get_profiles_with_central_node(central_node_type, central_node_query):
+    query = f"""SELECT p.id
+                FROM profile p,	
+                        {central_node_type} cn
+                WHERE p.id = cn.profile_id
+                {central_node_query}
+            """
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        result = [r[0] for r in cursor.fetchall()]
+    return result
 
 def add_additional_filter(profile_ids, central_node_type, central_node_query, additional_filter_type, additional_filter_query):
     query = """SELECT p.id
-                FROM api_profile p,	
-                        api_{central_node_type} cn,
-                        api_{additional_filter_type} af
+                FROM profile p,	
+                        {central_node_type} cn,
+                        {additional_filter_type} af
                 WHERE p.id = cn.profile_id
                 AND p.id = af.profile_id
                 {central_node_query}
@@ -34,7 +45,20 @@ def add_additional_filter(profile_ids, central_node_type, central_node_query, ad
         result = [r[0] for r in cursor.fetchall()]
     return result
 
-
+def get_central_nodes(profile_ids, central_node_type, central_node_query):
+    query = f"""SELECT MAX(cn.id)
+                FROM profile p,	
+                        {central_node_type} cn
+                WHERE p.id = cn.profile_id
+                {central_node_query}
+                AND p.id in {profile_ids}
+                GROUP BY p.id
+            """
+    print(query)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        result = [r[0] for r in cursor.fetchall()]
+    return result
 
 def get_industries_count(central_node_type, profile_id_tuple, direction, central_node_query):
 
@@ -46,10 +70,10 @@ def get_industries_count(central_node_type, profile_id_tuple, direction, central
                         as amount, 
                     array_agg(DISTINCT ex.id) as experiences_list,
                     'industry' as type
-                FROM api_company c,
-                    api_experience ex,
-                    api_profile p,
-                    api_{central_node_type} cn
+                FROM company c,
+                    experience ex,
+                    profile p,
+                    {central_node_type} cn
                 WHERE p.id = ex.profile_id
                     AND p.id = cn.profile_id
                     AND p.id IN {profile_id_tuple}
@@ -77,9 +101,9 @@ def get_companies_in_industry_count(experience_id_tuple, total_profiles):
                         as amount, 
                         'company' as type,
                         array_agg(DISTINCT p.id) as profiles_list
-                FROM api_experience ex, 
-                        api_company c,
-                        api_profile p
+                FROM experience ex, 
+                        company c,
+                        profile p
                 WHERE ex.profile_id = p.id
                 AND ex.company_id = c.id
                 AND ex.id IN {experience_id_tuple}
@@ -104,9 +128,9 @@ def get_companies_in_industry_count(experience_id_tuple, total_profiles):
 #                     ed.level as level,
 #                     p.id as profile,
 #                     'education' as type
-#                 FROM api_education ed,
-#                     api_profile p,
-#                     api_{central_node_type} cn
+#                 FROM education ed,
+#                     profile p,
+#                     {central_node_type} cn
 #                 WHERE p.id = ed.profile_id
 #                     AND p.id = cn.profile_id
 #                     AND p.id IN {profile_id_tuple}
@@ -138,9 +162,9 @@ def get_experiences_and_educations(direction, central_node_type, central_node_qu
                     TO_CHAR(ex.to_date, 'Mon YYYY') as to_date,
                     p.id as profile_id,
                     'experience' as type
-                FROM api_experience ex,
-                    api_profile p,
-                    api_{central_node_type} cn
+                FROM experience ex,
+                    profile p,
+                    {central_node_type} cn
                 WHERE p.id = ex.profile_id
                     AND p.id = cn.profile_id
                     AND p.id IN {profile_id_tuple}
@@ -154,9 +178,9 @@ def get_experiences_and_educations(direction, central_node_type, central_node_qu
                     TO_CHAR(ed.to_date, 'Mon YYYY') as to_date,
                     p.id as profile,
                     'education' as type
-                FROM api_education ed,
-                    api_profile p,
-                    api_{central_node_type} cn
+                FROM education ed,
+                    profile p,
+                    {central_node_type} cn
                 WHERE p.id = ed.profile_id
                     AND p.id = cn.profile_id
                     AND p.id IN {profile_id_tuple}
@@ -172,14 +196,16 @@ def get_experiences_and_educations(direction, central_node_type, central_node_qu
 
 
 def get_skills_count(central_node_type, central_node_id_tuple):
-    query = """SELECT s.title as labels, COUNT(s) as amount
-                FROM api_skill s, 
-                api_profile p,
-                api_{central_node_type} cn
+    query = """SELECT s.skill as labels, COUNT(s) as amount
+                FROM skill s, 
+                profile_skill ps,
+                profile p,
+                {central_node_type} cn
                 WHERE cn.profile_id = p.id
-                AND s.profile_id = p.id
+                AND ps.profile_id = p.id
+                AND ps.skill_id = s.id
                 AND cn.id IN {central_node_id_tuple}
-                GROUP BY s.title 
+                GROUP BY s.skill
                 ORDER BY amount DESC
                 LIMIT 10
     """.format(central_node_type=central_node_type,
@@ -192,9 +218,9 @@ def get_skills_count(central_node_type, central_node_id_tuple):
 
 def get_certifications_count(central_node_type, central_node_id_tuple, direction):
     query = """SELECT c.title as labels, COUNT(c) as amount
-                FROM api_certification c, 
-                api_profile p,
-                api_{central_node_type} cn
+                FROM certification c, 
+                profile p,
+                {central_node_type} cn
                 WHERE cn.profile_id = p.id
                 AND c.profile_id = p.id
                 AND cn.id IN {central_node_id_tuple}
@@ -213,9 +239,9 @@ def get_companies_count(central_node_type,
                         central_node_id_tuple,
                         direction):
     query = """SELECT ex.company_name as labels, COUNT(ex.company_name) as amount
-                FROM api_experience ex, 
-                api_profile p,
-                api_{central_node_type} cn
+                FROM experience ex, 
+                profile p,
+                {central_node_type} cn
                 WHERE ex.profile_id = p.id
                 AND cn.profile_id = p.id
                 AND ex.level {direction} cn.level 
@@ -236,9 +262,9 @@ def get_roles_count(central_node_type,
                     central_node_id_tuple,
                     direction):
     query = """SELECT ex.title as labels, COUNT(ex.title) as amount
-                FROM api_experience ex, 
-                api_profile p,
-                api_{central_node_type} cn
+                FROM experience ex, 
+                profile p,
+                {central_node_type} cn
                 WHERE ex.profile_id = p.id
                 AND cn.profile_id = p.id
                 AND ex.level {direction} cn.level 
@@ -259,9 +285,9 @@ def get_education_count(central_node_type,
                         central_node_id_tuple,
                         direction):
     query = """SELECT ed.field as labels, COUNT(ed.field) as amount
-                FROM api_education ed, 
-                api_profile p,
-                api_{central_node_type} cn
+                FROM education ed, 
+                profile p,
+                {central_node_type} cn
                 WHERE ed.profile_id = p.id
                 AND cn.profile_id = p.id
                 AND ed.level {direction} cn.level 
@@ -287,9 +313,9 @@ def get_next_child_count(level, profile_id):
                     ex.to_date, 
                     ex.level, 
                     ex.profile_id
-                FROM api_experience ex, 
-                    api_profile p,
-                    api_experience cn
+                FROM experience ex, 
+                    profile p,
+                    experience cn
                 WHERE ex.profile_id = p.id
                     AND cn.profile_id = p.id
                     AND cn.title iLIKE 'product manager'
@@ -300,3 +326,15 @@ def get_next_child_count(level, profile_id):
     with connection.cursor() as cursor:
         cursor.execute(query)
     return dictfetchall(cursor)
+
+
+def get_descriptions(central_node_type, central_node_id_tuple):
+    query = f"""SELECT id, title, from_date, description
+                FROM {central_node_type} 
+                WHERE id IN {central_node_id_tuple}
+                AND description != ''
+                ORDER BY from_date DESC
+                """
+    result = pd.read_sql(query, connection)
+    result = result.T.to_dict().values()
+    return result

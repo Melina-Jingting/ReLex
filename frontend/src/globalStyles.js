@@ -157,7 +157,7 @@ const Styles = createGlobalStyle`
     cursor: pointer;
     fill: none;
     stroke-width: 2;
-    stroke: #EEEEEE;
+    stroke: #DCDCDC;
     }
     
     /* Filter Form */

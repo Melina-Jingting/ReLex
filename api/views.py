@@ -42,66 +42,34 @@ def get_industries(request):
     past_experiences = request.data.get('experienceFilters')
     educations = request.data.get('educationFilters')
 
-    case_insensitive_central_node_query = convert_to_case_insensitive_query(
-        central_node_query)
-
     # 1. First, we get the central nodes
     # and retrieve all the profiles that hold this experience or education
-    if central_node_type == "experience":
-        central_nodes_unfiltered = Experience.objects.all().filter(
-            **case_insensitive_central_node_query)
-    if central_node_type == "education":
-        central_nodes_unfiltered = Education.objects.all().filter(
-            **case_insensitive_central_node_query)
-
-    unfiltered_profile_ids = central_nodes_unfiltered.values_list("profile_id", flat=True)
-    profiles = Profile.objects.all().filter(id__in=unfiltered_profile_ids)
+    profile_ids = get_profiles_with_central_node(central_node_type,convert_dict_to_sql(central_node_query, 'cn'))
 
     # 2. Then, if specified by user, we filter these profiles further
     # based on whether they hold the experiences or educations
     # in the extra filters past_experiences or educations
-    profile_ids_filter = unfiltered_profile_ids
     for experience_filter in past_experiences:
-        # case_insensitive_experience_filter_query = convert_to_case_insensitive_query(
-        #     experience_filter)
-        # past_experience_nodes = Experience.objects.all().filter(
-        #     **case_insensitive_experience_filter_query)
-        # profile_ids_filter = past_experience_nodes.values_list("profile_id")
-        # profiles = profiles.filter(id__in=profile_ids_filter)
-        profile_ids_filter = add_additional_filter(tuple(profile_ids_filter), 
+        profile_ids = add_additional_filter(tuple(profile_ids), 
                                                     central_node_type, 
                                                     convert_dict_to_sql(central_node_query, 'cn'), 
                                                     "experience", 
                                                     convert_additional_filter_to_sql(experience_filter))
 
     for education_filter in educations:
-        # case_insensitive_education_filter_query = convert_to_case_insensitive_query(
-        #     education_filter)
-        # past_education_nodes = Education.objects.all().filter(
-        #     **case_insensitive_education_filter_query)
-        # profile_ids_filter = past_education_nodes.values_list("profile_id")
-        profile_ids_filter = add_additional_filter(tuple(profile_ids_filter), 
+        profile_ids = add_additional_filter(tuple(profile_ids), 
                                             central_node_type, 
                                             convert_dict_to_sql(central_node_query, 'cn'), 
                                             "education", 
                                             convert_additional_filter_to_sql(education_filter))
-    profiles = profiles.filter(id__in=profile_ids_filter)
 
     # 3. Then we filter the central nodes retrieved in step 1 using the
     # filtered profile_ids retrieved in step 2
     # and we set up the central node name and attributes.
-    profile_ids = profiles.values_list("id", flat=True)
-    central_nodes = central_nodes_unfiltered.filter(
-        profile__in=profile_ids)
+    central_nodes = get_central_nodes(tuple(profile_ids),
+                                        central_node_type,
+                                        convert_dict_to_sql(central_node_query, 'cn'),)
 
-    # print(list(profile_ids))
-    # this removes instances of duplicates on the same profile
-    unique_profile_filter = (
-        central_nodes.values('profile_id')
-        .order_by()
-        .annotate(min_id=Min('id'))
-    ).values_list('min_id', flat=True)
-    central_nodes = central_nodes.filter(id__in=unique_profile_filter)
 
     central_node_title = ""
     central_node_subtitle = ""
@@ -183,8 +151,7 @@ def get_industries(request):
         "type": "central-node central-node-" + central_node_type
     }
 
-    data["central_node_ids"] = list(
-        central_nodes.values_list('id', flat=True))
+    data["central_node_ids"] = central_nodes
     print(data)
     return Response(data)
 
@@ -298,3 +265,18 @@ def get_after_central_node_stats(request):
                             direction=">")
     return Response({'companies': companies,
                      'roles': roles,})
+
+@api_view(['GET', 'POST'])
+def get_central_node_stats(request):
+    central_node_type = request.data.get('centralNodeType')
+    node_ids = request.data.get('centralNodeIDs')
+
+    if node_ids == None:
+        return Response({})
+
+    central_node_id_tuple = '(' + ','.join([str(x)
+                                            for x in node_ids]) + ')'
+    descriptions = get_descriptions(central_node_type,
+                                    central_node_id_tuple)
+
+    return Response({'descriptions': descriptions})

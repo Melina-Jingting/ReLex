@@ -1,10 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
-import { Card, Row, Col, Button } from "react-bootstrap";
-import { Line } from "react-chartjs-2";
 import { Container } from "../common/Container/styles";
 import BarChart from "./BarChart";
-import Typography from "@material-ui/core/Typography";
 
 const BeforeJobSummary = ({centralNodeType, centralNodeIDs}) => {
   const [isLoading, setLoading] = useState(0);
@@ -29,6 +26,7 @@ const BeforeJobSummary = ({centralNodeType, centralNodeIDs}) => {
   };
 
   useEffect(() => {
+    console.log(centralNodeType)
     const fetchData = async () => {
       try {
         const baseURL = process.env.BASE_URL;

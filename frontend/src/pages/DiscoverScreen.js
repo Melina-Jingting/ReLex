@@ -511,9 +511,9 @@ const DiscoverScreen = () => {
                 />
               )}
             </TabPanel>
-            <TabPanel value="2">
+            <TabPanel value="2" className="full-height scrollable">
               <JobSummary
-                centralNodeType={filters.centralNodeType}
+                centralNodeType='experience'
                 centralNodeIDs={centralNodeIDs}
               />
             </TabPanel>
