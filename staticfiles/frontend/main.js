@@ -156,7 +156,7 @@
     cursor: pointer;
     fill: none;
     stroke-width: 2;
-    stroke: #EEEEEE;
+    stroke: #DCDCDC;
     }
     
     /* Filter Form */
@@ -208,4 +208,4 @@
     .scrollable {
         overflow-y : scroll !important;
     }
-`,c=(0,n.lazy)((()=>Promise.all([o.e(700),o.e(239),o.e(501)]).then(o.bind(o,77501)))),d=(0,n.lazy)((()=>Promise.all([o.e(700),o.e(239),o.e(563)]).then(o.bind(o,71563)))),u=(0,n.lazy)((()=>o.e(800).then(o.bind(o,61800)))),m=(0,n.lazy)((()=>Promise.all([o.e(700),o.e(791),o.e(210),o.e(600)]).then(o.bind(o,76650)))),f=(0,n.lazy)((()=>Promise.all([o.e(700),o.e(791),o.e(758),o.e(406)]).then(o.bind(o,99340)))),p=(0,n.lazy)((()=>o.e(922).then(o.bind(o,93922))));class g extends n.Component{constructor(n){super(n)}render(){return n.createElement(n.Fragment,null,n.createElement(s,null),n.createElement(t.BrowserRouter,null,n.createElement("div",null,n.createElement("main",{className:"pt-3"},n.createElement(n.Fragment,null,n.createElement(n.Suspense,{fallback:n.createElement("div",null,"Loading page...")},n.createElement(r.AW,{path:"/",component:c,exact:!0}),n.createElement(r.AW,{path:"/mentor",component:d,exact:!0}),n.createElement(r.AW,{path:"/dashboard",component:u}),n.createElement(r.AW,{path:"/search",component:m}),n.createElement(r.AW,{path:"/discover",component:f}),n.createElement(r.AW,{path:"/login",component:p})))))))}}const b=document.getElementById("app");(0,e.render)(n.createElement(g,null),b);var h=o(62632);i()(h.Z,{insert:"head",singleton:!1}),h.Z.locals})()})();
+`,c=(0,n.lazy)((()=>Promise.all([o.e(700),o.e(239),o.e(501)]).then(o.bind(o,77501)))),d=(0,n.lazy)((()=>Promise.all([o.e(700),o.e(239),o.e(563)]).then(o.bind(o,71563)))),u=(0,n.lazy)((()=>o.e(800).then(o.bind(o,61800)))),m=(0,n.lazy)((()=>Promise.all([o.e(700),o.e(874),o.e(210),o.e(600)]).then(o.bind(o,76650)))),f=(0,n.lazy)((()=>Promise.all([o.e(700),o.e(874),o.e(758),o.e(406)]).then(o.bind(o,99340)))),p=(0,n.lazy)((()=>o.e(922).then(o.bind(o,93922))));class g extends n.Component{constructor(n){super(n)}render(){return n.createElement(n.Fragment,null,n.createElement(s,null),n.createElement(t.BrowserRouter,null,n.createElement("div",null,n.createElement("main",{className:"pt-3"},n.createElement(n.Fragment,null,n.createElement(n.Suspense,{fallback:n.createElement("div",null,"Loading page...")},n.createElement(r.AW,{path:"/",component:c,exact:!0}),n.createElement(r.AW,{path:"/mentor",component:d,exact:!0}),n.createElement(r.AW,{path:"/dashboard",component:u}),n.createElement(r.AW,{path:"/search",component:m}),n.createElement(r.AW,{path:"/discover",component:f}),n.createElement(r.AW,{path:"/login",component:p})))))))}}const b=document.getElementById("app");(0,e.render)(n.createElement(g,null),b);var h=o(62632);i()(h.Z,{insert:"head",singleton:!1}),h.Z.locals})()})();
