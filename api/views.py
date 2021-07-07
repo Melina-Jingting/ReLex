@@ -85,7 +85,6 @@ def get_industries(request):
         if 'university' in central_node_query:
             central_node_subtitle = central_node_query['university']
 
-    # print(list(unique_profile_filter))
 
     data = {}
 
@@ -152,7 +151,6 @@ def get_industries(request):
     }
 
     data["central_node_ids"] = central_nodes
-    print(data)
     return Response(data)
 
 
@@ -209,7 +207,6 @@ def get_career_paths(request):
 
 @api_view(['GET', 'POST'])
 def get_before_central_node_stats(request):
-    print(request.data)
     request_type = request.data.get('type')
     central_node_type = request.data.get('centralNodeType')
     node_ids = request.data.get('centralNodeIDs')
@@ -247,7 +244,6 @@ def get_before_central_node_stats(request):
 
 @api_view(['GET', 'POST'])
 def get_after_central_node_stats(request):
-    print(request.data)
     request_type = request.data.get('type')
     central_node_type = request.data.get('centralNodeType')
     node_ids = request.data.get('centralNodeIDs')

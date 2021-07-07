@@ -20,23 +20,6 @@ const MiddleBlock = ({ title, content, button, t, linkedin_url }) => {
   return (
     <Container>
       <S.MiddleBlock>
-        {/* <video
-          autoPlay
-          loop
-          muted
-          style={{
-            position: "absolute",
-            // width: "100%",
-            // left: "50%",
-            // height: "100%",
-            objectFit: "fill",
-            // transform: "translate(-50%, -50%)",
-            zIndex: "-1",
-          }}
-        >
-          <source src={NetworkVid} type="video/mp4" />
-        </video> */}
-        {/* <Fade bottom> */}
         <Row type="flex" justify="center" align="middle">
           <S.ContentWrapper>
             <Col lg={24} md={24} sm={24} xs={24}>
