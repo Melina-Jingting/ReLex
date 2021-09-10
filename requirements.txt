@@ -47,7 +47,7 @@ six==1.14.0
 smart-open==3.0.0
 spacy==3.0.3
 spacy-legacy==3.0.1
-sqlparse==0.4.1
+sqlparse==0.4.2
 srsly==2.4.0
 termcolor==1.1.0
 thinc==8.0.1
