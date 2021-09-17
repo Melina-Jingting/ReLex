@@ -78,7 +78,7 @@ def get_industries_count(central_node_type, profile_id_tuple, direction, central
                     AND p.id = cn.profile_id
                     AND p.id IN {profile_id_tuple}
                     AND ex.company_id = c.id
-                    AND ex.level {direction} cn.level
+                    AND ex.chronology_order {direction} cn.chronology_order
                     AND c.industry != 'unclassified'
                     {central_node_query}
                 GROUP BY c.industry
@@ -157,7 +157,7 @@ def get_experiences_and_educations(direction, central_node_type, central_node_qu
 
     query = """SELECT ex.title as title,
                     ex.company_name as subtitle,
-                    ex.level as level,
+                    ex.chronology_order as level,
                     TO_CHAR(ex.from_date,'Mon YYYY') as from_date,
                     TO_CHAR(ex.to_date, 'Mon YYYY') as to_date,
                     p.id as profile_id,
@@ -168,12 +168,12 @@ def get_experiences_and_educations(direction, central_node_type, central_node_qu
                 WHERE p.id = ex.profile_id
                     AND p.id = cn.profile_id
                     AND p.id IN {profile_id_tuple}
-                    AND ex.level {direction} cn.level
+                    AND ex.chronology_order {direction} cn.level
                     {central_node_query}
                 UNION
                 SELECT ed.field as title,
                     ed.university as subtitle,
-                    ed.level as level,
+                    ed.chronology_order as level,
                     TO_CHAR(ed.from_date,'Mon YYYY') as from_date,
                     TO_CHAR(ed.to_date, 'Mon YYYY') as to_date,
                     p.id as profile,
@@ -184,7 +184,7 @@ def get_experiences_and_educations(direction, central_node_type, central_node_qu
                 WHERE p.id = ed.profile_id
                     AND p.id = cn.profile_id
                     AND p.id IN {profile_id_tuple}
-                    AND ed.level {direction} cn.level
+                    AND ed.chronology_order {direction} cn.chronology_order
                     {central_node_query}
     """.format(central_node_type=central_node_type,
                profile_id_tuple=profile_id_tuple,
@@ -244,7 +244,7 @@ def get_companies_count(central_node_type,
                 {central_node_type} cn
                 WHERE ex.profile_id = p.id
                 AND cn.profile_id = p.id
-                AND ex.level {direction} cn.level 
+                AND ex.chronology_order {direction} cn.chronology_order 
                 AND cn.id IN {central_node_id_tuple}
                 GROUP BY ex.company_name
                 ORDER BY amount DESC
@@ -267,7 +267,7 @@ def get_roles_count(central_node_type,
                 {central_node_type} cn
                 WHERE ex.profile_id = p.id
                 AND cn.profile_id = p.id
-                AND ex.level {direction} cn.level 
+                AND ex.chronology_order {direction} cn.chronology_order 
                 AND cn.id IN {central_node_id_tuple}
                 GROUP BY ex.title
                 ORDER BY amount DESC
@@ -290,7 +290,7 @@ def get_education_count(central_node_type,
                 {central_node_type} cn
                 WHERE ed.profile_id = p.id
                 AND cn.profile_id = p.id
-                AND ed.level {direction} cn.level 
+                AND ed.chronology_order {direction} cn.chronology_order 
                 AND cn.id IN {central_node_id_tuple}
                 AND ed.field != 'None'
                 AND ed.field != ''
@@ -311,7 +311,7 @@ def get_next_child_count(level, profile_id):
                     ex.title, 
                     ex.from_date, 
                     ex.to_date, 
-                    ex.level, 
+                    ex.chronology_order, 
                     ex.profile_id
                 FROM experience ex, 
                     profile p,
@@ -320,7 +320,7 @@ def get_next_child_count(level, profile_id):
                     AND cn.profile_id = p.id
                     AND cn.title iLIKE 'product manager'
                     AND cn.company_name iLIKE 'microsoft'
-                    AND ex.level = cn.level + {level}
+                    AND ex.chronology_order = cn.chronology_order + {level}
                     AND p.id = {profile_id}""".format(level=level,
                                                       profile_id=profile_id)
     with connection.cursor() as cursor:
