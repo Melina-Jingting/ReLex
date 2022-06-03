@@ -45,7 +45,7 @@
     "webpack-cli": "^4.6.0"
   },
   "dependencies": {
-    "@angular/core": "^5.2.3",
+    "@angular/core": "^11.0.5",
     "@material-ui/data-grid": "^4.0.0-alpha.32",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "antd": "^4.13.1",
